@@ -303,13 +303,13 @@ def build_dossier(inp: CandidateInput, progress: Progress = lambda s: None) -> D
                                   openalex_confidence=confidence)
 
     # 10. research profile --------------------------------------------------------------
-    progress("Исследовательский профиль" + (" (Claude)" if config.llm_enabled() else ""))
+    progress("Исследовательский профиль" + (" (LLM)" if config.llm_enabled() else ""))
     d.profile = profile_mod.build(d, cv_text, proposal_text, other_text,
                                   orc.keywords if orc else [])
 
     # 11. stage 2: matching with the ITMO science map ----------------------------------------
     if matching_mod.available():
-        progress("Подбор подразделений ИТМО" + (" (Claude)" if config.llm_enabled() else ""))
+        progress("Подбор подразделений ИТМО" + (" (LLM)" if config.llm_enabled() else ""))
         try:
             d.matching = matching_mod.match(d)
             sources.append(SourceStatus(name="Научная карта ИТМО", status="ok", url="https://en.itmo.ru/en/department_list/Academic_Structure.htm",

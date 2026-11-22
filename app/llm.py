@@ -75,10 +75,7 @@ def _openai_compatible(system: str, user: str, schema: type[T], max_tokens: int)
     for attempt in range(2):
         body = {"model": config.LLM_MODEL, "messages": messages, "max_tokens": max_tokens,
                 "response_format": {"type": "json_object"}}
-        try:
-            r = httpx.post(url, json=body, headers=headers, timeout=config.LLM_TIMEOUT)
-        except httpx.HTTPError as e:
-            raise LLMError(f"{type(e).__name__}: {e}") from e
+        r = _post_with_retry(url, body, headers)
         if r.status_code != 200:
             raise LLMError(f"HTTP {r.status_code}: {r.text[:300]}")
         data = r.json()
@@ -93,6 +90,24 @@ def _openai_compatible(system: str, user: str, schema: type[T], max_tokens: int)
             messages += [{"role": "assistant", "content": content},
                          {"role": "user", "content": f"Ответ не прошёл проверку схемы:\n{last_error}\nВерни исправленный JSON."}]
     raise LLMError(f"ответ не соответствует схеме: {last_error[:300]}")
+
+
+def _post_with_retry(url: str, body: dict, headers: dict, attempts: int = 3) -> httpx.Response:
+    """Connection problems and 429/5xx are retried with a short back-off."""
+    import time
+
+    last: Exception | None = None
+    for i in range(attempts):
+        try:
+            r = httpx.post(url, json=body, headers=headers, timeout=config.LLM_TIMEOUT)
+            if r.status_code in (429, 500, 502, 503, 504) and i < attempts - 1:
+                time.sleep(2 * (i + 1))
+                continue
+            return r
+        except (httpx.ConnectError, httpx.ConnectTimeout, httpx.ReadTimeout, httpx.RemoteProtocolError) as e:
+            last = e
+            time.sleep(2 * (i + 1))
+    raise LLMError(f"{type(last).__name__}: {last}")
 
 
 # --------------------------------------------------------------------- Anthropic (Claude)
