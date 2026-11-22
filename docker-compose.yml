@@ -5,11 +5,14 @@ services:
     volumes:
       - ./data:/app/data          # dossiers, uploads, cache, examples
     restart: unless-stopped
-    expose:
-      - "8000"
+    ports:
+      # host:port the app is published on; default only on localhost (use a reverse proxy),
+      # e.g. APP_PUBLISH=0.0.0.0:8790 to open it directly on a server that already has a web server
+      - "${APP_PUBLISH:-127.0.0.1:8000}:8000"
 
-  caddy:                          # reverse proxy; automatic HTTPS when SITE_ADDRESS is a domain
+  caddy:                          # optional reverse proxy with automatic HTTPS: docker compose --profile https up -d
     image: caddy:2.8.4
+    profiles: ["https"]
     restart: unless-stopped
     ports:
       - "80:80"

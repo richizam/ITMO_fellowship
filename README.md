@@ -51,12 +51,16 @@ uv run uvicorn app.main:app --port 8000     # http://127.0.0.1:8000
 git clone git@github.com:richizam/ITMO_fellowship.git && cd ITMO_fellowship
 cp .env.example .env        # задать APP_USERNAME / APP_PASSWORD, SITE_ADDRESS и ключи API
 mkdir -p data/examples      # скопировать сюда папки с примерами заявок (scp / fetch_examples.py)
-docker compose up -d --build
+docker compose up -d --build                    # только приложение, порт из APP_PUBLISH
+# или с собственным HTTPS-прокси (если порты 80/443 свободны):
+docker compose --profile https up -d --build
 docker compose exec app python scripts/build_examples.py   # досье по примерам
 ```
 
-* Образ сам собирает базу квартилей SJR; данные (досье, загрузки, кэш) лежат в `./data` на сервере.
-* Caddy отдаёт сайт на 80/443. `SITE_ADDRESS=:80` — HTTP по IP; домен или `1-2-3-4.sslip.io` — автоматический HTTPS.
+* Образ сам собирает базу квартилей SJR, скачивает модель эмбеддингов и строит индекс научной карты; данные
+  (досье, загрузки, кэш) лежат в `./data` на сервере.
+* `APP_PUBLISH` — где опубликовано приложение: `127.0.0.1:8000` (за своим nginx) или `0.0.0.0:8790` (напрямую).
+* Профиль `https` запускает Caddy на 80/443: `SITE_ADDRESS=:80` — HTTP по IP; домен или `1-2-3-4.sslip.io` — автоматический HTTPS.
 * Сайт закрыт логином/паролем, если заданы `APP_USERNAME` и `APP_PASSWORD`.
 
 ## Как это устроено
