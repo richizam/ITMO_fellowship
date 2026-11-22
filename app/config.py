@@ -48,6 +48,9 @@ PUB_WINDOW_YEARS = int(os.getenv("PUB_WINDOW_YEARS", "4"))
 CACHE_TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "14"))
 HTTP_TIMEOUT = float(os.getenv("HTTP_TIMEOUT", "30"))
 
+# Upload limit per file (CV, proposal, form). Real applications are < 3 MB per file.
+MAX_FILE_MB = int(os.getenv("MAX_FILE_MB", "10"))
+
 # Optional HTTP Basic auth for the whole site (set both to enable; recommended on a public server)
 APP_USERNAME = os.getenv("APP_USERNAME", "").strip()
 APP_PASSWORD = os.getenv("APP_PASSWORD", "").strip()

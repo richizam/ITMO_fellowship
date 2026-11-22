@@ -25,7 +25,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 
 APP_DIR = Path(__file__).parent
 ALLOWED = {".pdf", ".docx", ".doc", ".rtf", ".odt", ".txt"}
-MAX_UPLOAD = 25 * 1024 * 1024
+MAX_UPLOAD = config.MAX_FILE_MB * 1024 * 1024
 
 app = FastAPI(title="Fellowship Candidate Intelligence")
 
@@ -61,6 +61,7 @@ def _ctx(request: Request, **kw) -> dict:
         "sjr_year": sjr.max_year(),
         "default_from": config.default_from_year(),
         "this_year": date.today().year,
+        "max_file_mb": config.MAX_FILE_MB,
         **kw,
     }
 
@@ -119,7 +120,7 @@ def _save_upload(f: UploadFile | None, folder: Path) -> Path | None:
         raise HTTPException(400, f"Неподдерживаемый формат файла: {f.filename}")
     data = f.file.read(MAX_UPLOAD + 1)
     if len(data) > MAX_UPLOAD:
-        raise HTTPException(400, f"Файл больше 25 МБ: {f.filename}")
+        raise HTTPException(400, f"Файл больше {config.MAX_FILE_MB} МБ: {f.filename}")
     safe = re.sub(r"[^\w.\-]+", "_", Path(f.filename).name)[:120] or f"file{suffix}"
     folder.mkdir(parents=True, exist_ok=True)
     path = folder / safe

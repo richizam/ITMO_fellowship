@@ -18,7 +18,7 @@
           ('application', 'Анкета заявки', 'выгрузка формы Tilda (Заявка.docx)')] %}
         <label class="drop" data-drop>
           <div class="t">{{ title }}</div>
-          <div class="muted small">{{ hint }}<br>перетащите файл или нажмите</div>
+          <div class="muted small">{{ hint }} · до {{ max_file_mb }} МБ<br>перетащите файл или нажмите</div>
           <div class="f" data-fname></div>
           <input type="file" name="{{ name }}" accept=".pdf,.docx,.doc,.rtf,.odt,.txt">
         </label>

@@ -5,7 +5,7 @@
 {$SITE_ADDRESS} {
 	encode gzip
 	request_body {
-		max_size 100MB
+		max_size 30MB
 	}
 	reverse_proxy app:8000
 }
