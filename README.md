@@ -39,6 +39,20 @@ uv run uvicorn app.main:app --port 8000     # http://127.0.0.1:8000
 
 Тесты: `uv run pytest`.
 
+## Развёртывание на сервере (Docker)
+
+```bash
+git clone git@github.com:richizam/ITMO_fellowship.git && cd ITMO_fellowship
+cp .env.example .env        # задать APP_USERNAME / APP_PASSWORD, SITE_ADDRESS и ключи API
+mkdir -p data/examples      # скопировать сюда папки с примерами заявок (scp / fetch_examples.py)
+docker compose up -d --build
+docker compose exec app python scripts/build_examples.py   # досье по примерам
+```
+
+* Образ сам собирает базу квартилей SJR; данные (досье, загрузки, кэш) лежат в `./data` на сервере.
+* Caddy отдаёт сайт на 80/443. `SITE_ADDRESS=:80` — HTTP по IP; домен или `1-2-3-4.sslip.io` — автоматический HTTPS.
+* Сайт закрыт логином/паролем, если заданы `APP_USERNAME` и `APP_PASSWORD`.
+
 ## Как это устроено
 
 ```

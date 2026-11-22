@@ -1,8 +1,10 @@
 """Fellowship Candidate Intelligence — web application (FastAPI)."""
 from __future__ import annotations
 
+import base64
 import logging
 import re
+import secrets
 import uuid
 from datetime import date
 from pathlib import Path
@@ -26,6 +28,24 @@ ALLOWED = {".pdf", ".docx", ".doc", ".rtf", ".odt", ".txt"}
 MAX_UPLOAD = 25 * 1024 * 1024
 
 app = FastAPI(title="Fellowship Candidate Intelligence")
+
+
+@app.middleware("http")
+async def basic_auth(request: Request, call_next):
+    """Password-protect the site when APP_USERNAME / APP_PASSWORD are set."""
+    if not (config.APP_USERNAME and config.APP_PASSWORD) or request.url.path == "/healthz":
+        return await call_next(request)
+    header = request.headers.get("authorization", "")
+    if header.lower().startswith("basic "):
+        try:
+            user, _, pwd = base64.b64decode(header[6:]).decode().partition(":")
+        except (ValueError, UnicodeDecodeError):
+            user, pwd = "", ""
+        if secrets.compare_digest(user, config.APP_USERNAME) and secrets.compare_digest(pwd, config.APP_PASSWORD):
+            return await call_next(request)
+    return Response("Требуется авторизация", status_code=401,
+                    headers={"WWW-Authenticate": 'Basic realm="ITMO Fellowship", charset="UTF-8"'})
+
 app.mount("/static", StaticFiles(directory=APP_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=APP_DIR / "templates")
 

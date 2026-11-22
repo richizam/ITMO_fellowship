@@ -22,7 +22,7 @@ EXAMPLES_DIR = DATA_DIR / "examples"
 DOSSIER_DIR = DATA_DIR / "dossiers"
 UPLOAD_DIR = DATA_DIR / "uploads"
 CACHE_DIR = DATA_DIR / "cache"
-SJR_DB = DATA_DIR / "sjr.sqlite"
+SJR_DB = Path(os.getenv("SJR_DB", str(DATA_DIR / "sjr.sqlite")))
 for _d in (DOSSIER_DIR, UPLOAD_DIR, CACHE_DIR):
     _d.mkdir(parents=True, exist_ok=True)
 
@@ -38,6 +38,10 @@ CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "").strip()  # optional, sent to Cros
 PUB_WINDOW_YEARS = int(os.getenv("PUB_WINDOW_YEARS", "4"))
 CACHE_TTL_DAYS = int(os.getenv("CACHE_TTL_DAYS", "14"))
 HTTP_TIMEOUT = float(os.getenv("HTTP_TIMEOUT", "30"))
+
+# Optional HTTP Basic auth for the whole site (set both to enable; recommended on a public server)
+APP_USERNAME = os.getenv("APP_USERNAME", "").strip()
+APP_PASSWORD = os.getenv("APP_PASSWORD", "").strip()
 
 
 def default_from_year() -> int:

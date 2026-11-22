@@ -1,0 +1,11 @@
+# SITE_ADDRESS examples:
+#   :80                          plain HTTP on the server IP
+#   fellowship.example.com       real domain -> automatic Let's Encrypt HTTPS
+#   203-0-113-5.sslip.io         no domain? sslip.io maps this name to the IP -> HTTPS too
+{$SITE_ADDRESS} {
+	encode gzip
+	request_body {
+		max_size 100MB
+	}
+	reverse_proxy app:8000
+}
