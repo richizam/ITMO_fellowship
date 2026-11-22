@@ -110,6 +110,52 @@ def extra_units() -> list[dict]:
                     "name_ru": 'Международный научный центр "Биотехнологии третьего тысячелетия"', "head": "",
                     "homepage": "http://bio.ifmo.ru/", "email": "", "url_en": "http://bio.ifmo.ru/", "url_ru": "",
                     "description_en": " ".join(bio)[:4000]})
+    out += research_institutes()
+    return out
+
+
+def research_institutes() -> list[dict]:
+    """The 'Research Institutes' page (en.itmo.ru/en/page/9) lists centers that have no unit page of their own."""
+    status, body = http().get("https://en.itmo.ru/en/page/9/", browser=True)
+    if status != 200:
+        return []
+    soup = BeautifulSoup(body, "lxml")
+    out = []
+    for h3 in soup.select("section.page article h3, article h3"):
+        name = clean(h3.get_text(" "))
+        if not name or any(u["name_en"] == name for u in out):
+            continue
+        link = h3.find_next("a")
+        paras = []
+        for sib in h3.find_all_next(["p", "h3"]):
+            if sib.name == "h3":
+                break
+            t = clean(sib.get_text(" "))
+            if len(t) > 40:
+                paras.append(t)
+        slug = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")[:40]
+        out.append({"id": f"extra-ri-{slug}", "kind": "extra", "type": unit_type(name), "parent": "",
+                    "name_en": name, "name_ru": "", "head": "",
+                    "homepage": link["href"] if link and link.get("href", "").startswith("http") else "",
+                    "email": "", "url_en": "https://en.itmo.ru/en/page/9/", "url_ru": "",
+                    "description_en": " ".join(paras)[:4000]})
+    return out
+
+
+def merge_duplicates(units: list[dict], extras: list[dict]) -> list[dict]:
+    """Units from the official unit pages are kept as they are. An extra unit (institutes page, supplements)
+    that is the same unit under the same name only fills in a missing description instead of being added twice.
+    Whole-name comparison: "Faculty of Ecotechnologies" and "Faculty of Biotechnologies" must stay apart."""
+    from rapidfuzz import fuzz
+
+    out = list(units)
+    for e in extras:
+        twin = next((u for u in units if fuzz.ratio(u["name_en"].lower(), e["name_en"].lower()) >= 95), None)
+        if twin is None:
+            out.append(e)
+        elif len(e.get("description_en", "")) > len(twin.get("description_en", "")):
+            twin["description_en"] = e["description_en"]
+            twin["homepage"] = twin.get("homepage") or e.get("homepage", "")
     return out
 
 
@@ -151,7 +197,7 @@ def main() -> None:
                       "url_en": f"https://en.itmo.ru/en/{kind}/{i}/x.htm", "name_ru": ""})
             units.append(u)
             print(f"{u['id']:16} {u['type']:12} {name[:70]}")
-    units += extra_units()
+    units = merge_duplicates(units, extra_units())
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(units, ensure_ascii=False, indent=1))
     print(f"{len(units)} units -> {OUT}")

@@ -5,6 +5,7 @@ the only correct) answer, so we check where it lands in our ranking: hit@1 / hit
 Matching is re-run on the saved dossiers, so the external sources are not queried again.
 
     uv run python scripts/eval_matching.py [--save]    # --save writes the new matching into the dossiers
+    uv run python scripts/eval_matching.py --save --all # re-match every dossier (e.g. after the catalog changed)
 """
 from __future__ import annotations
 
@@ -21,7 +22,7 @@ def main() -> None:
     units = catalog()
     rows, ranks = [], []
     for d in sorted(list_dossiers(), key=lambda x: x.basic.full_name):
-        if not d.example:
+        if not d.example and "--all" not in sys.argv:
             continue
         m = match(d)
         if "--save" in sys.argv:
