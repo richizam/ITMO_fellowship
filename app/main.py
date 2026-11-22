@@ -209,6 +209,16 @@ def export_dossier(dossier_id: str):
                     headers={"Content-Disposition": f'attachment; filename="dossier-{d.id}.xlsx"'})
 
 
+@app.get("/dossiers/{dossier_id}/export.json")
+def export_dossier_json(dossier_id: str):
+    """Readable, downloadable JSON (a download works the same in every browser, unlike a new tab)."""
+    d = load(dossier_id)
+    if not d:
+        raise HTTPException(404)
+    return Response(d.model_dump_json(indent=2), media_type="application/json",
+                    headers={"Content-Disposition": f'attachment; filename="dossier-{d.id}.json"'})
+
+
 @app.get("/export/candidates.xlsx")
 def export_summary():
     ds = sorted(list_dossiers(), key=lambda d: d.basic.full_name)

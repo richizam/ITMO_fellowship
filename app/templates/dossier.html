@@ -15,6 +15,7 @@
 
 <section class="dossier-head">
   <div class="wrap">
+    <a class="back no-print" href="/">← Все кандидаты</a>
     <span class="tag">Досье кандидата{% if d.example %} · пример{% endif %}</span>
     <h1 style="margin-top:16px">{{ b.full_name or 'Кандидат' }}</h1>
     {% if b.full_name_latin and b.full_name_latin != b.full_name %}<div class="latin">{{ b.full_name_latin }}</div>{% endif %}
@@ -27,7 +28,7 @@
     <div class="actions no-print">
       <a class="btn primary" href="/dossiers/{{ d.id }}/export.xlsx">Скачать Excel</a>
       <button class="btn" onclick="window.print()">Печать / PDF</button>
-      <a class="btn ghost" href="/api/dossiers/{{ d.id }}" target="_blank">JSON</a>
+      <a class="btn ghost" href="/dossiers/{{ d.id }}/export.json">Скачать JSON</a>
       {% if not d.example %}
       <form method="post" action="/dossiers/{{ d.id }}/delete" onsubmit="return confirm('Удалить досье?')"><button class="btn ghost">Удалить</button></form>
       {% endif %}
