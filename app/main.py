@@ -14,7 +14,7 @@ from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Resp
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from app import config, jobs
+from app import config, jobs, llm
 from app.examples import example_dirs, example_id, example_input
 from app.export import dossier_workbook, summary_rows, summary_workbook
 from app.pipeline import CandidateInput, dossier_path, list_dossiers, load
@@ -56,7 +56,7 @@ def _ctx(request: Request, **kw) -> dict:
     return {
         "request": request,
         "llm": config.llm_enabled(),
-        "llm_model": config.CLAUDE_MODEL,
+        "llm_label": llm.label(),
         "scopus_api": scopus.available(),
         "sjr_year": sjr.max_year(),
         "default_from": config.default_from_year(),
@@ -219,4 +219,4 @@ def export_summary():
 
 @app.get("/healthz")
 def healthz():
-    return {"ok": True, "llm": config.llm_enabled(), "scopus_api": scopus.available(), "sjr": sjr.max_year()}
+    return {"ok": True, "llm": llm.label() or False, "scopus_api": scopus.available(), "sjr": sjr.max_year()}

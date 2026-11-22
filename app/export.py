@@ -149,6 +149,20 @@ def dossier_workbook(d: Dossier) -> bytes:
     wr.column_dimensions["A"].width = 26
     wr.column_dimensions["B"].width = 110
 
+    mt = d.matching
+    if mt and mt.recommendations:
+        wu = wb.create_sheet("Подразделения ИТМО")
+        _header(wu, ["Место", "Подразделение", "Тип", "Входит в", "Руководитель", "Релевантность", "Обоснование",
+                     "Направления сотрудничества", "Совпадения", "Общие термины", "Страница"])
+        for i, r in enumerate(mt.recommendations, start=1):
+            wu.append([i, r.name, r.type, r.parent, r.head, r.score, r.rationale, "\n".join(r.directions),
+                       "\n".join(r.evidence), ", ".join(r.shared_terms), r.url])
+        wu.append([])
+        wu.append(["В заявке", mt.applied_unit, "", mt.applied_unit_name, "",
+                   f"место {mt.applied_unit_rank}" if mt.applied_unit_rank else "—"])
+        for col, w in zip("ABCDEFGHIJK", (7, 46, 14, 30, 22, 13, 50, 50, 60, 36, 40)):
+            wu.column_dimensions[col].width = w
+
     wc = wb.create_sheet("Проверки")
     _header(wc, ["Уровень", "Тема", "Сообщение"])
     for c in d.checks:

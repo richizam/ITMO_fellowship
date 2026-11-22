@@ -1,7 +1,7 @@
 """Research profile of the candidate: interests, methods, competencies, proposal summary.
 
-With ANTHROPIC_API_KEY set, Claude reads the CV, the research proposal and the
-verified publication list and writes the profile (structured output). Without a key a
+With an LLM configured (DeepSeek or Claude, see app/llm.py) the model reads the CV, the research proposal
+and the verified publication list and writes the profile (structured output). Without a key a
 transparent heuristic is used, built from Scholar interests, ORCID keywords, OpenAlex
 topics and simple text rules.
 """
@@ -46,16 +46,16 @@ def build(d: Dossier, cv_text: str, proposal_text: str, extra_text: str,
           orcid_keywords: list[str]) -> ResearchProfile:
     if config.llm_enabled():
         try:
-            return _with_claude(d, cv_text, proposal_text, extra_text)
+            return _with_llm(d, cv_text, proposal_text, extra_text)
         except Exception as e:  # never lose the dossier because of the LLM step
-            log.warning("Claude profile failed, falling back to heuristic: %s", e)
+            log.warning("LLM profile failed, falling back to heuristic: %s", e)
             prof = _heuristic(d, cv_text, proposal_text, orcid_keywords)
-            prof.expert_notes.insert(0, f"Резюме сформировано без LLM: ошибка вызова Claude ({type(e).__name__}).")
+            prof.expert_notes.insert(0, f"Резюме сформировано без LLM: ошибка вызова модели ({type(e).__name__}).")
             return prof
     return _heuristic(d, cv_text, proposal_text, orcid_keywords)
 
 
-# --------------------------------------------------------------------------- Claude
+# --------------------------------------------------------------------------- LLM
 def _publication_digest(d: Dossier) -> str:
     lines = []
     for p in d.publications:
@@ -65,10 +65,9 @@ def _publication_digest(d: Dossier) -> str:
     return "\n".join(lines) or "(нет данных)"
 
 
-def _with_claude(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProfile:
-    import anthropic
+def _with_llm(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProfile:
+    from app import llm
 
-    client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
     b = d.basic
     m = d.metrics
     facts = (
@@ -86,19 +85,7 @@ def _with_claude(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProf
         + (f"<other_documents>\n{extra}\n</other_documents>\n\n" if extra else "")
         + "Составь исследовательский профиль кандидата по схеме."
     )
-    response = client.beta.messages.parse(
-        model=config.CLAUDE_MODEL,
-        max_tokens=16000,
-        system=SYSTEM,
-        betas=["server-side-fallback-2026-07-01"],
-        fallbacks="default",
-        output_config={"effort": "medium"},
-        output_format=_LLMProfile,
-        messages=[{"role": "user", "content": content}],
-    )
-    if response.stop_reason == "refusal" or response.parsed_output is None:
-        raise RuntimeError(f"no structured output (stop_reason={response.stop_reason})")
-    o = response.parsed_output
+    o, generated_by = llm.structured(SYSTEM, content, _LLMProfile, max_tokens=16000)
     if not d.basic.full_name_latin and o.candidate_name_latin:
         d.basic.full_name_latin = o.candidate_name_latin
     if not d.basic.job_title and o.current_position:
@@ -109,7 +96,7 @@ def _with_claude(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProf
         summary=o.summary, interests=o.interests, methods=o.methods, competencies=o.competencies,
         applied_directions=o.applied_directions, keywords=o.keywords, proposal_title=o.proposal_title,
         proposal_summary=o.proposal_summary, expert_notes=o.expert_notes,
-        generated_by=f"claude:{response.model}",
+        generated_by=generated_by,
     )
 
 
@@ -227,6 +214,6 @@ def _heuristic(d: Dossier, cv: str, proposal: str, orcid_keywords: list[str]) ->
         proposal_title=_proposal_title(proposal, f"{b.full_name} {b.full_name_latin}"),
         proposal_summary=_proposal_summary(proposal) if proposal else "",
         expert_notes=["Автоматическое извлечение без LLM. Задайте ANTHROPIC_API_KEY, чтобы получить полное резюме, "
-                      "компетенции и прикладные направления от Claude."],
+                      "компетенции и прикладные направления от модели (DeepSeek / Claude)."],
         generated_by="heuristic",
     )

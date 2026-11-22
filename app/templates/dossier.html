@@ -87,7 +87,7 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Исследовательский профиль</h2>
-      <span class="tag light">{% if pr.generated_by.startswith('claude') %}Claude · {{ pr.generated_by[7:] }}{% else %}эвристика без LLM{% endif %}</span>
+      <span class="tag light">{% if pr.generated_by != 'heuristic' %}LLM · {{ pr.generated_by.split(':', 1)[-1] }}{% else %}эвристика без LLM{% endif %}</span>
     </div>
     <div class="grid cols-2" style="align-items:start">
       <div class="panel prose">
@@ -104,7 +104,7 @@
           {% if items %}<h3 style="margin:0 0 10px">{{ title }}</h3>
           <div style="margin-bottom:18px">{% for x in items %}<span class="chip {{ cls }}">{{ x }}</span>{% endfor %}</div>{% endif %}
         {% endfor %}
-        {% if d.openalex_topics and pr.generated_by.startswith('claude') %}
+        {% if d.openalex_topics and pr.generated_by != 'heuristic' %}
           <h3 style="margin:0 0 10px">Темы OpenAlex</h3>
           <div>{% for x in d.openalex_topics[:8] %}<span class="chip">{{ x }}</span>{% endfor %}</div>
         {% endif %}
@@ -253,10 +253,50 @@
   </div>
 </section>
 
-<section class="section no-print">
+<!-- ============ stage 2: ITMO units ============ -->
+{% set mt = d.matching %}
+<section class="section" id="matching">
   <div class="wrap">
-    <div class="notice"><strong>Этап 2 — подбор подразделений ИТМО.</strong> Профиль (интересы, методы, ключевые слова)
-      уже сохраняется в структурированном виде и станет входом для сопоставления с научной картой ИТМО.</div>
+    <div class="section-head">
+      <h2>Подразделения ИТМО</h2>
+      {% if mt %}<span class="tag light">{% if mt.generated_by != 'heuristic' %}семантический поиск + LLM · {{ mt.generated_by.split(':', 1)[-1] }}{% else %}семантический поиск{% endif %} · каталог {{ mt.catalog_size }} подразделений</span>{% endif %}
+    </div>
+    {% if mt and mt.recommendations %}
+      {% if mt.applied_unit %}
+      <div class="notice" style="margin-bottom:18px">
+        В заявке указано подразделение: <strong>{{ mt.applied_unit }}</strong>
+        {% if mt.applied_unit_name %} → в каталоге: {{ mt.applied_unit_name }}
+          {% if mt.applied_unit_rank %} · <strong>место {{ mt.applied_unit_rank }}</strong> в рейтинге соответствия{% else %} (укрупнённое подразделение, в рейтинг не входит){% endif %}
+        {% else %} — не найдено в каталоге{% endif %}
+      </div>
+      {% endif %}
+      <div class="grid cols-2">
+        {% for r in mt.recommendations %}
+        <div class="panel unit">
+          <div class="unit-head">
+            <span class="unit-rank">{{ '%02d' % loop.index }}</span>
+            <div style="flex:1;min-width:0">
+              <h3>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h3>
+              <div class="cand-sub">{{ r.type }}{% if r.parent %} · {{ r.parent }}{% endif %}{% if r.head %} · рук. {{ r.head }}{% endif %}</div>
+            </div>
+            {% if r.is_applied_unit %}<span class="tag">в заявке</span>{% endif %}
+          </div>
+          {% if mt.generated_by == 'heuristic' or r.score %}
+          <div class="meter" title="Относительная релевантность среди подразделений каталога"><i style="width: {{ r.score }}%"></i></div>
+          <div class="cand-sub" style="margin-bottom:10px">релевантность {{ r.score }}/100 · семантика {{ '%.2f' % r.semantic }} · термины {{ '%.2f' % r.lexical }}</div>
+          {% endif %}
+          {% if r.rationale and mt.generated_by != 'heuristic' %}<p class="small" style="margin:0 0 8px">{{ r.rationale }}</p>{% endif %}
+          {% if r.directions %}<div class="small"><strong>Направления сотрудничества</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for x in r.directions %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
+          <div class="small"><strong>Почему</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for e in r.evidence %}<li>{{ e }}</li>{% endfor %}</ul></div>
+          {% if r.shared_terms %}<div>{% for t in r.shared_terms %}<span class="chip">{{ t }}</span>{% endfor %}</div>{% endif %}
+          {% if r.homepage %}<div class="small" style="margin-top:6px"><a href="{{ r.homepage if r.homepage.startswith('http') else 'https://' ~ r.homepage }}" target="_blank" rel="noopener">{{ r.homepage }}</a></div>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+      <p class="muted small" style="margin-top:12px">Рейтинг — подсказка для эксперта: сходство профиля кандидата (тема проекта, интересы, методы, публикации) с описаниями подразделений на en.itmo.ru.</p>
+    {% else %}
+      <div class="panel">Подбор подразделений недоступен: каталог ИТМО не загружен или профиль кандидата пуст.</div>
+    {% endif %}
   </div>
 </section>
 <div class="tooltip" id="tip"></div>

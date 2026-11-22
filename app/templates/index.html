@@ -23,6 +23,7 @@
       <div class="panel"><h3>Наукометрия</h3><p class="muted small">Google Scholar, ORCID, OpenAlex, Scopus API — публикации, цитирования, H-index.</p></div>
       <div class="panel"><h3>Качество журналов</h3><p class="muted small">Квартиль SJR с годом и предметными категориями, позиция автора.</p></div>
       <div class="panel"><h3>Досье</h3><p class="muted small">Карточка в формате таблицы «Кандидаты», профиль, проверки, экспорт в Excel.</p></div>
+      <div class="panel"><h3>Подразделения ИТМО</h3><p class="muted small">Подбор лабораторий, центров и факультетов по научной карте ИТМО с обоснованием.</p></div>
     </div>
   </div>
 </section>
@@ -39,7 +40,7 @@
         <thead><tr>
           <th>Кандидат</th><th class="hide-sm">Трек</th><th class="hide-sm">Подразделение ИТМО</th>
           <th class="num">Публ. {{ default_from }}–{{ this_year }}</th><th class="num">Q1/Q2 1-м автором</th>
-          <th class="num">H Scopus</th><th class="num">H Scholar</th><th class="hide-sm"></th>
+          <th class="num">H Scopus</th><th class="num">H Scholar</th><th class="hide-sm">Подходит в ИТМО</th><th class="hide-sm"></th>
         </tr></thead>
         <tbody>
         {% for d in dossiers %}
@@ -52,6 +53,7 @@
             <td class="num">{{ d.metrics.q1q2_first_author }}</td>
             <td class="num">{{ d.metrics.h_index_scopus.value if d.metrics.h_index_scopus.value is not none else '—' }}</td>
             <td class="num">{{ d.metrics.h_index_scholar.value if d.metrics.h_index_scholar.value is not none else '—' }}</td>
+            <td class="hide-sm small">{% if d.matching and d.matching.recommendations %}{{ d.matching.recommendations[0].name|truncate(48) }}{% else %}—{% endif %}</td>
             <td class="hide-sm">{% if d.example %}<span class="tag light">пример</span>{% endif %}</td>
           </tr>
         {% endfor %}

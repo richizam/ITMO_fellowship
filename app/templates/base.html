@@ -30,9 +30,9 @@
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <div>ITMO Fellowship · Candidate Intelligence · MVP, этап 1 — досье кандидата</div>
+    <div>ITMO Fellowship · Candidate Intelligence · MVP: досье кандидата и подбор подразделений ИТМО</div>
     <div>
-      LLM: {% if llm %}Claude ({{ llm_model }}){% else %}выключен{% endif %} ·
+      LLM: {% if llm %}{{ llm_label }}{% else %}выключена{% endif %} ·
       Scopus API: {{ 'подключён' if scopus_api else 'нет ключа' }} ·
       SJR до {{ sjr_year or '—' }}
     </div>

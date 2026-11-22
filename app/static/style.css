@@ -158,6 +158,14 @@ label.check { display: inline-flex; gap: 6px; align-items: center; font-size: 15
 details.cats summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 details.cats ul { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--text-2); }
 
+/* stage 2: unit cards */
+.unit h3 { font-size: 17px; }
+.unit h3 a { text-decoration: none; }
+.unit-head { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 12px; }
+.unit-rank { font-weight: 700; font-size: 22px; color: var(--accent); line-height: 1.1; }
+.meter { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.meter i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
 /* --- forms ------------------------------------------------------------------------------- */
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
 .field label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 15px; }

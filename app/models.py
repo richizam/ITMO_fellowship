@@ -148,6 +148,36 @@ class DocumentMeta(BaseModel):
     chars: int = 0
 
 
+class UnitMatch(BaseModel):
+    unit_id: str
+    name: str
+    type: str = ""
+    parent: str = ""
+    head: str = ""
+    homepage: str = ""
+    url: str = ""
+    score: int = 0  # 0-100, relative within this candidate's ranking
+    semantic: float = 0.0  # mean best cosine similarity (multilingual embeddings)
+    lexical: float = 0.0  # TF-IDF cosine
+    evidence: list[str] = Field(default_factory=list)  # candidate items that matched this unit best
+    shared_terms: list[str] = Field(default_factory=list)
+    rationale: str = ""
+    directions: list[str] = Field(default_factory=list)  # possible collaboration directions
+    is_applied_unit: bool = False
+
+
+class Matching(BaseModel):
+    method: str = ""
+    generated_by: str = "heuristic"  # "claude:<model>" when re-ranked by an LLM
+    catalog_size: int = 0
+    catalog_source: str = ""
+    recommendations: list[UnitMatch] = Field(default_factory=list)
+    applied_unit: str = ""  # host unit named in the application
+    applied_unit_id: str = ""  # its best match in the catalog
+    applied_unit_name: str = ""
+    applied_unit_rank: int | None = None  # rank of that unit in our full ranking (1-based)
+
+
 class Dossier(BaseModel):
     id: str
     created_at: datetime = Field(default_factory=datetime.now)
@@ -164,3 +194,4 @@ class Dossier(BaseModel):
     scholar_interests: list[str] = Field(default_factory=list)
     openalex_topics: list[str] = Field(default_factory=list)
     example: bool = False
+    matching: Matching | None = None

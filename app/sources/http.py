@@ -29,6 +29,8 @@ MIN_INTERVAL = {
     "pub.orcid.org": 0.2,
     "api.elsevier.com": 0.3,
     "api.crossref.org": 0.2,
+    "en.itmo.ru": 0.3,
+    "www.ifmo.ru": 0.3,
 }
 
 

@@ -182,3 +182,24 @@ def test_proposal_title_heuristic():
     assert _proposal_title("Ivan Testov:\nPersonal statement\nMy scientific journey began", "Ivan Testov") == ""
     assert _proposal_title("ITMO Micro Fellowship Application\nProposer: Dr K\nAgentic AI: Case Studies Across Domains\n1. Background") \
         == "Agentic AI: Case Studies Across Domains"
+
+
+# ---------------------------------------------------------------- stage 2 (pure functions, no model)
+def test_unit_chunks_and_candidate_items():
+    from app.analysis.matching import _expand_abbreviations, candidate_items, unit_chunks
+    from app.models import ResearchProfile
+
+    u = {"name_en": "Infochemistry Scientific Center", "parent": "ChemBio Cluster",
+         "description_en": " ".join(["The center studies chemical information processing systems."] * 30)}
+    chunks = unit_chunks(u, words_per_chunk=20, max_chunks=5)
+    assert chunks[0].startswith("Infochemistry Scientific Center. ChemBio Cluster") and len(chunks) == 5
+
+    d = Dossier(id="t", window_from=2022, window_to=2026)
+    d.profile = ResearchProfile(proposal_title="Hydrogels for wound healing", interests=["hydrogels", "Hydrogels"],
+                                methods=["spectroscopy"])
+    d.publications = [Publication(title="Quantum dot hydrogel composites", year=2024, is_first=True)]
+    items = candidate_items(d)
+    assert items[0] == ("Hydrogels for wound healing", 3.0, "тема проекта")
+    assert [t for t, _, _ in items].count("hydrogels") == 1  # case-insensitive de-duplication
+    assert any(k == "публикация" and w == 1.2 for _, w, k in items)
+    assert "Advanced Engineering School" in _expand_abbreviations("ПИШ ИТМО")

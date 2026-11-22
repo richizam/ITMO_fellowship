@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Callable
 
 from app import config
+from app.analysis import matching as matching_mod
 from app.analysis import metrics as metrics_mod
 from app.analysis import profile as profile_mod
 from app.analysis import publications as pubs_mod
@@ -306,9 +307,23 @@ def build_dossier(inp: CandidateInput, progress: Progress = lambda s: None) -> D
     d.profile = profile_mod.build(d, cv_text, proposal_text, other_text,
                                   orc.keywords if orc else [])
 
+    # 11. stage 2: matching with the ITMO science map ----------------------------------------
+    if matching_mod.available():
+        progress("Подбор подразделений ИТМО" + (" (Claude)" if config.llm_enabled() else ""))
+        try:
+            d.matching = matching_mod.match(d)
+            sources.append(SourceStatus(name="Научная карта ИТМО", status="ok", url="https://en.itmo.ru/en/department_list/Academic_Structure.htm",
+                                        detail=f"{d.matching.catalog_size} подразделений в каталоге"))
+        except Exception as e:  # the dossier is still useful without stage 2
+            log.warning("matching failed: %s", e)
+            sources.append(SourceStatus(name="Научная карта ИТМО", status="error", detail=f"{type(e).__name__}: {e}"))
+    else:
+        sources.append(SourceStatus(name="Научная карта ИТМО", status="skipped",
+                                    detail="нет app/data/itmo_units.json — запустите scripts/build_itmo_map.py"))
+
     d.sources = sources
 
-    # 11. save ------------------------------------------------------------------------------
+    # 12. save ------------------------------------------------------------------------------
     base = _slug(d.basic.full_name_latin or d.basic.full_name)
     d.id = inp.dossier_id or f"{base}-{hashlib.sha1(json.dumps([base, str(d.created_at)]).encode()).hexdigest()[:6]}"
     save(d)

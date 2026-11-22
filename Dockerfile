@@ -20,8 +20,10 @@ RUN uv sync --frozen --no-dev --no-install-project
 COPY app app
 COPY scripts scripts
 COPY --from=sjr /app/data/sjr.sqlite /opt/sjr/sjr.sqlite
-ENV PATH="/app/.venv/bin:$PATH" SJR_DB=/opt/sjr/sjr.sqlite
-RUN useradd --uid 1000 --create-home appuser && mkdir -p /app/data && chown -R appuser /app/data
+ENV PATH="/app/.venv/bin:$PATH" SJR_DB=/opt/sjr/sjr.sqlite MODELS_DIR=/opt/models
+# download the multilingual embedding model and pre-compute the ITMO catalog index (stage 2)
+RUN python -m app.analysis.matching --warmup
+RUN useradd --uid 1000 --create-home appuser && mkdir -p /app/data && chown -R appuser /app/data /opt/models
 USER appuser
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \

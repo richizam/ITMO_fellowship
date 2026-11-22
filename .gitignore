@@ -11,3 +11,4 @@ data/cache/
 data/raw/
 # rebuilt by scripts/build_sjr.py
 data/sjr.sqlite
+data/models/

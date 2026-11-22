@@ -23,11 +23,20 @@ DOSSIER_DIR = DATA_DIR / "dossiers"
 UPLOAD_DIR = DATA_DIR / "uploads"
 CACHE_DIR = DATA_DIR / "cache"
 SJR_DB = Path(os.getenv("SJR_DB", str(DATA_DIR / "sjr.sqlite")))
-for _d in (DOSSIER_DIR, UPLOAD_DIR, CACHE_DIR):
+MODELS_DIR = Path(os.getenv("MODELS_DIR", str(DATA_DIR / "models")))
+# multilingual sentence-embedding model for matching candidates to ITMO units (runs locally, ONNX)
+EMBED_MODEL = os.getenv("EMBED_MODEL", "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+for _d in (DOSSIER_DIR, UPLOAD_DIR, CACHE_DIR, MODELS_DIR):
     _d.mkdir(parents=True, exist_ok=True)
 
+# LLM (optional): DeepSeek / any OpenAI-compatible endpoint, or Anthropic Claude — see app/llm.py
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "").strip().lower()  # empty = auto by available key
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "").strip()
 CLAUDE_MODEL = os.getenv("CLAUDE_MODEL", "claude-opus-5-5")
+LLM_API_KEY = (os.getenv("LLM_API_KEY") or os.getenv("DEEPSEEK_API_KEY") or "").strip()
+LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com").strip()
+LLM_MODEL = os.getenv("LLM_MODEL", "deepseek-flash").strip()
+LLM_TIMEOUT = float(os.getenv("LLM_TIMEOUT", "240"))
 SCOPUS_API_KEY = os.getenv("SCOPUS_API_KEY", "").strip()
 SCOPUS_INST_TOKEN = os.getenv("SCOPUS_INST_TOKEN", "").strip()
 OPENALEX_API_KEY = os.getenv("OPENALEX_API_KEY", "").strip()
@@ -49,4 +58,6 @@ def default_from_year() -> int:
 
 
 def llm_enabled() -> bool:
-    return bool(ANTHROPIC_API_KEY)
+    from app import llm
+
+    return llm.enabled()

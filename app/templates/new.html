@@ -53,7 +53,7 @@
         <a class="btn ghost" href="/">Отмена</a>
       </div>
       <p class="muted small" style="margin-top:14px">
-        {% if llm %}Исследовательский профиль подготовит Claude ({{ llm_model }}).{% else %}LLM не подключена (нет ANTHROPIC_API_KEY): профиль будет собран эвристически.{% endif %}
+        {% if llm %}Исследовательский профиль и подбор подразделений подготовит {{ llm_label }}.{% else %}LLM не подключена: профиль будет собран эвристически.{% endif %}
       </p>
     </form>
   </div>
