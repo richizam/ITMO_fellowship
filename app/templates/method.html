@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Методика{% endblock %}
+{% block content %}
+<section class="hero" style="padding-bottom:16px">
+  <div class="wrap">
+    <h1>Методика</h1>
+    <p class="lead">Откуда берутся данные в досье, как они сверяются и где у автоматического анализа есть ограничения.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="wrap grid cols-2 prose" style="align-items:start">
+    <div class="panel">
+      <h3>1. Документы</h3>
+      <p>Текст извлекается из PDF (PyMuPDF), DOCX (python-docx) и DOC (LibreOffice). Анкета Tilda разбирается по полям:
+        ФИО, трек, дата рождения, гражданство, место работы, PhD, подразделение и контакт в ИТМО, рекомендатели, ссылки на профили.</p>
+      <p>В CV и proposal автоматически ищутся ORCID, Scopus Author ID, Google Scholar, ResearcherID, DOI и
+        <strong>заявленные кандидатом метрики</strong> (H-index, цитирования) — они затем сверяются с внешними данными.</p>
+      <p>Приоритет идентификаторов: введено вручную → анкета → CV.</p>
+    </div>
+    <div class="panel">
+      <h3>2. Публикации</h3>
+      <ul>
+        <li><strong>OpenAlex</strong> — основной источник метаданных: DOI, тип, журнал, ISSN, полный список авторов и позиция кандидата, цитирования. Автор находится по ORCID; разделённые профили OpenAlex подтверждаются совпадением названий работ с Google Scholar.</li>
+        <li><strong>ORCID</strong> — работы с DOI, которых нет в профиле OpenAlex.</li>
+        <li><strong>Google Scholar</strong> — публичный профиль: H-index, i10, цитирования, список работ (в т. ч. не индексируемые в OpenAlex).</li>
+      </ul>
+      <p>Записи объединяются по DOI и по нормализованному названию; при наличии препринта и опубликованной версии остаётся опубликованная.
+        Период: {{ default_from }}–{{ this_year }} (четыре полных года и текущий), настраивается.</p>
+    </div>
+    <div class="panel">
+      <h3>3. Квартили журналов</h3>
+      <p>Квартиль берётся из <strong>SCImago Journal Rank (SJR)</strong> по ISSN (или точному названию журнала) за год публикации.
+        SJR публикуется с задержкой, поэтому для лет после {{ sjr_year }} используется последний доступный рейтинг — год указан в досье.
+        Для каждой статьи сохраняются лучший квартиль, год, значение SJR и все предметные категории с их квартилями.</p>
+      <p class="muted small">Квартили Web of Science (JCR) являются коммерческими данными Clarivate и в MVP не используются.</p>
+    </div>
+    <div class="panel">
+      <h3>4. H-index</h3>
+      <ul>
+        <li><strong>Google Scholar</strong> — из публичного профиля (всего и с {{ this_year - 5 }} г.).</li>
+        <li><strong>Scopus</strong> — через Scopus Author Retrieval API (нужен ключ Elsevier и доступ из сети ИТМО) либо вводится вручную.</li>
+        <li><strong>OpenAlex</strong> — открытый аналог, полезен для сверки.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>5. Исследовательский профиль</h3>
+      <p>При заданном <code>ANTHROPIC_API_KEY</code> модель Claude читает CV, proposal и проверенный список публикаций и формирует
+        резюме, интересы, методы, компетенции, прикладные направления, ключевые слова и заметки для эксперта (структурированный вывод).
+        Без ключа используется прозрачная эвристика: интересы Google Scholar, ключевые слова ORCID, темы OpenAlex.</p>
+    </div>
+    <div class="panel">
+      <h3>6. Ограничения</h3>
+      <ul>
+        <li>Google Scholar может временно ограничить доступ (CAPTCHA) — досье собирается без него, это видно в разделе «Источники».</li>
+        <li>Без ORCID профиль OpenAlex определяется по имени и совпадениям со Scholar; при низкой уверенности выводится предупреждение.</li>
+        <li>Позиция автора не определяется в сокращённых списках авторов Google Scholar («…»).</li>
+        <li>Все внешние ответы кэшируются на {{ 14 }} дней в <code>data/cache</code>.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+{% endblock %}

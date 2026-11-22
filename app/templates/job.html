@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Формирование досье{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="wrap" style="max-width:760px">
+    <span class="tag light">задача {{ job.id }}</span>
+    <h2 style="margin:16px 0 8px">Формируем досье</h2>
+    <p class="muted" style="margin:0 0 24px">{{ job.label }}</p>
+    <ul class="progress" id="steps"></ul>
+    <div id="state" style="margin-top:18px"><span class="spinner"></span> <span class="muted">в работе…</span></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  var stepsEl = document.getElementById('steps'), stateEl = document.getElementById('state');
+  function render(j) {
+    stepsEl.innerHTML = '';
+    j.steps.forEach(function (s, i) {
+      var li = document.createElement('li');
+      li.textContent = (i < j.steps.length - 1 || j.status === 'done' ? '✓ ' : '') + s;
+      if (i === j.steps.length - 1 && j.status === 'running') li.className = 'cur';
+      stepsEl.appendChild(li);
+    });
+  }
+  function poll() {
+    fetch('/api/jobs/{{ job.id }}').then(function (r) { return r.json(); }).then(function (j) {
+      render(j);
+      if (j.status === 'done') { location.href = '/dossiers/' + j.dossier_id; return; }
+      if (j.status === 'error') {
+        stateEl.innerHTML = '';
+        var p = document.createElement('div'); p.className = 'notice';
+        p.textContent = 'Ошибка: ' + j.error; stateEl.appendChild(p); return;
+      }
+      setTimeout(poll, 1000);
+    }).catch(function () { setTimeout(poll, 2000); });
+  }
+  poll();
+})();
+</script>
+{% endblock %}

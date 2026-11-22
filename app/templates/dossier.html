@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+{% block title %}{{ d.basic.full_name }}{% endblock %}
+{% macro metric_tile(label, m, note='') -%}
+<div class="tile">
+  <div class="label">{{ label }}</div>
+  <div class="value {{ 'na' if m.value is none else '' }}">{{ m.value if m.value is not none else '—' }}</div>
+  <div class="note">{% if m.url %}<a href="{{ m.url }}" target="_blank" rel="noopener">{{ m.source }}</a>{% else %}{{ m.source or note }}{% endif %}{% if m.note %} · {{ m.note }}{% endif %}</div>
+</div>
+{%- endmacro %}
+{% macro qbadge(p) -%}
+{% if p.quality and p.quality.quartile %}<span class="q {{ p.quality.quartile }}">{{ p.quality.quartile }}</span>{% else %}<span class="q none">—</span>{% endif %}
+{%- endmacro %}
+{% block content %}
+{% set b = d.basic %}{% set m = d.metrics %}{% set pr = d.profile %}
+
+<section class="dossier-head">
+  <div class="wrap">
+    <span class="tag">Досье кандидата{% if d.example %} · пример{% endif %}</span>
+    <h1 style="margin-top:16px">{{ b.full_name or 'Кандидат' }}</h1>
+    {% if b.full_name_latin and b.full_name_latin != b.full_name %}<div class="latin">{{ b.full_name_latin }}</div>{% endif %}
+    <div class="meta">
+      {% if b.track %}<span class="chip accent">{{ b.track }}</span>{% endif %}
+      {% if b.host_unit %}<span class="chip">ИТМО: {{ b.host_unit }}</span>{% endif %}
+      {% if b.job_title or b.organization %}<span class="chip">{{ b.job_title }}{% if b.job_title and b.organization %}, {% endif %}{{ b.organization }}</span>{% endif %}
+      <span class="muted small">сформировано {{ d.created_at.strftime('%d.%m.%Y %H:%M') }} · период {{ d.window_from }}–{{ d.window_to }}</span>
+    </div>
+    <div class="actions no-print">
+      <a class="btn primary" href="/dossiers/{{ d.id }}/export.xlsx">Скачать Excel</a>
+      <button class="btn" onclick="window.print()">Печать / PDF</button>
+      <a class="btn ghost" href="/api/dossiers/{{ d.id }}" target="_blank">JSON</a>
+      {% if not d.example %}
+      <form method="post" action="/dossiers/{{ d.id }}/delete" onsubmit="return confirm('Удалить досье?')"><button class="btn ghost">Удалить</button></form>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ key metrics ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="tiles">
+      {{ metric_tile('H-index Scopus', m.h_index_scopus, 'нет данных') }}
+      {{ metric_tile('H-index Scholar', m.h_index_scholar, 'нет данных') }}
+      {{ metric_tile('H-index OpenAlex', m.h_index_openalex, 'нет данных') }}
+      <div class="tile"><div class="label">Публикаций {{ d.window_from }}–{{ d.window_to }}</div>
+        <div class="value">{{ m.pubs_in_window }}</div>
+        <div class="note">{% if m.scholar_pubs_in_window is not none %}в Google Scholar: {{ m.scholar_pubs_in_window }}{% else %}после сверки источников{% endif %}</div></div>
+      <div class="tile"><div class="label">Q1/Q2 первым автором</div>
+        <div class="value">{{ m.q1q2_first_author }}</div>
+        <div class="note">всего Q1/Q2: {{ m.q1q2_any }}</div></div>
+      <div class="tile"><div class="label">Цитирования</div>
+        <div class="value">{{ m.citations_scholar.value if m.citations_scholar.value is not none else (m.citations_openalex.value if m.citations_openalex.value is not none else '—') }}</div>
+        <div class="note">{{ 'Google Scholar' if m.citations_scholar.value is not none else 'OpenAlex' }}{% if m.citations_scholar_recent.value is not none %} · {{ m.scholar_recent_label|lower }}: {{ m.citations_scholar_recent.value }}{% endif %}</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ summary card in the team's spreadsheet format ============ -->
+<section class="section" style="padding-top:0">
+  <div class="wrap grid cols-2" style="align-items:start">
+    <div>
+      <div class="section-head"><h2>Карточка</h2><span class="muted small">формат таблицы «Кандидаты»</span></div>
+      <div class="table-wrap">
+        <table class="kv"><tbody>
+          {% for label, value in summary %}
+          <tr><th>{{ label }}</th><td style="white-space:pre-line">{{ value if value not in (none, '') else '—' }}</td></tr>
+          {% endfor %}
+        </tbody></table>
+      </div>
+    </div>
+    <div>
+      <div class="section-head"><h2>Проверки</h2><span class="muted small">сверка CV с внешними данными</span></div>
+      {% if d.checks %}
+      <ul class="checks">
+        {% for c in d.checks %}
+        <li class="{{ c.level }}"><span class="ico" aria-label="{{ c.level }}">{{ {'ok':'✓','info':'i','warn':'!','error':'×'}[c.level] }}</span>
+          <div><span class="topic">{{ c.topic }}</span>{{ c.message }}</div></li>
+        {% endfor %}
+      </ul>
+      {% else %}<div class="panel">Замечаний нет.</div>{% endif %}
+    </div>
+  </div>
+</section>
+
+<!-- ============ research profile ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Исследовательский профиль</h2>
+      <span class="tag light">{% if pr.generated_by.startswith('claude') %}Claude · {{ pr.generated_by[7:] }}{% else %}эвристика без LLM{% endif %}</span>
+    </div>
+    <div class="grid cols-2" style="align-items:start">
+      <div class="panel prose">
+        <p style="font-size:17px">{{ pr.summary }}</p>
+        {% if pr.proposal_title %}<h3 style="margin-top:18px">Проект</h3><p><strong>{{ pr.proposal_title }}</strong></p>{% endif %}
+        {% if pr.proposal_summary %}<p class="small">{{ pr.proposal_summary }}</p>{% endif %}
+        {% if pr.expert_notes %}<h3 style="margin-top:18px">Заметки для эксперта</h3>
+          <ul class="small">{% for n in pr.expert_notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+      </div>
+      <div>
+        {% for title, items, cls in [('Научные интересы', pr.interests, 'accent'), ('Методы и инструменты', pr.methods, ''),
+                                     ('Ключевые компетенции', pr.competencies, ''), ('Прикладные направления', pr.applied_directions, ''),
+                                     ('Ключевые слова', pr.keywords, '')] %}
+          {% if items %}<h3 style="margin:0 0 10px">{{ title }}</h3>
+          <div style="margin-bottom:18px">{% for x in items %}<span class="chip {{ cls }}">{{ x }}</span>{% endfor %}</div>{% endif %}
+        {% endfor %}
+        {% if d.openalex_topics and pr.generated_by.startswith('claude') %}
+          <h3 style="margin:0 0 10px">Темы OpenAlex</h3>
+          <div>{% for x in d.openalex_topics[:8] %}<span class="chip">{{ x }}</span>{% endfor %}</div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ publication activity ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Публикационная активность</h2>
+      <span class="muted small">по годам и квартилям SJR{% if m.gap_years %} · <strong style="color:var(--red)">перерыв: {{ m.gap_years|join(', ') }}</strong>{% endif %}</span></div>
+    <div class="grid cols-2" style="align-items:start">
+      <div class="panel">
+        {% set n = by_year_q|length %}
+        <div class="chart" style="--n: {{ n }}" role="img" aria-label="Публикации по годам">
+          {% for y, qs in by_year_q.items() %}
+            {% set total = m.pubs_by_year[y] %}
+            <div class="bar" data-tip="{{ y }}: {{ total }} публ. — {% for q in quartiles if qs[q] %}{{ q if q != '—' else 'без квартиля' }} {{ qs[q] }}{{ ', ' if not loop.last }}{% endfor %}">
+              {% for q in quartiles %}{% if qs[q] %}
+                <div class="seg" style="height: calc({{ (qs[q] / (max_year or 1) * 100)|round(2) }}% - 2px); background: var(--{{ 'q0' if q == '—' else q|lower }})"></div>
+              {% endif %}{% endfor %}
+              <div class="total" style="bottom: calc({{ (total / (max_year or 1) * 100)|round(2) }}% + 4px)">{{ total }}</div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="chart-x" style="--n: {{ n }}">{% for y in by_year_q %}<div>{{ y }}{% if y == this_year %}*{% endif %}</div>{% endfor %}</div>
+        <div class="legend">
+          {% for q in quartiles %}<span><i style="background: var(--{{ 'q0' if q == '—' else q|lower }})"></i>{{ q if q != '—' else 'без квартиля' }} · {{ m.quartiles[q] }}</span>{% endfor %}
+        </div>
+        <div class="muted small" style="margin-top:8px">* текущий год — неполный</div>
+      </div>
+      <div class="table-wrap">
+        <table class="kv"><tbody>
+          <tr><th>Всего публикаций за период</th><td>{{ m.pubs_in_window }}</td></tr>
+          <tr><th>Первый автор</th><td>{{ m.first_author }}</td></tr>
+          <tr><th>Последний автор</th><td>{{ m.last_author }}</td></tr>
+          <tr><th>Corresponding author</th><td>{{ m.corresponding_author }}</td></tr>
+          <tr><th>Q1 / Q2 / Q3 / Q4</th><td>{{ m.quartiles['Q1'] }} / {{ m.quartiles['Q2'] }} / {{ m.quartiles['Q3'] }} / {{ m.quartiles['Q4'] }}</td></tr>
+          <tr><th>Q1/Q2 первым автором</th><td>{{ m.q1q2_first_author }}</td></tr>
+          <tr><th>Цитирования работ периода</th><td>{{ m.citations_window }}</td></tr>
+          <tr><th>i10-index (Scholar)</th><td>{{ m.i10_scholar.value if m.i10_scholar.value is not none else '—' }}</td></tr>
+          <tr><th>H-index Scholar, {{ m.scholar_recent_label|lower or 'за 5 лет' }}</th><td>{{ m.h_index_scholar_recent.value if m.h_index_scholar_recent.value is not none else '—' }}</td></tr>
+          <tr><th>Документы Scopus / работы OpenAlex</th><td>{{ m.documents_scopus.value if m.documents_scopus.value is not none else '—' }} / {{ m.works_openalex.value if m.works_openalex.value is not none else '—' }}</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ publications ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Публикации {{ d.window_from }}–{{ d.window_to }}</h2>
+      <span class="muted small" id="pub-count">{{ d.publications|length }} записей</span></div>
+    <div class="filters no-print">
+      <input type="search" id="f-text" placeholder="Поиск по названию или журналу" style="flex:1;min-width:220px">
+      <select id="f-q"><option value="">Все квартили</option>{% for q in quartiles %}<option value="{{ q }}">{{ q if q != '—' else 'без квартиля' }}</option>{% endfor %}<option value="Q12">Q1 + Q2</option></select>
+      <select id="f-type"><option value="">Все типы</option>{% for t in pub_types %}<option>{{ t }}</option>{% endfor %}</select>
+      <label class="check"><input type="checkbox" id="f-first"> первым автором</label>
+    </div>
+    <div class="table-wrap">
+      <table id="pubs">
+        <thead><tr>
+          <th>Год</th><th>Публикация</th><th class="hide-sm">Тип</th><th>Квартиль</th>
+          <th class="num">Автор</th><th class="num">Цит.</th><th class="hide-sm">Источники</th>
+        </tr></thead>
+        <tbody>
+        {% for p in d.publications %}
+          {% set qq = p.quality.quartile if p.quality and p.quality.quartile else '—' %}
+          <tr data-q="{{ qq }}" data-type="{{ p.pub_type }}" data-first="{{ 1 if p.is_first else 0 }}" data-text="{{ (p.title ~ ' ' ~ p.venue)|lower }}">
+            <td class="nowrap">{{ p.year }}</td>
+            <td>
+              {% if p.url %}<a href="{{ p.url }}" target="_blank" rel="noopener">{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}
+              <div class="cand-sub">{{ p.venue or '—' }}{% if p.doi %} · DOI {{ p.doi }}{% endif %}</div>
+            </td>
+            <td class="hide-sm small">{{ p.pub_type }}</td>
+            <td>
+              {{ qbadge(p) }}
+              {% if p.quality %}
+              <details class="cats"><summary>SJR {{ p.quality.year }}</summary>
+                <ul>{% for c in p.quality.categories %}<li>{{ c.category }}{% if c.quartile %} — {{ c.quartile }}{% endif %}</li>{% endfor %}</ul>
+                <div class="muted" style="font-size:12px">{{ p.quality.journal_title }} · сопоставлено по {{ p.quality.matched_by }}</div>
+              </details>
+              {% endif %}
+            </td>
+            <td class="num nowrap pos">
+              {% if p.author_position %}{{ p.author_position }}/{{ p.n_authors or '?' }}{% else %}<span class="muted">—</span>{% endif %}
+              {% if p.is_first %}<span class="flag first">1-й</span>{% endif %}
+              {% if p.is_last %}<span class="flag">посл.</span>{% endif %}
+              {% if p.is_corresponding %}<span class="flag">corr.</span>{% endif %}
+            </td>
+            <td class="num">{{ p.citations if p.citations is not none else '—' }}</td>
+            <td class="hide-sm small muted">{{ p.sources|join(', ') }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ identifiers, sources, application data ============ -->
+<section class="section">
+  <div class="wrap grid cols-2" style="align-items:start">
+    <div>
+      <div class="section-head"><h2>Источники</h2></div>
+      <div class="table-wrap">
+        <table><thead><tr><th>Источник</th><th>Статус</th><th>Детали</th></tr></thead><tbody>
+          {% for s in d.sources %}
+          <tr><td>{% if s.url %}<a href="{{ s.url }}" target="_blank" rel="noopener">{{ s.name }}</a>{% else %}{{ s.name }}{% endif %}</td>
+              <td><span class="status {{ s.status }}">{{ {'ok':'ok','partial':'частично','skipped':'пропущен','error':'ошибка'}[s.status] }}</span></td>
+              <td class="small">{{ s.detail }}</td></tr>
+          {% endfor %}
+        </tbody></table>
+      </div>
+      <h3 style="margin:24px 0 10px">Идентификаторы</h3>
+      <div class="table-wrap"><table class="kv"><tbody>
+        {% set ids = d.identifiers %}
+        <tr><th>ORCID</th><td>{% if ids.orcid %}<a href="https://orcid.org/{{ ids.orcid }}" target="_blank">{{ ids.orcid }}</a> <span class="muted small">({{ ids.provenance.orcid }})</span>{% else %}—{% endif %}</td></tr>
+        <tr><th>Scopus Author ID</th><td>{% if ids.scopus_id %}<a href="https://www.scopus.com/authid/detail.uri?authorId={{ ids.scopus_id }}" target="_blank">{{ ids.scopus_id }}</a> <span class="muted small">({{ ids.provenance.scopus_id }})</span>{% else %}—{% endif %}</td></tr>
+        <tr><th>Google Scholar</th><td>{% if ids.scholar_id %}<a href="https://scholar.google.com/citations?user={{ ids.scholar_id }}" target="_blank">{{ ids.scholar_id }}</a> <span class="muted small">({{ ids.provenance.scholar_id }})</span>{% else %}—{% endif %}</td></tr>
+        <tr><th>OpenAlex</th><td>{% for a in ids.openalex_ids %}<a href="https://openalex.org/authors/{{ a }}" target="_blank">{{ a }}</a>{{ ', ' if not loop.last }}{% else %}—{% endfor %}</td></tr>
+        {% if ids.researcherid %}<tr><th>ResearcherID (WoS)</th><td>{{ ids.researcherid }}</td></tr>{% endif %}
+      </tbody></table></div>
+    </div>
+    <div>
+      <div class="section-head"><h2>Данные заявки</h2></div>
+      <div class="table-wrap"><table class="kv"><tbody>
+        <tr><th>Трек</th><td>{{ b.track or '—' }}</td></tr>
+        <tr><th>Дата рождения / возраст</th><td>{{ b.date_of_birth or '—' }}{% if b.age %} · {{ b.age }} лет{% endif %}</td></tr>
+        <tr><th>Гражданство</th><td>{{ b.citizenship or '—' }}</td></tr>
+        <tr><th>Страна / город</th><td>{{ b.country or '—' }}{% if b.city %}, {{ b.city }}{% endif %}</td></tr>
+        <tr><th>Место работы</th><td>{{ b.organization or '—' }}</td></tr>
+        <tr><th>Должность</th><td>{{ b.job_title or '—' }}</td></tr>
+        <tr><th>PhD</th><td>{{ b.phd_institution or '—' }}{% if b.phd_year and b.phd_year not in b.phd_institution %}, {{ b.phd_year }}{% endif %}</td></tr>
+        {% if b.phd_topic %}<tr><th>Тема диссертации</th><td>{{ b.phd_topic }}</td></tr>{% endif %}
+        <tr><th>Подразделение ИТМО</th><td>{{ b.host_unit or '—' }}</td></tr>
+        <tr><th>Контакт в ИТМО</th><td>{{ b.itmo_contact or '—' }}</td></tr>
+        <tr><th>E-mail</th><td>{{ b.email or '—' }}</td></tr>
+        {% for r in b.referees %}<tr><th>Рекомендатель {{ loop.index }}</th><td>{{ r.name }}<div class="cand-sub">{{ r.affiliation }}</div></td></tr>{% endfor %}
+        <tr><th>Документы</th><td class="small">{% for doc in d.documents %}{{ doc.filename }} <span class="muted">({{ doc.kind }})</span>{{ '; ' if not loop.last }}{% else %}—{% endfor %}</td></tr>
+      </tbody></table></div>
+    </div>
+  </div>
+</section>
+
+<section class="section no-print">
+  <div class="wrap">
+    <div class="notice"><strong>Этап 2 — подбор подразделений ИТМО.</strong> Профиль (интересы, методы, ключевые слова)
+      уже сохраняется в структурированном виде и станет входом для сопоставления с научной картой ИТМО.</div>
+  </div>
+</section>
+<div class="tooltip" id="tip"></div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  // chart tooltip
+  var tip = document.getElementById('tip');
+  document.querySelectorAll('.bar[data-tip]').forEach(function (bar) {
+    bar.addEventListener('mousemove', function (e) {
+      tip.textContent = bar.getAttribute('data-tip'); tip.style.display = 'block';
+      tip.style.left = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8) + 'px';
+      tip.style.top = (e.clientY - 40) + 'px';
+    });
+    bar.addEventListener('mouseleave', function () { tip.style.display = 'none'; });
+  });
+  // publication filters
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#pubs tbody tr'));
+  var fText = document.getElementById('f-text'), fQ = document.getElementById('f-q'),
+      fType = document.getElementById('f-type'), fFirst = document.getElementById('f-first'),
+      count = document.getElementById('pub-count');
+  function apply() {
+    var t = fText.value.trim().toLowerCase(), q = fQ.value, ty = fType.value, first = fFirst.checked, n = 0;
+    rows.forEach(function (r) {
+      var ok = (!t || r.dataset.text.indexOf(t) >= 0)
+        && (!q || (q === 'Q12' ? (r.dataset.q === 'Q1' || r.dataset.q === 'Q2') : r.dataset.q === q))
+        && (!ty || r.dataset.type === ty) && (!first || r.dataset.first === '1');
+      r.style.display = ok ? '' : 'none'; if (ok) n++;
+    });
+    count.textContent = n + ' из ' + rows.length + ' записей';
+  }
+  [fText, fQ, fType, fFirst].forEach(function (el) { el.addEventListener('input', apply); });
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Кандидаты{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">ITMO Fellowship · AI tool</span>
+    <h1 style="margin-top:18px">Fellowship Candidate<br>Intelligence</h1>
+    <p class="lead">Аналитическое досье кандидата за минуту: CV, research proposal и анкета + ORCID, Scopus
+      и Google Scholar → публикации за {{ default_from }}–{{ this_year }}, квартили журналов, авторская позиция,
+      H-index и сверка данных из CV с внешними источниками.</p>
+    <div class="actions">
+      <a class="btn primary" href="/new">Новая заявка</a>
+      {% if dossiers %}<a class="btn" href="/export/candidates.xlsx">Скачать сводку (.xlsx)</a>{% endif %}
+      <a class="btn ghost" href="/method">Как это работает</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:8px">
+  <div class="wrap">
+    <div class="steps">
+      <div class="panel"><h3>Документы</h3><p class="muted small">CV, proposal и анкета Tilda (PDF, DOCX, DOC). Идентификаторы находятся автоматически.</p></div>
+      <div class="panel"><h3>Наукометрия</h3><p class="muted small">Google Scholar, ORCID, OpenAlex, Scopus API — публикации, цитирования, H-index.</p></div>
+      <div class="panel"><h3>Качество журналов</h3><p class="muted small">Квартиль SJR с годом и предметными категориями, позиция автора.</p></div>
+      <div class="panel"><h3>Досье</h3><p class="muted small">Карточка в формате таблицы «Кандидаты», профиль, проверки, экспорт в Excel.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Кандидаты</h2>
+      <span class="muted small">{{ dossiers|length }} досье</span>
+    </div>
+    {% if dossiers %}
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Кандидат</th><th class="hide-sm">Трек</th><th class="hide-sm">Подразделение ИТМО</th>
+          <th class="num">Публ. {{ default_from }}–{{ this_year }}</th><th class="num">Q1/Q2 1-м автором</th>
+          <th class="num">H Scopus</th><th class="num">H Scholar</th><th class="hide-sm"></th>
+        </tr></thead>
+        <tbody>
+        {% for d in dossiers %}
+          <tr>
+            <td><a class="cand-name" href="/dossiers/{{ d.id }}">{{ d.basic.full_name or d.id }}</a>
+              <div class="cand-sub">{{ d.basic.job_title }}{% if d.basic.job_title and d.basic.organization %}, {% endif %}{{ d.basic.organization|truncate(60) }}</div></td>
+            <td class="hide-sm">{{ d.basic.track or '—' }}</td>
+            <td class="hide-sm small">{{ d.basic.host_unit|truncate(50) or '—' }}</td>
+            <td class="num">{{ d.metrics.pubs_in_window }}</td>
+            <td class="num">{{ d.metrics.q1q2_first_author }}</td>
+            <td class="num">{{ d.metrics.h_index_scopus.value if d.metrics.h_index_scopus.value is not none else '—' }}</td>
+            <td class="num">{{ d.metrics.h_index_scholar.value if d.metrics.h_index_scholar.value is not none else '—' }}</td>
+            <td class="hide-sm">{% if d.example %}<span class="tag light">пример</span>{% endif %}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="panel">Пока нет досье. Загрузите заявку или сформируйте досье по примерам ниже.</div>
+    {% endif %}
+  </div>
+</section>
+
+{% if examples %}
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Примеры заявок</h2>
+      <span class="muted small">реальные заявки из папки программы Fellowship</span>
+    </div>
+    <div class="grid cols-3">
+      {% for e in examples %}
+      <div class="panel" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div><strong>{{ e.name }}</strong><div class="muted small">{{ 'досье готово' if e.built else 'не обработан' }}</div></div>
+        {% if e.built %}
+          <a class="btn small" href="/dossiers/{{ e.id }}">Открыть</a>
+        {% else %}
+          <form method="post" action="/examples/{{ e.id }}/build"><button class="btn small primary">Сформировать</button></form>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+{% endblock %}
