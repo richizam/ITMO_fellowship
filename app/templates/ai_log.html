@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Журнал AI{% endblock %}
+{% block content %}
+<section class="hero" style="padding-bottom:12px">
+  <div class="wrap">
+    <a class="back" href="/">← Все кандидаты</a>
+    <h1>Журнал AI</h1>
+    <p class="lead">Каждый запрос к языковой модели: что отправлено, что получено, сколько это заняло времени и токенов,
+      были ли ошибки — и насколько утверждения профилей подтверждаются документами.</p>
+  </div>
+</section>
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="tiles">
+      <div class="tile"><div class="label">Вызовов</div><div class="value">{{ stats.calls }}</div><div class="note">в {{ stats.dossiers }} досье</div></div>
+      <div class="tile"><div class="label">Ошибки / повторы</div><div class="value">{{ stats.failed }} / {{ stats.retried }}</div><div class="note">ошибка → досье собрано без LLM</div></div>
+      <div class="tile"><div class="label">Токены</div><div class="value" style="font-size:28px">{{ '{:,}'.format(stats.tokens_in + stats.tokens_out).replace(',', ' ') }}</div><div class="note">вход {{ '{:,}'.format(stats.tokens_in).replace(',', ' ') }} · выход {{ '{:,}'.format(stats.tokens_out).replace(',', ' ') }}</div></div>
+      <div class="tile"><div class="label">≈ Стоимость</div><div class="value" style="font-size:28px">${{ '%.3f'|format(stats.cost) }}</div><div class="note">по ${{ price_in }} / ${{ price_out }} за 1M токенов</div></div>
+      <div class="tile"><div class="label">Среднее время</div><div class="value" style="font-size:28px">{{ '%.1f'|format(stats.avg_seconds) }} с</div><div class="note">на вызов</div></div>
+      <div class="tile"><div class="label">Подтверждено цитатами</div><div class="value" style="font-size:28px">{% if stats.ev_checked %}{{ (100 * stats.ev_confirmed / stats.ev_checked)|round|int }}%{% else %}—{% endif %}</div><div class="note">{{ stats.ev_confirmed }} из {{ stats.ev_checked }} утверждений</div></div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><h2>Последние вызовы</h2></div>
+    {% if rows %}
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Когда</th><th>Кандидат</th><th>Задача</th><th class="num">Токены</th><th class="num">Время</th><th>Статус</th><th class="num">≈ $</th><th></th></tr></thead>
+        <tbody>
+        {% for d, c in rows %}
+          <tr>
+            <td class="nowrap small">{{ c.started_at.strftime('%d.%m %H:%M') }}</td>
+            <td><a class="cand-name" href="/dossiers/{{ d.id }}">{{ d.basic.full_name }}</a></td>
+            <td class="small">{{ purpose_labels.get(c.purpose, c.purpose) }}</td>
+            <td class="num">{{ (c.input_tokens or 0) + (c.output_tokens or 0) }}</td>
+            <td class="num">{{ '%.1f'|format(c.seconds) }} с</td>
+            <td><span class="status {{ 'ok' if c.status == 'ok' else ('partial' if c.status == 'retried' else 'error') }}">{{ {'ok': 'ok', 'retried': 'повтор', 'failed': 'ошибка'}[c.status] }}</span></td>
+            <td class="num">{{ '%.4f'|format(c.cost_usd) if c.cost_usd is not none else '—' }}</td>
+            <td><a href="/dossiers/{{ d.id }}/ai/{{ c.n }}">открыть →</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}<div class="panel">Пока нет записей. Журнал заполняется при формировании новых досье.</div>{% endif %}
+  </div>
+</section>
+{% endblock %}

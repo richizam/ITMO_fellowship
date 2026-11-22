@@ -203,3 +203,39 @@ def test_unit_chunks_and_candidate_items():
     assert [t for t, _, _ in items].count("hydrogels") == 1  # case-insensitive de-duplication
     assert any(k == "публикация" and w == 1.2 for _, w, k in items)
     assert "Advanced Engineering School" in _expand_abbreviations("ПИШ ИТМО")
+
+
+# ---------------------------------------------------------------- evidence check (no AI involved)
+def test_evidence_verification():
+    from app.analysis.evidence import summary, verify
+    from app.models import EvidenceItem
+
+    docs = {
+        "cv": "Experienced in Laser-Induced Break-\ndown Spectrometry and MATLAB programming.\n"
+              "Supervised 7 course works on «Total-Reflection X-Ray Spectrometry».",
+        "proposal": "Цель проекта — разработать методы федеративного обучения для клиник.",
+    }
+    items = [
+        EvidenceItem(kind="method", text="LIBS", quote="Laser-Induced Breakdown Spectrometry", source="cv"),
+        EvidenceItem(kind="note", text="teaching", quote='supervised 7 course works on "Total-Reflection X-Ray',
+                     source="cv"),
+        EvidenceItem(kind="summary", text="FL", quote="разработать методы федеративного обучения", source="proposal"),
+        EvidenceItem(kind="note", text="invented", quote="Holds 12 patents in quantum cryptography", source="cv"),
+        EvidenceItem(kind="direction", text="inference", quote="", source=""),
+    ]
+    verify(items, docs)
+    assert [i.verified for i in items] == [True, True, True, False, None]
+    assert items[0].found_in == "cv" and items[2].found_in == "proposal"
+    assert summary(items) == (3, 4)
+
+
+def test_evidence_rejects_changed_numbers():
+    from app.analysis.evidence import verify
+    from app.models import EvidenceItem
+
+    cv = "Selected Publications (H-index - 13, total citations - 4390) and a long list of other details follows."
+    items = [EvidenceItem(kind="n", text="a", quote="H-index - 13, total citations - 4390"),
+             EvidenceItem(kind="n", text="b", quote="H-index - 31, total citations - 4390"),
+             EvidenceItem(kind="n", text="c", quote="Selected Publications (H-index - 13, total citations - 9390) and a long")]
+    verify(items, {"cv": cv})
+    assert [i.verified for i in items] == [True, False, False]

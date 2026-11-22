@@ -13,3 +13,4 @@ data/raw/
 data/sjr.sqlite
 data/models/
 samples/test-applications/04_TOO_BIG_upload_limit/
+data/llm_logs/

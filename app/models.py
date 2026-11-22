@@ -116,6 +116,33 @@ class Metrics(BaseModel):
     scholar_pubs_in_window: int | None = None  # count as listed on Google Scholar (template field)
 
 
+class EvidenceItem(BaseModel):
+    """A statement of the AI profile with the quote the model gave as its basis, checked against the documents."""
+    kind: str  # summary | interest | method | competency | direction | note | proposal_title
+    text: str
+    quote: str = ""
+    source: str = ""  # where the model says the quote is from: cv | proposal | form | publications
+    verified: bool | None = None  # True = quote found in the documents, False = not found, None = no quote
+    found_in: str = ""  # where the quote was actually found
+    similarity: int | None = None  # 0-100
+
+
+class AICall(BaseModel):
+    """One LLM request (with its retries) made while building the dossier."""
+    n: int
+    purpose: str  # profile | units
+    provider: str = ""
+    model: str = ""
+    started_at: datetime = Field(default_factory=datetime.now)
+    seconds: float = 0.0
+    attempts: int = 1
+    status: Literal["ok", "retried", "failed"] = "ok"
+    error: str = ""
+    input_tokens: int | None = None
+    output_tokens: int | None = None
+    cost_usd: float | None = None
+
+
 class ResearchProfile(BaseModel):
     summary: str = ""
     interests: list[str] = Field(default_factory=list)
@@ -126,7 +153,8 @@ class ResearchProfile(BaseModel):
     proposal_title: str = ""
     proposal_summary: str = ""
     expert_notes: list[str] = Field(default_factory=list)
-    generated_by: str = "heuristic"  # "claude:<model>" | "heuristic"
+    evidence: list[EvidenceItem] = Field(default_factory=list)
+    generated_by: str = "heuristic"  # "<provider>:<model>" | "heuristic"
 
 
 class Check(BaseModel):
@@ -195,3 +223,4 @@ class Dossier(BaseModel):
     openalex_topics: list[str] = Field(default_factory=list)
     example: bool = False
     matching: Matching | None = None
+    ai_calls: list[AICall] = Field(default_factory=list)

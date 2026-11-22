@@ -15,7 +15,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from app.analysis.matching import catalog, match, resolve_unit  # noqa: E402
-from app.pipeline import list_dossiers, save  # noqa: E402
+from app import llm  # noqa: E402
+from app.pipeline import _ai_summary, list_dossiers, load_ai_log, save, save_ai_log  # noqa: E402
 
 
 def main() -> None:
@@ -24,9 +25,15 @@ def main() -> None:
     for d in sorted(list_dossiers(), key=lambda x: x.basic.full_name):
         if not d.example and "--all" not in sys.argv:
             continue
-        m = match(d)
+        with llm.recording() as records:
+            m = match(d)
         if "--save" in sys.argv:
             d.matching = m
+            if records:  # replace the logged unit-ranking call with the new one
+                old_log = [r for r in load_ai_log(d.id) if r.get("purpose") != "units"]
+                new_log = old_log + records
+                save_ai_log(d.id, new_log)
+                d.ai_calls = [_ai_summary(i + 1, r) for i, r in enumerate(new_log)]
             save(d)
         idx, score = resolve_unit(d.basic.host_unit)
         resolved = f"{units[idx]['name_en']} ({score:.2f})" if idx is not None else f"— ({score:.2f})"

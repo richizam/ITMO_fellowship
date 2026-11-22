@@ -13,9 +13,19 @@ import re
 from pydantic import BaseModel, Field
 
 from app import config
-from app.models import Dossier, ResearchProfile
+from app.models import Dossier, EvidenceItem, ResearchProfile
 
 log = logging.getLogger(__name__)
+
+
+class _Item(BaseModel):
+    text: str = Field(description="The statement, Russian (scientific terms may stay in English). For interests, "
+                                  "methods, competencies and applied directions: a SHORT label of 2-6 words, "
+                                  "the details belong in the quote")
+    quote: str = Field(description="VERBATIM fragment (5-30 words, original language, copied character by character) "
+                                   "from the candidate's documents or publication list that supports the statement; "
+                                   "empty string if the statement is your own inference")
+    source: str = Field(description="Where the quote is from: cv | proposal | form | publications | other; empty if no quote")
 
 
 class _LLMProfile(BaseModel):
@@ -23,14 +33,15 @@ class _LLMProfile(BaseModel):
     current_position: str = Field(description="Current job title, empty if unknown")
     current_organization: str = Field(description="Current employer, empty if unknown")
     summary: str = Field(description="4-6 sentences in Russian: who the candidate is, research field, main results, what they propose for ITMO")
-    interests: list[str] = Field(description="3-8 research interests / topics, Russian")
-    methods: list[str] = Field(description="Concrete methods, instruments, techniques, software the candidate uses")
-    competencies: list[str] = Field(description="Key competencies: research, engineering, teaching, management, grants")
-    applied_directions: list[str] = Field(description="Potential applied directions / industries for the expertise, Russian")
+    summary_claims: list[_Item] = Field(description="3-8 key factual statements made in the summary, each with its quote")
+    interests: list[_Item] = Field(description="3-8 research interests / topics, short labels (2-6 words), Russian")
+    methods: list[_Item] = Field(description="Concrete methods, instruments, techniques, software the candidate uses, short labels (2-6 words)")
+    competencies: list[_Item] = Field(description="Key competencies (research, engineering, teaching, management, grants), short labels (2-6 words)")
+    applied_directions: list[_Item] = Field(description="Potential applied directions / industries, short labels (2-6 words), Russian (inferences may have an empty quote)")
     keywords: list[str] = Field(description="5-12 English keywords for matching with ITMO units")
-    proposal_title: str = Field(description="Title of the research proposal / course, original language")
+    proposal_title: str = Field(description="Title of the research proposal / course, copied verbatim, original language")
     proposal_summary: str = Field(description="3-5 sentences in Russian: goals, planned results, collaboration format with ITMO")
-    expert_notes: list[str] = Field(description="2-5 short notes for the expert in Russian: strengths, open questions, inconsistencies between documents")
+    expert_notes: list[_Item] = Field(description="2-5 short notes for the expert in Russian: strengths, open questions, inconsistencies between documents")
 
 
 SYSTEM = (
@@ -38,15 +49,18 @@ SYSTEM = (
     "Ты готовишь краткое аналитическое досье кандидата для экспертной комиссии. "
     "Пиши по-русски, нейтрально и фактологично. Используй только сведения из предоставленных документов и данных "
     "наукометрических баз; ничего не додумывай. Если сведений нет — оставь поле пустым. "
-    "Английские научные термины, названия методов и журналов можно оставлять на английском."
+    "Английские научные термины, названия методов и журналов можно оставлять на английском. "
+    "Каждое утверждение подкрепляй дословной цитатой из документов кандидата (поле quote): копируй фрагмент "
+    "символ в символ, на языке оригинала, без перевода и пересказа. Цитаты проверяются программно; "
+    "утверждения без подтверждения будут помечены для эксперта. Если утверждение — твой вывод, оставь quote пустым."
 )
 
 
 def build(d: Dossier, cv_text: str, proposal_text: str, extra_text: str,
-          orcid_keywords: list[str]) -> ResearchProfile:
+          orcid_keywords: list[str], form_text: str = "") -> ResearchProfile:
     if config.llm_enabled():
         try:
-            return _with_llm(d, cv_text, proposal_text, extra_text)
+            return _with_llm(d, cv_text, proposal_text, extra_text, form_text)
         except Exception as e:  # never lose the dossier because of the LLM step
             log.warning("LLM profile failed, falling back to heuristic: %s", e)
             prof = _heuristic(d, cv_text, proposal_text, orcid_keywords)
@@ -65,8 +79,9 @@ def _publication_digest(d: Dossier) -> str:
     return "\n".join(lines) or "(нет данных)"
 
 
-def _with_llm(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProfile:
+def _with_llm(d: Dossier, cv: str, proposal: str, extra: str, form: str = "") -> ResearchProfile:
     from app import llm
+    from app.analysis import evidence
 
     b = d.basic
     m = d.metrics
@@ -82,21 +97,38 @@ def _with_llm(d: Dossier, cv: str, proposal: str, extra: str) -> ResearchProfile
         f"<publications period=\"{d.window_from}-{d.window_to}\">\n{_publication_digest(d)}\n</publications>\n\n"
         f"<cv>\n{cv or '(не предоставлено)'}\n</cv>\n\n"
         f"<research_proposal>\n{proposal or '(не предоставлено)'}\n</research_proposal>\n\n"
+        + (f"<application_form>\n{form}\n</application_form>\n\n" if form else "")
         + (f"<other_documents>\n{extra}\n</other_documents>\n\n" if extra else "")
         + "Составь исследовательский профиль кандидата по схеме."
     )
-    o, generated_by = llm.structured(SYSTEM, content, _LLMProfile, max_tokens=16000)
+    o, generated_by = llm.structured(SYSTEM, content, _LLMProfile, max_tokens=16000, purpose="profile")
     if not d.basic.full_name_latin and o.candidate_name_latin:
         d.basic.full_name_latin = o.candidate_name_latin
     if not d.basic.job_title and o.current_position:
         d.basic.job_title = o.current_position
     if not d.basic.organization and o.current_organization:
         d.basic.organization = o.current_organization
+
+    items: list[EvidenceItem] = []
+    for kind, group in (("summary", o.summary_claims), ("interest", o.interests), ("method", o.methods),
+                        ("competency", o.competencies), ("direction", o.applied_directions),
+                        ("note", o.expert_notes)):
+        items += [EvidenceItem(kind=kind, text=i.text, quote=i.quote, source=i.source) for i in group]
+    if o.proposal_title:
+        items.append(EvidenceItem(kind="proposal_title", text=o.proposal_title, quote=o.proposal_title,
+                                  source="proposal"))
+    documents = {"cv": cv, "proposal": proposal, "form": form, "other": extra,
+                 "publications": _publication_digest(d) + "\n" + facts}
+    evidence.verify(items, documents)
+
+    def texts(group: list[_Item]) -> list[str]:
+        return [i.text for i in group]
+
     return ResearchProfile(
-        summary=o.summary, interests=o.interests, methods=o.methods, competencies=o.competencies,
-        applied_directions=o.applied_directions, keywords=o.keywords, proposal_title=o.proposal_title,
-        proposal_summary=o.proposal_summary, expert_notes=o.expert_notes,
-        generated_by=generated_by,
+        summary=o.summary, interests=texts(o.interests), methods=texts(o.methods),
+        competencies=texts(o.competencies), applied_directions=texts(o.applied_directions),
+        keywords=o.keywords, proposal_title=o.proposal_title, proposal_summary=o.proposal_summary,
+        expert_notes=texts(o.expert_notes), evidence=items, generated_by=generated_by,
     )
 
 

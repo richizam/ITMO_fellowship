@@ -17,7 +17,8 @@ from fastapi.templating import Jinja2Templates
 from app import config, jobs, llm
 from app.examples import example_dirs, example_id, example_input
 from app.export import dossier_workbook, summary_rows, summary_workbook
-from app.pipeline import CandidateInput, dossier_path, list_dossiers, load
+from app.analysis import evidence as evidence_mod
+from app.pipeline import CandidateInput, ai_log_path, dossier_path, list_dossiers, load, load_ai_log
 from app.sources import scopus, sjr
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -62,6 +63,7 @@ def _ctx(request: Request, **kw) -> dict:
         "default_from": config.default_from_year(),
         "this_year": date.today().year,
         "max_file_mb": config.MAX_FILE_MB,
+        "purpose_labels": {"profile": "Исследовательский профиль", "units": "Подбор подразделений ИТМО"},
         **kw,
     }
 
@@ -105,10 +107,54 @@ def dossier_page(request: Request, dossier_id: str):
             q = p.quality.quartile if p.quality and p.quality.quartile else "—"
             by_year_q[p.year][q] += 1
     pub_types = sorted({p.pub_type for p in d.publications})
+    ev = {(e.kind, e.text): e for e in d.profile.evidence}
+    confirmed, checked = evidence_mod.summary(d.profile.evidence)
+    ai_total = {"calls": len(d.ai_calls), "tokens": sum((c.input_tokens or 0) + (c.output_tokens or 0) for c in d.ai_calls),
+                "cost": sum(c.cost_usd or 0 for c in d.ai_calls), "seconds": sum(c.seconds for c in d.ai_calls)}
     return templates.TemplateResponse(request, "dossier.html", _ctx(
         request, d=d, summary=summary_rows(d), by_year_q=by_year_q, max_year=max_year,
-        quartiles=QUARTILE_ORDER, pub_types=pub_types,
+        quartiles=QUARTILE_ORDER, pub_types=pub_types, ev=ev, ev_confirmed=confirmed, ev_checked=checked,
+        ai_total=ai_total,
     ))
+
+
+PURPOSE_LABELS = {"profile": "Исследовательский профиль", "units": "Подбор подразделений ИТМО"}
+
+
+@app.get("/dossiers/{dossier_id}/ai/{n}", response_class=HTMLResponse)
+def ai_call_page(request: Request, dossier_id: str, n: int):
+    d = load(dossier_id)
+    records = load_ai_log(dossier_id)
+    if not d or not 1 <= n <= len(records):
+        raise HTTPException(404, "Запись не найдена")
+    return templates.TemplateResponse(request, "ai_call.html", _ctx(
+        request, d=d, n=n, r=records[n - 1], purpose_labels=PURPOSE_LABELS))
+
+
+@app.get("/ai-log", response_class=HTMLResponse)
+def ai_log_page(request: Request):
+    rows = []
+    for d in list_dossiers():
+        for c in d.ai_calls:
+            rows.append((d, c))
+    rows.sort(key=lambda x: x[1].started_at, reverse=True)
+    calls = [c for _, c in rows]
+    stats = {
+        "calls": len(calls), "failed": sum(c.status == "failed" for c in calls),
+        "retried": sum(c.status == "retried" for c in calls),
+        "tokens_in": sum(c.input_tokens or 0 for c in calls), "tokens_out": sum(c.output_tokens or 0 for c in calls),
+        "cost": sum(c.cost_usd or 0 for c in calls),
+        "avg_seconds": (sum(c.seconds for c in calls) / len(calls)) if calls else 0,
+        "dossiers": len({d.id for d, _ in rows}),
+    }
+    ev_conf = ev_checked = 0
+    for d in list_dossiers():
+        a, b = evidence_mod.summary(d.profile.evidence)
+        ev_conf, ev_checked = ev_conf + a, ev_checked + b
+    stats["ev_confirmed"], stats["ev_checked"] = ev_conf, ev_checked
+    return templates.TemplateResponse(request, "ai_log.html", _ctx(
+        request, rows=rows[:200], stats=stats, purpose_labels=PURPOSE_LABELS,
+        price_in=config.LLM_PRICE_INPUT_PER_M, price_out=config.LLM_PRICE_OUTPUT_PER_M))
 
 
 # ------------------------------------------------------------------------------ actions
@@ -174,6 +220,7 @@ def build_example(eid: str):
 def delete_dossier(dossier_id: str):
     if load(dossier_id):
         dossier_path(dossier_id).unlink(missing_ok=True)
+        ai_log_path(dossier_id).unlink(missing_ok=True)
     return RedirectResponse("/", status_code=303)
 
 

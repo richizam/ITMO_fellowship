@@ -336,7 +336,8 @@ def _rerank_with_llm(d: Dossier, result: Matching, shortlist: list[dict], comput
               "с кандидатом. Выбирай только из списка подразделений (по их id), опирайся на их описания и профиль "
               "кандидата. Пиши по-русски.")
     ranking, generated_by = llm.structured(
-        system, f"<candidate>\n{cand}\n</candidate>\n\n<units>\n{units_txt}\n</units>", _Ranking, max_tokens=8000)
+        system, f"<candidate>\n{cand}\n</candidate>\n\n<units>\n{units_txt}\n</units>", _Ranking, max_tokens=8000,
+        purpose="units")
     current = computed
     ranked: list[UnitMatch] = []
     for pick in ranking.picks:

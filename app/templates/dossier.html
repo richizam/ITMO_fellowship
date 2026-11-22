@@ -84,26 +84,51 @@
 </section>
 
 <!-- ============ research profile ============ -->
+{% macro evmark(e) -%}
+  {%- if e and e.verified -%}<span class="ev ok" title="Подтверждено цитатой ({{ e.found_in }}): «{{ e.quote }}»">✓</span>
+  {%- elif e and e.verified == false -%}<span class="ev bad" title="Цитата не найдена в документах: «{{ e.quote }}»">?</span>
+  {%- elif e -%}<span class="ev none" title="Вывод модели, без цитаты">~</span>{%- endif -%}
+{%- endmacro %}
 <section class="section">
   <div class="wrap">
     <div class="section-head">
       <h2>Исследовательский профиль</h2>
       <span class="tag light">{% if pr.generated_by != 'heuristic' %}LLM · {{ pr.generated_by.split(':', 1)[-1] }}{% else %}эвристика без LLM{% endif %}</span>
     </div>
+    {% if ev_checked %}
+    {% set unconfirmed = pr.evidence | selectattr('verified', 'false') | list %}
+    <div class="notice {{ 'notice-ok' if not unconfirmed else '' }}" style="margin-bottom:16px">
+      <strong>Проверка по документам:</strong> {{ ev_confirmed }} из {{ ev_checked }} утверждений подтверждены дословными цитатами из CV, proposal, анкеты или списка публикаций.
+      {% if unconfirmed %}Не подтверждено: {{ unconfirmed|length }} — отмечены <span class="ev bad">?</span>, проверьте их вручную.{% endif %}
+      <span class="muted small">· <span class="ev ok">✓</span> подтверждено · <span class="ev bad">?</span> цитата не найдена · <span class="ev none">~</span> вывод модели без цитаты</span>
+      {% if unconfirmed %}
+      <details class="cats" style="margin-top:8px"><summary>Показать неподтверждённые утверждения</summary>
+        <ul>{% for e in unconfirmed %}<li><strong>{{ e.text }}</strong><br><span class="muted">цитата модели: «{{ e.quote }}» (сходство {{ e.similarity }}%)</span></li>{% endfor %}</ul>
+      </details>
+      {% endif %}
+    </div>
+    {% endif %}
     <div class="grid cols-2" style="align-items:start">
       <div class="panel prose">
         <p style="font-size:17px">{{ pr.summary }}</p>
-        {% if pr.proposal_title %}<h3 style="margin-top:18px">Проект</h3><p><strong>{{ pr.proposal_title }}</strong></p>{% endif %}
+        {% set claims = pr.evidence | selectattr('kind', 'equalto', 'summary') | list %}
+        {% if claims %}
+        {% set c_ok = claims | selectattr('verified') | list | length %}{% set c_bad = claims | selectattr('verified', 'false') | list | length %}
+        <details class="cats"><summary>Факты резюме и их источники: {{ c_ok }} подтверждены{% if c_bad %}, {{ c_bad }} не найдены{% endif %}{% if claims|length - c_ok - c_bad %}, {{ claims|length - c_ok - c_bad }} — вывод модели без цитаты{% endif %}</summary>
+          <ul>{% for e in claims %}<li>{{ evmark(e) }} {{ e.text }}{% if e.quote %}<br><span class="muted">«{{ e.quote }}»{% if e.found_in %} — {{ e.found_in }}{% endif %}</span>{% endif %}</li>{% endfor %}</ul>
+        </details>
+        {% endif %}
+        {% if pr.proposal_title %}<h3 style="margin-top:18px">Проект</h3><p><strong>{{ pr.proposal_title }}</strong> {{ evmark(ev.get(('proposal_title', pr.proposal_title))) }}</p>{% endif %}
         {% if pr.proposal_summary %}<p class="small">{{ pr.proposal_summary }}</p>{% endif %}
         {% if pr.expert_notes %}<h3 style="margin-top:18px">Заметки для эксперта</h3>
-          <ul class="small">{% for n in pr.expert_notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+          <ul class="small">{% for n in pr.expert_notes %}{% set e = ev.get(('note', n)) %}<li>{{ evmark(e) }} {{ n }}{% if e and e.quote %}<br><span class="muted">«{{ e.quote }}»</span>{% endif %}</li>{% endfor %}</ul>{% endif %}
       </div>
       <div>
-        {% for title, items, cls in [('Научные интересы', pr.interests, 'accent'), ('Методы и инструменты', pr.methods, ''),
-                                     ('Ключевые компетенции', pr.competencies, ''), ('Прикладные направления', pr.applied_directions, ''),
-                                     ('Ключевые слова', pr.keywords, '')] %}
+        {% for title, items, cls, kind in [('Научные интересы', pr.interests, 'accent', 'interest'), ('Методы и инструменты', pr.methods, '', 'method'),
+                                     ('Ключевые компетенции', pr.competencies, '', 'competency'), ('Прикладные направления', pr.applied_directions, '', 'direction'),
+                                     ('Ключевые слова', pr.keywords, '', 'keyword')] %}
           {% if items %}<h3 style="margin:0 0 10px">{{ title }}</h3>
-          <div style="margin-bottom:18px">{% for x in items %}<span class="chip {{ cls }}">{{ x }}</span>{% endfor %}</div>{% endif %}
+          <div style="margin-bottom:18px">{% for x in items %}{% set e = ev.get((kind, x)) %}<span class="chip {{ cls }}{{ ' chip-unverified' if e and e.verified == false else '' }}">{{ x }}{% if e %} {{ evmark(e) }}{% endif %}</span>{% endfor %}</div>{% endif %}
         {% endfor %}
         {% if d.openalex_topics and pr.generated_by != 'heuristic' %}
           <h3 style="margin:0 0 10px">Темы OpenAlex</h3>
@@ -208,6 +233,33 @@
     </div>
   </div>
 </section>
+
+<!-- ============ AI call log ============ -->
+{% if d.ai_calls %}
+<section class="section" id="ai">
+  <div class="wrap">
+    <div class="section-head"><h2>Журнал AI</h2>
+      <span class="muted small">{{ ai_total.calls }} вызова · {{ '{:,}'.format(ai_total.tokens).replace(',', ' ') }} токенов · {{ '%.1f'|format(ai_total.seconds) }} с{% if ai_total.cost %} · ≈ ${{ '%.4f'|format(ai_total.cost) }}{% endif %}</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Задача</th><th>Модель</th><th class="num">Токены вход / выход</th><th class="num">Время</th><th class="num">Попытки</th><th>Статус</th><th class="num">≈ Стоимость</th><th></th></tr></thead>
+        <tbody>
+        {% for c in d.ai_calls %}
+          <tr>
+            <td>{{ c.n }}</td><td>{{ purpose_labels.get(c.purpose, c.purpose) }}</td><td class="small">{{ c.model }}</td>
+            <td class="num">{{ c.input_tokens or '—' }} / {{ c.output_tokens or '—' }}</td><td class="num">{{ '%.1f'|format(c.seconds) }} с</td>
+            <td class="num">{{ c.attempts }}</td>
+            <td><span class="status {{ 'ok' if c.status == 'ok' else ('partial' if c.status == 'retried' else 'error') }}">{{ {'ok': 'ok', 'retried': 'повтор', 'failed': 'ошибка'}[c.status] }}</span>{% if c.error %}<div class="cand-sub">{{ c.error[:120] }}</div>{% endif %}</td>
+            <td class="num">{{ '$%.4f'|format(c.cost_usd) if c.cost_usd is not none else '—' }}</td>
+            <td><a href="/dossiers/{{ d.id }}/ai/{{ c.n }}">запрос и ответ →</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endif %}
 
 <!-- ============ identifiers, sources, application data ============ -->
 <section class="section">

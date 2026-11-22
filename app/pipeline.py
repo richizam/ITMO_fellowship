@@ -10,7 +10,7 @@ from datetime import date
 from pathlib import Path
 from typing import Callable
 
-from app import config
+from app import config, llm
 from app.analysis import matching as matching_mod
 from app.analysis import metrics as metrics_mod
 from app.analysis import profile as profile_mod
@@ -19,7 +19,7 @@ from app.analysis.names import ascii_fold, has_cyrillic, latin_display_name, nam
 from app.ingest.application import ApplicationData, parse_application
 from app.ingest.extract import ExtractionError, extract_text
 from app.ingest.identifiers import orcid_from, scan_text, scholar_id_from, scopus_id_from
-from app.models import DocumentMeta, Dossier, Metric, SourceStatus
+from app.models import AICall, DocumentMeta, Dossier, Metric, SourceStatus
 from app.sources import openalex, orcid, scholar, scopus, sjr
 from app.sources.http import FetchError
 
@@ -302,12 +302,28 @@ def build_dossier(inp: CandidateInput, progress: Progress = lambda s: None) -> D
                                   orcid_name=orc.name if orc else "", scopus_raw=scopus_raw or "",
                                   openalex_confidence=confidence)
 
-    # 10. research profile --------------------------------------------------------------
-    progress("Исследовательский профиль" + (" (LLM)" if config.llm_enabled() else ""))
-    d.profile = profile_mod.build(d, cv_text, proposal_text, other_text,
-                                  orc.keywords if orc else [])
+    # 10–11. AI steps (recorded for the AI-call log) ----------------------------------------
+    with llm.recording() as ai_records:
+        _ai_steps(d, cv_text, proposal_text, other_text, texts.get("application", ""),
+                  orc.keywords if orc else [], sources, progress)
+    d.ai_calls = [_ai_summary(i + 1, r) for i, r in enumerate(ai_records)]
+    d.sources = sources
 
-    # 11. stage 2: matching with the ITMO science map ----------------------------------------
+    # 12. save ------------------------------------------------------------------------------
+    base = _slug(d.basic.full_name_latin or d.basic.full_name)
+    d.id = inp.dossier_id or f"{base}-{hashlib.sha1(json.dumps([base, str(d.created_at)]).encode()).hexdigest()[:6]}"
+    save(d)
+    save_ai_log(d.id, ai_records)
+    progress("Готово")
+    return d
+
+
+def _ai_steps(d: Dossier, cv_text: str, proposal_text: str, other_text: str, form_text: str,
+              orcid_keywords: list[str], sources: list[SourceStatus], progress: Progress) -> None:
+    progress("Исследовательский профиль" + (" (LLM)" if config.llm_enabled() else ""))
+    d.profile = profile_mod.build(d, cv_text, proposal_text, other_text, orcid_keywords, form_text)
+
+    # stage 2: matching with the ITMO science map
     if matching_mod.available():
         progress("Подбор подразделений ИТМО" + (" (LLM)" if config.llm_enabled() else ""))
         try:
@@ -321,14 +337,31 @@ def build_dossier(inp: CandidateInput, progress: Progress = lambda s: None) -> D
         sources.append(SourceStatus(name="Научная карта ИТМО", status="skipped",
                                     detail="нет app/data/itmo_units.json — запустите scripts/build_itmo_map.py"))
 
-    d.sources = sources
 
-    # 12. save ------------------------------------------------------------------------------
-    base = _slug(d.basic.full_name_latin or d.basic.full_name)
-    d.id = inp.dossier_id or f"{base}-{hashlib.sha1(json.dumps([base, str(d.created_at)]).encode()).hexdigest()[:6]}"
-    save(d)
-    progress("Готово")
-    return d
+def _ai_summary(n: int, r: dict) -> AICall:
+    return AICall(n=n, purpose=r.get("purpose", ""), provider=r.get("provider", ""), model=r.get("model", ""),
+                  started_at=r.get("started_at"), seconds=r.get("seconds", 0.0), attempts=max(1, len(r.get("attempts", []))),
+                  status=r.get("status", "failed"), error=r.get("error", ""), input_tokens=r.get("input_tokens"),
+                  output_tokens=r.get("output_tokens"), cost_usd=r.get("cost_usd"))
+
+
+def ai_log_path(dossier_id: str) -> Path:
+    return config.LLM_LOG_DIR / f"{dossier_id}.json"
+
+
+def save_ai_log(dossier_id: str, records: list[dict]) -> None:
+    """Full prompts and raw answers, kept next to the dossier (they contain the candidate's documents)."""
+    if not records:
+        return
+    config.LLM_LOG_DIR.mkdir(parents=True, exist_ok=True)
+    ai_log_path(dossier_id).write_text(json.dumps(records, ensure_ascii=False, indent=1))
+
+
+def load_ai_log(dossier_id: str) -> list[dict]:
+    p = ai_log_path(dossier_id)
+    if not re.fullmatch(r"[a-z0-9-]+", dossier_id) or not p.exists():
+        return []
+    return json.loads(p.read_text())
 
 
 def _resolve_by_name(d: Dossier, sch) -> tuple[list[dict], str]:
