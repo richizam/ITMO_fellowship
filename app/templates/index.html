@@ -3,11 +3,10 @@
 {% block content %}
 <section class="hero">
   <div class="wrap">
-    <span class="tag">ITMO Fellowship · AI tool</span>
+    <span class="tag">ITMO Fellowship</span>
     <h1 style="margin-top:18px">Fellowship Candidate<br>Intelligence</h1>
-    <p class="lead">Аналитическое досье кандидата за минуту: CV, research proposal и анкета + ORCID, Scopus
-      и Google Scholar → публикации за {{ default_from }}–{{ this_year }}, квартили журналов, авторская позиция,
-      H-index и сверка данных из CV с внешними источниками.</p>
+    <p class="lead">Загрузите документы кандидата. Программа найдёт его публикации с {{ default_from }} года,
+      определит квартили журналов и H-index, сверит их с CV и предложит подходящие подразделения ИТМО.</p>
     <div class="actions">
       <a class="btn primary" href="/new">Новая заявка</a>
       {% if dossiers %}<a class="btn" href="/export/candidates.xlsx">Скачать сводку (.xlsx)</a>{% endif %}
@@ -18,12 +17,10 @@
 
 <section class="section" style="padding-top:8px">
   <div class="wrap">
-    <div class="steps">
-      <div class="panel"><h3>Документы</h3><p class="muted small">CV, proposal и анкета Tilda (PDF, DOCX, DOC). Идентификаторы находятся автоматически.</p></div>
-      <div class="panel"><h3>Наукометрия</h3><p class="muted small">Google Scholar, ORCID, OpenAlex, Scopus API — публикации, цитирования, H-index.</p></div>
-      <div class="panel"><h3>Качество журналов</h3><p class="muted small">Квартиль SJR с годом и предметными категориями, позиция автора.</p></div>
-      <div class="panel"><h3>Досье</h3><p class="muted small">Карточка в формате таблицы «Кандидаты», профиль, проверки, экспорт в Excel.</p></div>
-      <div class="panel"><h3>Подразделения ИТМО</h3><p class="muted small">Подбор лабораторий, центров и факультетов по научной карте ИТМО с обоснованием.</p></div>
+    <div class="grid cols-3">
+      <div class="panel"><h3>Публикации</h3><p class="muted small">Статьи за последние четыре года с квартилем журнала, местом кандидата среди авторов и числом цитирований.</p></div>
+      <div class="panel"><h3>Проверки</h3><p class="muted small">Программа отметит, если H-index в CV не совпадает с базами или в публикациях есть перерыв.</p></div>
+      <div class="panel"><h3>Подразделения ИТМО</h3><p class="muted small">До шести лабораторий, центров или факультетов с объяснением, почему они подходят.</p></div>
     </div>
   </div>
 </section>
@@ -40,7 +37,7 @@
         <thead><tr>
           <th>Кандидат</th><th class="hide-sm">Трек</th><th class="hide-sm">Подразделение ИТМО</th>
           <th class="num">Публ. {{ default_from }}–{{ this_year }}</th><th class="num">Q1/Q2 1-м автором</th>
-          <th class="num">H Scopus</th><th class="num">H Scholar</th><th class="hide-sm">Подходит в ИТМО</th><th class="hide-sm"></th>
+          <th class="num">H Scopus</th><th class="num">H Scholar</th><th class="hide-sm">Первое в подборе</th><th class="hide-sm"></th>
         </tr></thead>
         <tbody>
         {% for d in dossiers %}
@@ -61,7 +58,7 @@
       </table>
     </div>
     {% else %}
-    <div class="panel">Пока нет досье. Загрузите заявку или сформируйте досье по примерам ниже.</div>
+    <div class="panel">Досье пока нет. Загрузите заявку или откройте один из примеров ниже.</div>
     {% endif %}
   </div>
 </section>
@@ -71,7 +68,7 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Примеры заявок</h2>
-      <span class="muted small">реальные заявки из папки программы Fellowship</span>
+      <span class="muted small">заявки из папки программы</span>
     </div>
     <div class="grid cols-3">
       {% for e in examples %}

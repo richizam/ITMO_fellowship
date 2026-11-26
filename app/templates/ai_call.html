@@ -1,27 +1,26 @@
 {% extends "base.html" %}
-{% block title %}AI-вызов {{ n }} — {{ d.basic.full_name }}{% endblock %}
+{% block title %}Запрос {{ n }}, {{ d.basic.full_name }}{% endblock %}
 {% block content %}
 <section class="hero" style="padding-bottom:12px">
   <div class="wrap">
     <a class="back" href="/dossiers/{{ d.id }}#ai">← {{ d.basic.full_name }}</a>
-    <span class="tag light">AI-вызов {{ n }}</span>
+    <span class="tag light">Запрос {{ n }}</span>
     <h2 style="margin-top:14px">{{ purpose_labels.get(r.purpose, r.purpose) }}</h2>
-    <p class="muted" style="margin:8px 0 0">{{ r.provider }} · {{ r.model }} · {{ r.started_at }} · {{ r.seconds }} с ·
-      токены {{ r.input_tokens }} / {{ r.output_tokens }}{% if r.cost_usd %} · ≈ ${{ '%.4f'|format(r.cost_usd) }}{% endif %} ·
-      статус <span class="status {{ 'ok' if r.status == 'ok' else ('partial' if r.status == 'retried' else 'error') }}">{{ r.status }}</span></p>
+    <p class="muted" style="margin:8px 0 0">Модель {{ r.model }}, {{ r.seconds }} с{% if r.cost_usd %}, около ${{ '%.4f'|format(r.cost_usd) }}{% endif %}.
+      Статус: <span class="status {{ 'ok' if r.status == 'ok' else ('partial' if r.status == 'retried' else 'error') }}">{{ {'ok': 'готово', 'retried': 'с повтором', 'failed': 'ошибка'}.get(r.status, r.status) }}</span></p>
     {% if r.error %}<div class="notice" style="margin-top:12px">{{ r.error }}</div>{% endif %}
   </div>
 </section>
 <section class="section" style="padding-top:8px">
   <div class="wrap">
     {% for a in r.attempts %}
-      <h3 style="margin:18px 0 8px">Ответ модели — попытка {{ loop.index }}{% if a.finish_reason %} <span class="muted small">({{ a.finish_reason }})</span>{% endif %}</h3>
-      {% if a.validation_error %}<div class="notice" style="margin-bottom:8px"><strong>Не прошёл проверку схемы:</strong><pre class="raw" style="background:transparent;padding:6px 0 0">{{ a.validation_error }}</pre></div>{% endif %}
+      <h3 style="margin:18px 0 8px">Ответ модели{% if r.attempts|length > 1 %}, попытка {{ loop.index }}{% endif %}</h3>
+      {% if a.validation_error %}<div class="notice" style="margin-bottom:8px"><strong>Ответ не прошёл проверку формата:</strong><pre class="raw" style="background:transparent;padding:6px 0 0">{{ a.validation_error }}</pre></div>{% endif %}
       <pre class="raw">{{ a.answer }}</pre>
     {% endfor %}
-    <details class="cats" style="margin-top:22px"><summary>Системная инструкция ({{ r.system|length }} символов)</summary><pre class="raw">{{ r.system }}</pre></details>
-    <details class="cats" style="margin-top:10px"><summary>Запрос: документы и данные кандидата ({{ r.user|length }} символов)</summary><pre class="raw">{{ r.user }}</pre></details>
-    <p class="muted small" style="margin-top:14px">Схема ответа: {{ r.schema }}. Полная запись хранится на сервере в data/llm_logs/{{ d.id }}.json.</p>
+    <details class="cats" style="margin-top:22px"><summary>Инструкция для модели</summary><pre class="raw">{{ r.system }}</pre></details>
+    <details class="cats" style="margin-top:10px"><summary>Документы и данные, отправленные модели</summary><pre class="raw">{{ r.user }}</pre></details>
+    <p class="muted small" style="margin-top:14px">Полная запись хранится на сервере вместе с досье.</p>
   </div>
 </section>
 {% endblock %}

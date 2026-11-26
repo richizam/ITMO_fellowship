@@ -3,16 +3,12 @@
 {% block content %}
 <div class="fx">
 
-<!-- ============ hero ============ -->
 <section class="fx-hero">
   <div class="wrap fx-hero-grid">
     <div>
       <a class="back" href="/">← Все кандидаты</a>
-      <h1 class="fx-h1">Как работает<br>Candidate<br>Intelligence</h1>
-      <div class="fx-next">
-        <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true"><rect x="5" y="9" width="30" height="27" rx="3" fill="none" stroke="#7f00ff" stroke-width="3"/><path d="M5 17h30M13 5v8M27 5v8" stroke="#7f00ff" stroke-width="3" stroke-linecap="round"/><circle cx="33" cy="33" r="8" fill="#fff" stroke="#7f00ff" stroke-width="3"/><path d="M33 29v4l3 2" stroke="#7f00ff" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg>
-        <div><div class="fx-next-label">Время на одну заявку</div><div class="fx-next-value">около минуты</div></div>
-      </div>
+      <h1 class="fx-h1">Как это<br>работает</h1>
+      <p class="fx-lead">Что происходит с заявкой после загрузки и насколько можно доверять результату.</p>
     </div>
     <svg class="fx-hero-art" viewBox="0 0 520 440" aria-hidden="true">
       <defs><pattern id="fxdots" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.6" fill="#d9c2ff"/></pattern></defs>
@@ -22,270 +18,138 @@
       <path d="M418 132 L488 62" stroke="#b580ff" stroke-width="10" stroke-linecap="round"/>
       <path d="M90 400 L170 320" stroke="#7f00ff" stroke-width="14" stroke-linecap="round"/>
       <path d="M60 392 L118 334" stroke="#b580ff" stroke-width="10" stroke-linecap="round"/>
-      <!-- CV -->
       <circle cx="150" cy="130" r="70" fill="#f2e8ff"/><circle cx="150" cy="130" r="82" fill="none" stroke="#e3e3e3" stroke-width="2"/>
       <path d="M85 92 A82 82 0 0 1 150 48" fill="none" stroke="#7f00ff" stroke-width="4" stroke-linecap="round"/>
       <rect x="122" y="96" width="56" height="70" rx="4" fill="#fff" stroke="#000" stroke-width="3"/>
       <path d="M133 114h34M133 126h34M133 138h22M133 150h28" stroke="#000" stroke-width="3" stroke-linecap="round"/>
-      <text x="150" y="232" text-anchor="middle" class="fx-art-label">CV · proposal</text>
-      <!-- AI -->
       <circle cx="360" cy="210" r="78" fill="#7f00ff"/><circle cx="360" cy="210" r="92" fill="none" stroke="#e3e3e3" stroke-width="2"/>
       <path d="M445 175 A92 92 0 0 1 430 270" fill="none" stroke="#7f00ff" stroke-width="4" stroke-linecap="round"/>
       <text x="360" y="226" text-anchor="middle" class="fx-art-big">AI</text>
-      <text x="360" y="328" text-anchor="middle" class="fx-art-label">DeepSeek + семантика</text>
-      <!-- ITMO -->
       <circle cx="190" cy="330" r="56" fill="#fff" stroke="#000" stroke-width="3"/>
       <text x="190" y="340" text-anchor="middle" class="fx-art-mid">ИТМО</text>
       <circle cx="272" cy="110" r="9" fill="#b580ff"/><circle cx="470" cy="330" r="12" fill="#7f00ff"/><circle cx="60" cy="250" r="7" fill="#7f00ff"/>
     </svg>
   </div>
-  <div class="wrap fx-choose">
+  <div class="wrap fx-choose fx-choose-3">
     <a class="fx-choose-card" href="#flow"><span class="fx-c1">Шаги</span><span class="fx-c2">обработки заявки</span><i>→</i></a>
-    <a class="fx-choose-card" href="#ai"><span class="fx-c1">Где AI</span><span class="fx-c2">а где программа</span><i>→</i></a>
-    <a class="fx-choose-card" href="#results"><span class="fx-c1">Результаты</span><span class="fx-c2">проверки</span><i>→</i></a>
-    <a class="fx-choose-card" href="#arch"><span class="fx-c1">Архитектура</span><span class="fx-c2">сервиса</span><i>→</i></a>
+    <a class="fx-choose-card" href="#results"><span class="fx-c1">Проверка</span><span class="fx-c2">на участниках программы</span><i>→</i></a>
+    <a class="fx-choose-card" href="#arch"><span class="fx-c1">Устройство</span><span class="fx-c2">сервиса</span><i>→</i></a>
   </div>
 </section>
 
 <div class="fx-band" aria-hidden="true"><div class="fx-band-track">
-  {% for _ in range(2) %}<span>Досье кандидата</span><span>Подбор подразделений ИТМО</span><span>Проверка цитат</span><span>Открытые данные</span><span>Досье кандидата</span><span>Подбор подразделений ИТМО</span><span>Проверка цитат</span><span>Открытые данные</span>{% endfor %}
+  {% for _ in range(4) %}<span>Досье кандидата</span><span>Подбор подразделений ИТМО</span>{% endfor %}
 </div></div>
 
-<!-- ============ two tasks ============ -->
-<section class="fx-section">
-  <div class="wrap">
-    <h2 class="fx-title">Две задачи</h2>
-    <div class="fx-two">
-      <div>
-        <span class="fx-kicker">Этап 1</span>
-        <h3 class="fx-h3">Аналитическое досье кандидата</h3>
-        <p class="fx-text">Вместо ручного поиска по Scopus, Google Scholar и сайтам журналов — одна карточка: публикации
-          за {{ default_from }}–{{ this_year }}, тип, журнал, DOI, позиция автора, цитирования, квартиль SJR с годом
-          и категорией, H-index из нескольких источников и сверка с тем, что кандидат написал в CV.</p>
-        <p class="fx-text">Строки совпадают с таблицей команды «Кандидаты.xlsx», есть выгрузка в Excel.</p>
-      </div>
-      <div>
-        <span class="fx-kicker">Этап 2</span>
-        <h3 class="fx-h3">Подбор подразделений ИТМО</h3>
-        <p class="fx-text">Профиль кандидата сравнивается с научной картой ИТМО — {{ units }} подразделений
-          с en.itmo.ru. Система предлагает до шести факультетов, центров и лабораторий, объясняет выбор и предлагает
-          направления сотрудничества.</p>
-        <p class="fx-text">Это короткий список для эксперта, а не готовое решение.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section class="fx-stats">
-  <ul class="wrap">
-    <li><b>{{ units }}</b><span>подразделений ИТМО в научной карте</span></li>
-    <li><b>4</b><span>открытых источника данных</span></li>
-    <li><b>2</b><span>вызова AI на заявку</span></li>
-    <li><b>~1</b><span>минута на досье</span></li>
+  <ul class="wrap fx-stats-3">
+    <li><b>{{ units }}</b><span>подразделений ИТМО участвуют в подборе</span></li>
+    <li><b>{{ this_year - default_from }}</b><span>года публикаций и текущий год</span></li>
+    <li><b>1</b><span>минута на одну заявку</span></li>
   </ul>
 </section>
 
-<!-- ============ pipeline ============ -->
 <section class="fx-section fx-grey" id="flow">
   <div class="wrap">
-    <h2 class="fx-title">Что происходит после загрузки</h2>
-    <div class="fx-legend">
-      <span><i class="who code"></i>программа, без AI</span>
-      <span><i class="who src"></i>открытые источники</span>
-      <span><i class="who local"></i>локальная модель</span>
-      <span><i class="who llm"></i>DeepSeek</span>
-    </div>
-
-    {% set steps = [
-      ('Документы', [
-        ('code', 'программа', 'Загрузка', 'CV, research proposal и анкета Tilda: PDF, DOCX или DOC до ' ~ max_file_mb ~ ' МБ. Заявка встаёт в очередь, на экране виден текущий шаг.'),
-        ('code', 'программа', 'Извлечение текста', 'PyMuPDF для PDF, python-docx для DOCX, antiword для старых DOC. Анкета разбирается по полям: ФИО, трек, PhD, подразделение, рекомендатели.'),
-        ('code', 'программа', 'Идентификаторы', 'В тексте ищутся ORCID, Scopus ID, Google Scholar и заявленные метрики («h-index 12»). Приоритет: вручную → анкета → CV.'),
-      ]),
-      ('Открытые данные', [
-        ('src', 'источники', 'Профили автора', 'OpenAlex — DOI, журнал, ISSN, все соавторы. ORCID — работы с DOI. Google Scholar — H-index и цитирования. Scopus API — при наличии ключа.'),
-        ('code', 'программа', 'Сверка публикаций', 'Записи объединяются по DOI и названию, препринт заменяется опубликованной версией. Определяется позиция кандидата: первый, последний, corresponding.'),
-        ('code', 'программа', 'Квартили и проверки', 'Квартиль SJR по ISSN за год публикации из локальной базы. Проверки: H-index из CV против источников, перерывы, расхождение имён.'),
-      ]),
-      ('AI-анализ', [
-        ('llm', 'DeepSeek · вызов 1', 'Исследовательский профиль', 'Модель читает CV, proposal, анкету и проверенный список публикаций. Возвращает резюме, интересы, методы и заметки — каждое утверждение с дословной цитатой.'),
-        ('code', 'программа', 'Проверка цитат', 'Без AI: каждая цитата ищется в исходных документах, числа должны совпасть точно. Неподтверждённое помечается в досье.'),
-        ('local', 'локальная модель', 'Семантический поиск', 'Тема проекта, интересы, методы и названия статей превращаются в векторы моделью MiniLM и сравниваются с описаниями ' ~ units ~ ' подразделений. Отбираются 12 ближайших.'),
-        ('llm', 'DeepSeek · вызов 2', 'Переранжирование', 'Модель читает описания этих 12 подразделений, выбирает до шести, объясняет почему и предлагает направления сотрудничества. Выбирать можно только из списка.'),
-      ]),
-      ('Результат', [
-        ('code', 'программа', 'Досье и журнал AI', 'Досье сохраняется вместе с журналом обоих вызовов модели: запрос, ответ, токены, время и стоимость. Выгрузка в Excel — по кандидату и сводкой.'),
-      ]),
-    ] %}
-    {% set ns = namespace(n=0) %}
-    {% for phase, cards in steps %}
-    <div class="fx-phase">
-      <div class="fx-phase-title">{{ phase }}</div>
-      <div class="fx-cards">
-        {% for who, label, title, text in cards %}{% set ns.n = ns.n + 1 %}
-        <div class="fx-card {{ who }}">
-          <div class="fx-card-top"><span class="fx-num">{{ '%02d' % ns.n }}</span><span class="who-tag {{ who }}">{{ label }}</span></div>
-          <h3>{{ title }}</h3>
-          <p>{{ text }}</p>
-        </div>
-        {% endfor %}
+    <h2 class="fx-title">Шаги обработки</h2>
+    <div class="fx-steps">
+      {% for tag, title, text in [
+        ('', 'Чтение документов', 'Программа читает CV, proposal и анкету. Из анкеты берёт ФИО, трек и подразделение, из текста находит ORCID и ссылки на профили.'),
+        ('', 'Поиск публикаций', 'По ORCID программа находит статьи кандидата в OpenAlex, ORCID и Google Scholar. Статья, найденная в нескольких базах, считается один раз.'),
+        ('', 'Квартили и проверки', 'Для каждой статьи определяется квартиль журнала и место кандидата в списке авторов. H-index из CV сверяется с базами.'),
+        ('DeepSeek', 'Профиль кандидата', 'Модель описывает тематику и методы кандидата. К каждому утверждению она прикладывает цитату, и программа проверяет, что цитата есть в документах.'),
+        ('Модель на сервере', 'Отбор подразделений', 'Тема кандидата сравнивается по смыслу с описаниями подразделений на сайте ИТМО. Остаются двенадцать самых близких.'),
+        ('DeepSeek', 'Выбор и объяснение', 'Модель выбирает из них до шести подразделений и объясняет, почему каждое подходит.'),
+      ] %}
+      <div class="fx-card{{ ' ai' if tag else '' }}">
+        <div class="fx-card-top"><span class="fx-num">{{ '%02d' % loop.index }}</span>{% if tag %}<span class="fx-tag">{{ tag }}</span>{% endif %}</div>
+        <h3>{{ title }}</h3>
+        <p>{{ text }}</p>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
+    <p class="fx-note">Все цифры в досье считает программа. Модель пишет только текст и выбирает подразделения из готового списка.
+      Каждый её ответ сохраняется в <a href="/ai-log">журнале AI</a>.</p>
   </div>
 </section>
 
-<!-- ============ where AI is ============ -->
-<section class="fx-section" id="ai">
-  <div class="wrap">
-    <h2 class="fx-title">Где AI, а где программа</h2>
-    <div class="fx-offer">
-      <div class="fx-offer-card">
-        <svg class="fx-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="8" width="44" height="48" rx="3" fill="none" stroke="#000" stroke-width="3"/><path d="M19 22h26M19 32h26M19 42h14" stroke="#000" stroke-width="3" stroke-linecap="round"/><path d="M38 44l5 5 9-11" stroke="#7f00ff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <h3>Все цифры — программа</h3>
-        <ul><li>Публикации, цитирования, квартили, H-index и позиция автора считаются кодом по данным источников</li><li>AI не меняет ни одного числа в досье</li></ul>
-      </div>
-      <div class="fx-offer-card">
-        <svg class="fx-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="20" cy="22" r="7" fill="none" stroke="#000" stroke-width="3"/><circle cx="44" cy="18" r="7" fill="none" stroke="#000" stroke-width="3"/><circle cx="32" cy="44" r="9" fill="#b580ff"/><path d="M25 27l4 9M40 24l-5 12M27 22h10" stroke="#000" stroke-width="3" stroke-linecap="round"/></svg>
-        <h3>Сходство тем — локально</h3>
-        <ul><li>Модель paraphrase-multilingual-MiniLM работает на сервере программы</li><li>Понимает русский и английский</li><li>Тексты кандидата для этого шага никуда не отправляются</li></ul>
-      </div>
-      <div class="fx-offer-card">
-        <svg class="fx-icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 14h44v28H30l-10 9v-9H10z" fill="none" stroke="#000" stroke-width="3" stroke-linejoin="round"/><circle cx="23" cy="28" r="3" fill="#7f00ff"/><circle cx="32" cy="28" r="3" fill="#7f00ff"/><circle cx="41" cy="28" r="3" fill="#7f00ff"/></svg>
-        <h3>Текст и выбор — DeepSeek</h3>
-        <ul><li>Два вызова: профиль и переранжирование</li><li>Ответ проверяется по схеме, цитаты — по документам</li><li>Без модели досье всё равно формируется</li></ul>
-      </div>
-      <div class="fx-offer-card">
-        <svg class="fx-icon" viewBox="0 0 64 64" aria-hidden="true"><rect x="10" y="10" width="44" height="44" rx="3" fill="none" stroke="#000" stroke-width="3"/><path d="M18 22h18M18 32h28M18 42h22" stroke="#000" stroke-width="3" stroke-linecap="round"/><circle cx="46" cy="22" r="5" fill="#7f00ff"/></svg>
-        <h3>Журнал AI</h3>
-        <ul><li>Каждый вызов сохраняется: запрос, ответ, повторы, токены, время, стоимость</li><li>Виден в досье и в разделе «Журнал AI»</li></ul>
-      </div>
-    </div>
+<section class="fx-section" id="results">
+  <div class="wrap fx-narrow">
+    <h2 class="fx-title">Проверка на участниках программы</h2>
+    <p class="fx-text">Мы взяли десять действующих участников ITMO Fellowship и собрали их документы из открытых данных.
+      Из документов убрали подразделение и все упоминания ИТМО. Затем сравнили подбор с подразделением, где участник работает на самом деле.</p>
   </div>
-</section>
-
-<!-- ============ results ============ -->
-<section class="fx-stats fx-stats-results" id="results">
-  <div class="wrap"><h2 class="fx-title" style="margin-bottom:8px">Результаты проверки</h2>
-    <p class="fx-sub">Ноябрь 2026 · 22 тестовые заявки, собранные из открытых данных ORCID и OpenAlex</p></div>
-  <ul class="wrap">
-    <li><b>6–7<small>/10</small></b><span>подразделение-хозяин в топ-3 (слепой тест)</span></li>
-    <li><b>8<small>/10</small></b><span>в топ-6 — вся выдача системы</span></li>
-    <li><b>22<small>/22</small></b><span>заявки обработаны без ошибок: PDF, DOCX, DOC, RU и EN</span></li>
-    <li><b>≈$0.015</b><span>стоимость AI на одну заявку</span></li>
-  </ul>
-</section>
-
-<section class="fx-section">
-  <div class="wrap">
-    <div class="fx-tests">
-      <div class="fx-test">
-        <span class="fx-kicker">Проверка 1</span>
-        <h3 class="fx-h3">Слепой тест на участниках</h3>
-        <span class="fx-line"></span>
-        <p class="fx-text-sm">10 действующих участников ITMO Fellowship. Из документов убраны подразделение и все должности
-          в ИТМО. Реальное подразделение известно только по fellowship.itmo.ru и сравнивается с выдачей.</p>
-      </div>
-      <div class="fx-test">
-        <span class="fx-kicker">Проверка 2</span>
-        <h3 class="fx-h3">Исследователи вне ИТМО</h3>
-        <span class="fx-line"></span>
-        <p class="fx-text-sm">6 учёных из Индии, Египта, Ирана, Бразилии, Мексики и Вьетнама. Правильного ответа нет — проверялось,
-          разумна ли выдача: пищевые технологии → биотехнологии, робототехника → системы управления, MOF → SCAMT.</p>
-      </div>
-      <div class="fx-test">
-        <span class="fx-kicker">Проверка 3</span>
-        <h3 class="fx-h3">Цитаты в профиле</h3>
-        <span class="fx-line"></span>
-        <p class="fx-text-sm">В каждом профиле подтверждены цитатами из документов 36–43 утверждения; не подтверждено — 0–1,
-          и такие утверждения помечены в досье.</p>
-      </div>
-    </div>
-
+  <div class="fx-stats fx-stats-plain">
+    <ul class="wrap fx-stats-3">
+      <li><b>6 из 10</b><span>реальное подразделение среди первых трёх</span></li>
+      <li><b>8 из 10</b><span>реальное подразделение в списке из шести</span></li>
+      <li><b>22 из 22</b><span>тестовые заявки обработаны без ошибок</span></li>
+    </ul>
+  </div>
+  <div class="wrap fx-narrow">
     <div class="table-wrap fx-table">
       <table>
-        <thead><tr><th>Участник (область)</th><th>Подразделение-хозяин</th><th class="num">Место в выдаче</th><th>Комментарий</th></tr></thead>
+        <thead><tr><th>Область участника</th><th>Подразделение</th><th class="num">Место</th></tr></thead>
         <tbody>
-          <tr><td>1 · волоконные лазеры</td><td>Faculty of Physics</td><td class="num">3–4</td><td class="muted small">выше — профильные центры фотоники</td></tr>
-          <tr><td>2 · магнитные плёнки</td><td>Faculty of Physics</td><td class="num">3</td><td></td></tr>
-          <tr><td>3 · 2D-материалы</td><td>Faculty of Physics</td><td class="num">3–4</td><td></td></tr>
-          <tr><td>4 · электродинамика</td><td>School of Physics and Engineering</td><td class="num">1</td><td class="muted small">через входящее подразделение</td></tr>
-          <tr><td>5 · спектроскопия</td><td>Центр физики наноструктур</td><td class="num">1–3</td><td></td></tr>
-          <tr><td>6 · кристаллохимия</td><td>Infochemistry Scientific Center</td><td class="num">—</td><td class="muted small">его лаборатория инфохимии на 6-м месте</td></tr>
-          <tr><td>7 · пищевые белки</td><td>Faculty of Biotechnologies</td><td class="num">1</td><td></td></tr>
-          <tr><td>8 · безопасность пищи</td><td>Faculty of Biotechnologies</td><td class="num">1–2</td><td></td></tr>
-          <tr><td>9 · микросети</td><td>Faculty of Control Systems and Robotics</td><td class="num">2</td><td></td></tr>
-          <tr><td>10 · катализ</td><td>Center for Information Optical Technologies</td><td class="num">—</td><td class="muted small">публикации по химии — система предлагает химические подразделения</td></tr>
+          {% for area, unit, place in [
+            ('Волоконные лазеры', 'Faculty of Physics', '4'),
+            ('Магнитные плёнки', 'Faculty of Physics', '3'),
+            ('2D-материалы', 'Faculty of Physics', '4'),
+            ('Электродинамика', 'School of Physics and Engineering', '1'),
+            ('Спектроскопия', 'Центр физики наноструктур', '1'),
+            ('Кристаллохимия', 'Infochemistry Scientific Center', 'нет'),
+            ('Пищевые белки', 'Faculty of Biotechnologies', '1'),
+            ('Безопасность пищи', 'Faculty of Biotechnologies', '2'),
+            ('Микросети', 'Faculty of Control Systems and Robotics', '2'),
+            ('Катализ', 'Center for Information Optical Technologies', 'нет'),
+          ] %}
+          <tr><td>{{ area }}</td><td>{{ unit }}</td><td class="num">{{ place }}</td></tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
-    <p class="muted small" style="margin-top:10px">Диапазон мест — разница между запусками: ответы модели меняются на ±1 место.</p>
+    <p class="fx-text" style="margin-top:20px">Система хорошо сужает выбор, но решение остаётся за экспертом. При повторном запуске места
+      могут сдвинуться на одну позицию.</p>
   </div>
 </section>
 
-<!-- ============ architecture ============ -->
 <section class="fx-section fx-grey" id="arch">
   <div class="wrap">
-    <h2 class="fx-title">Архитектура</h2>
-    <div class="fx-arch">
-      <div class="fx-arch-row">
-        <div class="fx-box"><span class="fx-c1">Браузер</span><span class="fx-c2">серверные HTML-страницы, вход по паролю</span></div>
-        <div class="fx-arrow">→<small>HTTPS</small></div>
-        <div class="fx-box"><span class="fx-c1">nginx</span><span class="fx-c2">сертификат, лимит загрузки, прокси</span></div>
-        <div class="fx-arrow">→</div>
-        <div class="fx-box solid"><span class="fx-c1">Docker</span><span class="fx-c2">контейнер приложения</span></div>
-      </div>
-
-      <div class="fx-container">
-        <div class="fx-container-title">Внутри контейнера</div>
-        <div class="fx-inner">
-          <div class="fx-inner-card"><h3>FastAPI + Jinja2</h3><p>Python 3.12, uvicorn. Страницы, загрузка, API, Excel.</p></div>
-          <div class="fx-inner-card"><h3>Фоновые задачи</h3><p>Каждая заявка — в отдельном потоке, страница показывает шаг.</p></div>
-          <div class="fx-inner-card"><h3>Конвейер досье</h3><p>Документы → источники → публикации → квартили → профиль → подразделения.</p></div>
-          <div class="fx-inner-card"><h3>Встроено в образ</h3><p>База квартилей SJR (SQLite), модель MiniLM (ONNX), индекс научной карты.</p></div>
-          <div class="fx-inner-card"><h3>Данные на диске</h3><p>Досье (JSON), журнал AI, файлы заявок, кэш источников на 14 дней.</p></div>
-          <div class="fx-inner-card"><h3>Контроль AI</h3><p>Проверка схемы, повтор при сбое, проверка цитат, журнал вызовов.</p></div>
-        </div>
-      </div>
-
-      <div class="fx-arrow fx-arrow-down">↓<small>внешние запросы</small></div>
-      <div class="fx-ext">
-        <div class="fx-box"><span class="fx-c1">OpenAlex</span><span class="fx-c2">публикации, авторы</span></div>
-        <div class="fx-box"><span class="fx-c1">ORCID</span><span class="fx-c2">работы, должности</span></div>
-        <div class="fx-box"><span class="fx-c1">Google Scholar</span><span class="fx-c2">H-index, цитирования</span></div>
-        <div class="fx-box"><span class="fx-c1">Scopus API</span><span class="fx-c2">{{ 'подключён' if scopus_api else 'нужен ключ' }}</span></div>
-        <div class="fx-box accent"><span class="fx-c1">DeepSeek API</span><span class="fx-c2">{{ llm_label if llm else 'выключен' }}</span></div>
-      </div>
+    <h2 class="fx-title">Устройство сервиса</h2>
+    <div class="fx-arch3">
+      <div class="fx-box"><span class="fx-c1">Сайт</span>
+        <p>Открывается по ссылке в браузере. Вход по логину и паролю.</p></div>
+      <div class="fx-box"><span class="fx-c1">Сервер</span>
+        <p>Приложение на Python в контейнере Docker. Там же хранятся рейтинг журналов, модель для сравнения тем, описания подразделений ИТМО и готовые досье.</p></div>
+      <div class="fx-box"><span class="fx-c1">Внешние сервисы</span>
+        <p>OpenAlex, ORCID и Google Scholar дают публикации и метрики. DeepSeek пишет текст профиля. Для Scopus нужен ключ ИТМО.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ limits ============ -->
 <section class="fx-section">
   <div class="wrap">
-    <h2 class="fx-title">Ограничения и следующие шаги</h2>
+    <h2 class="fx-title">Что пока не работает</h2>
     <div class="fx-offer fx-offer-2">
       <div class="fx-offer-card">
-        <h3>Что важно знать</h3>
+        <h3>Ограничения</h3>
         <ul>
-          <li>H-index Scopus требует ключ Elsevier и доступ из сети ИТМО; пока его можно ввести вручную</li>
-          <li>Google Scholar не имеет API и иногда показывает CAPTCHA — досье собирается без него</li>
-          <li>Подразделение с коротким описанием на en.itmo.ru находится хуже</li>
-          <li>Решение о подразделении зависит и от личных контактов, которых нет в документах</li>
+          <li>H-index Scopus вводится вручную, пока нет ключа ИТМО.</li>
+          <li>Google Scholar иногда блокирует запросы. Тогда досье собирается без него.</li>
+          <li>Подразделения с коротким описанием на сайте ИТМО находятся хуже.</li>
         </ul>
       </div>
       <div class="fx-offer-card">
-        <h3>Что можно улучшить</h3>
+        <h3>Следующие шаги</h3>
         <ul>
-          <li>Подключить Scopus API через сеть ИТМО</li>
-          <li>Оценить выдачу с командой Fellowship на 10–20 реальных заявках и настроить веса</li>
-          <li>Дополнить научную карту лабораториями, которых нет на en.itmo.ru</li>
+          <li>Проверить подбор вместе с командой на двух десятках реальных заявок.</li>
+          <li>Подключить Scopus через сеть ИТМО.</li>
         </ul>
       </div>
     </div>
     <div class="fx-actions">
       <a class="fx-btn" href="/new">Загрузить заявку</a>
-      <a class="fx-btn" href="/method">Подробная методика</a>
+      <a class="fx-btn" href="/method">Методика</a>
     </div>
   </div>
 </section>

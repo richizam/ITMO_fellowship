@@ -320,12 +320,12 @@ def build_dossier(inp: CandidateInput, progress: Progress = lambda s: None) -> D
 
 def _ai_steps(d: Dossier, cv_text: str, proposal_text: str, other_text: str, form_text: str,
               orcid_keywords: list[str], sources: list[SourceStatus], progress: Progress) -> None:
-    progress("Исследовательский профиль" + (" (LLM)" if config.llm_enabled() else ""))
+    progress("Исследовательский профиль")
     d.profile = profile_mod.build(d, cv_text, proposal_text, other_text, orcid_keywords, form_text)
 
     # stage 2: matching with the ITMO science map
     if matching_mod.available():
-        progress("Подбор подразделений ИТМО" + (" (LLM)" if config.llm_enabled() else ""))
+        progress("Подбор подразделений ИТМО")
         try:
             d.matching = matching_mod.match(d)
             sources.append(SourceStatus(name="Научная карта ИТМО", status="ok", url="https://en.itmo.ru/en/department_list/Academic_Structure.htm",

@@ -4,7 +4,7 @@
 <div class="tile">
   <div class="label">{{ label }}</div>
   <div class="value {{ 'na' if m.value is none else '' }}">{{ m.value if m.value is not none else '—' }}</div>
-  <div class="note">{% if m.url %}<a href="{{ m.url }}" target="_blank" rel="noopener">{{ m.source }}</a>{% else %}{{ m.source or note }}{% endif %}{% if m.note %} · {{ m.note }}{% endif %}</div>
+  <div class="note">{% if m.url %}<a href="{{ m.url }}" target="_blank" rel="noopener">{{ m.source }}</a>{% else %}{{ m.source or note }}{% endif %}{% if m.note %}, {{ m.note }}{% endif %}</div>
 </div>
 {%- endmacro %}
 {% macro qbadge(p) -%}
@@ -16,14 +16,14 @@
 <section class="dossier-head">
   <div class="wrap">
     <a class="back no-print" href="/">← Все кандидаты</a>
-    <span class="tag">Досье кандидата{% if d.example %} · пример{% endif %}</span>
+    <span class="tag">Досье кандидата</span>{% if d.example %} <span class="tag light">пример</span>{% endif %}
     <h1 style="margin-top:16px">{{ b.full_name or 'Кандидат' }}</h1>
     {% if b.full_name_latin and b.full_name_latin != b.full_name %}<div class="latin">{{ b.full_name_latin }}</div>{% endif %}
     <div class="meta">
       {% if b.track %}<span class="chip accent">{{ b.track }}</span>{% endif %}
       {% if b.host_unit %}<span class="chip">ИТМО: {{ b.host_unit }}</span>{% endif %}
       {% if b.job_title or b.organization %}<span class="chip">{{ b.job_title }}{% if b.job_title and b.organization %}, {% endif %}{{ b.organization }}</span>{% endif %}
-      <span class="muted small">сформировано {{ d.created_at.strftime('%d.%m.%Y %H:%M') }} · период {{ d.window_from }}–{{ d.window_to }}</span>
+      <span class="muted small">Сформировано {{ d.created_at.strftime('%d.%m.%Y') }}. Публикации с {{ d.window_from }} по {{ d.window_to }} год.</span>
     </div>
     <div class="actions no-print">
       <a class="btn primary" href="/dossiers/{{ d.id }}/export.xlsx">Скачать Excel</a>
@@ -51,7 +51,7 @@
         <div class="note">всего Q1/Q2: {{ m.q1q2_any }}</div></div>
       <div class="tile"><div class="label">Цитирования</div>
         <div class="value">{{ m.citations_scholar.value if m.citations_scholar.value is not none else (m.citations_openalex.value if m.citations_openalex.value is not none else '—') }}</div>
-        <div class="note">{{ 'Google Scholar' if m.citations_scholar.value is not none else 'OpenAlex' }}{% if m.citations_scholar_recent.value is not none %} · {{ m.scholar_recent_label|lower }}: {{ m.citations_scholar_recent.value }}{% endif %}</div></div>
+        <div class="note">{{ 'Google Scholar' if m.citations_scholar.value is not none else 'OpenAlex' }}{% if m.citations_scholar_recent.value is not none %}, {{ m.scholar_recent_label|lower }}: {{ m.citations_scholar_recent.value }}{% endif %}</div></div>
     </div>
   </div>
 </section>
@@ -93,14 +93,14 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Исследовательский профиль</h2>
-      <span class="tag light">{% if pr.generated_by != 'heuristic' %}LLM · {{ pr.generated_by.split(':', 1)[-1] }}{% else %}эвристика без LLM{% endif %}</span>
+      <span class="tag light">{% if pr.generated_by != 'heuristic' %}написан моделью DeepSeek{% else %}собран без модели{% endif %}</span>
     </div>
     {% if ev_checked %}
     {% set unconfirmed = pr.evidence | selectattr('verified', 'false') | list %}
     <div class="notice {{ 'notice-ok' if not unconfirmed else '' }}" style="margin-bottom:16px">
       <strong>Проверка по документам:</strong> {{ ev_confirmed }} из {{ ev_checked }} утверждений подтверждены дословными цитатами из CV, proposal, анкеты или списка публикаций.
-      {% if unconfirmed %}Не подтверждено: {{ unconfirmed|length }} — отмечены <span class="ev bad">?</span>, проверьте их вручную.{% endif %}
-      <span class="muted small">· <span class="ev ok">✓</span> подтверждено · <span class="ev bad">?</span> цитата не найдена · <span class="ev none">~</span> вывод модели без цитаты</span>
+      {% if unconfirmed %}Не подтверждено: {{ unconfirmed|length }}. Они отмечены знаком <span class="ev bad">?</span>, их стоит проверить.{% endif %}
+      <br><span class="muted small"><span class="ev ok">✓</span> подтверждено цитатой &nbsp; <span class="ev bad">?</span> цитата не найдена &nbsp; <span class="ev none">~</span> вывод модели без цитаты</span>
       {% if unconfirmed %}
       <details class="cats" style="margin-top:8px"><summary>Показать неподтверждённые утверждения</summary>
         <ul>{% for e in unconfirmed %}<li><strong>{{ e.text }}</strong><br><span class="muted">цитата модели: «{{ e.quote }}» (сходство {{ e.similarity }}%)</span></li>{% endfor %}</ul>
@@ -114,8 +114,8 @@
         {% set claims = pr.evidence | selectattr('kind', 'equalto', 'summary') | list %}
         {% if claims %}
         {% set c_ok = claims | selectattr('verified') | list | length %}{% set c_bad = claims | selectattr('verified', 'false') | list | length %}
-        <details class="cats"><summary>Факты резюме и их источники: {{ c_ok }} подтверждены{% if c_bad %}, {{ c_bad }} не найдены{% endif %}{% if claims|length - c_ok - c_bad %}, {{ claims|length - c_ok - c_bad }} — вывод модели без цитаты{% endif %}</summary>
-          <ul>{% for e in claims %}<li>{{ evmark(e) }} {{ e.text }}{% if e.quote %}<br><span class="muted">«{{ e.quote }}»{% if e.found_in %} — {{ e.found_in }}{% endif %}</span>{% endif %}</li>{% endfor %}</ul>
+        <details class="cats"><summary>Факты резюме и их источники: {{ c_ok }} подтверждены{% if c_bad %}, {{ c_bad }} не найдены{% endif %}{% if claims|length - c_ok - c_bad %}, {{ claims|length - c_ok - c_bad }} без цитаты{% endif %}</summary>
+          <ul>{% for e in claims %}<li>{{ evmark(e) }} {{ e.text }}{% if e.quote %}<br><span class="muted">«{{ e.quote }}»{% if e.found_in %} ({{ e.found_in }}){% endif %}</span>{% endif %}</li>{% endfor %}</ul>
         </details>
         {% endif %}
         {% if pr.proposal_title %}<h3 style="margin-top:18px">Проект</h3><p><strong>{{ pr.proposal_title }}</strong> {{ evmark(ev.get(('proposal_title', pr.proposal_title))) }}</p>{% endif %}
@@ -131,7 +131,7 @@
           <div style="margin-bottom:18px">{% for x in items %}{% set e = ev.get((kind, x)) %}<span class="chip {{ cls }}{{ ' chip-unverified' if e and e.verified == false else '' }}">{{ x }}{% if e %} {{ evmark(e) }}{% endif %}</span>{% endfor %}</div>{% endif %}
         {% endfor %}
         {% if d.openalex_topics and pr.generated_by != 'heuristic' %}
-          <h3 style="margin:0 0 10px">Темы OpenAlex</h3>
+          <h3 style="margin:0 0 10px">Темы по данным OpenAlex</h3>
           <div>{% for x in d.openalex_topics[:8] %}<span class="chip">{{ x }}</span>{% endfor %}</div>
         {% endif %}
       </div>
@@ -143,7 +143,7 @@
 <section class="section">
   <div class="wrap">
     <div class="section-head"><h2>Публикационная активность</h2>
-      <span class="muted small">по годам и квартилям SJR{% if m.gap_years %} · <strong style="color:var(--red)">перерыв: {{ m.gap_years|join(', ') }}</strong>{% endif %}</span></div>
+      <span class="muted small">по годам и квартилям{% if m.gap_years %}, <strong style="color:var(--red)">перерыв: {{ m.gap_years|join(', ') }}</strong>{% endif %}</span></div>
     <div class="grid cols-2" style="align-items:start">
       <div class="panel">
         {% set n = by_year_q|length %}
@@ -162,7 +162,7 @@
         <div class="legend">
           {% for q in quartiles %}<span><i style="background: var(--{{ 'q0' if q == '—' else q|lower }})"></i>{{ q if q != '—' else 'без квартиля' }} · {{ m.quartiles[q] }}</span>{% endfor %}
         </div>
-        <div class="muted small" style="margin-top:8px">* текущий год — неполный</div>
+        <div class="muted small" style="margin-top:8px">* текущий год ещё не закончился</div>
       </div>
       <div class="table-wrap">
         <table class="kv"><tbody>
@@ -213,8 +213,8 @@
               {{ qbadge(p) }}
               {% if p.quality %}
               <details class="cats"><summary>SJR {{ p.quality.year }}</summary>
-                <ul>{% for c in p.quality.categories %}<li>{{ c.category }}{% if c.quartile %} — {{ c.quartile }}{% endif %}</li>{% endfor %}</ul>
-                <div class="muted" style="font-size:12px">{{ p.quality.journal_title }} · сопоставлено по {{ p.quality.matched_by }}</div>
+                <ul>{% for c in p.quality.categories %}<li>{{ c.category }}{% if c.quartile %}: {{ c.quartile }}{% endif %}</li>{% endfor %}</ul>
+                <div class="muted" style="font-size:12px">{{ p.quality.journal_title }}</div>
               </details>
               {% endif %}
             </td>
@@ -239,7 +239,7 @@
 <section class="section" id="ai">
   <div class="wrap">
     <div class="section-head"><h2>Журнал AI</h2>
-      <span class="muted small">{{ ai_total.calls }} вызова · {{ '{:,}'.format(ai_total.tokens).replace(',', ' ') }} токенов · {{ '%.1f'|format(ai_total.seconds) }} с{% if ai_total.cost %} · ≈ ${{ '%.4f'|format(ai_total.cost) }}{% endif %}</span></div>
+      <span class="muted small">Запросов: {{ ai_total.calls }}, {{ '%.0f'|format(ai_total.seconds) }} с{% if ai_total.cost %}, около ${{ '%.3f'|format(ai_total.cost) }}{% endif %}</span></div>
     <div class="table-wrap">
       <table>
         <thead><tr><th>#</th><th>Задача</th><th>Модель</th><th class="num">Токены вход / выход</th><th class="num">Время</th><th class="num">Попытки</th><th>Статус</th><th class="num">≈ Стоимость</th><th></th></tr></thead>
@@ -312,15 +312,15 @@
   <div class="wrap">
     <div class="section-head">
       <h2>Подразделения ИТМО</h2>
-      {% if mt %}<span class="tag light">{% if mt.generated_by != 'heuristic' %}семантический поиск + LLM · {{ mt.generated_by.split(':', 1)[-1] }}{% else %}семантический поиск{% endif %} · каталог {{ mt.catalog_size }} подразделений</span>{% endif %}
+      {% if mt %}<span class="muted small">из {{ mt.catalog_size }} подразделений с сайта ИТМО</span>{% endif %}
     </div>
     {% if mt and mt.recommendations %}
       {% if mt.applied_unit %}
       <div class="notice" style="margin-bottom:18px">
         В заявке указано подразделение: <strong>{{ mt.applied_unit }}</strong>
         {% if mt.applied_unit_name %} → в каталоге: {{ mt.applied_unit_name }}
-          {% if mt.applied_unit_rank %} · <strong>место {{ mt.applied_unit_rank }}</strong> в рейтинге соответствия{% if mt.applied_unit_via %} (входящее в него подразделение: {{ mt.applied_unit_via }}){% endif %}{% else %} · в рейтинг не попало{% endif %}
-        {% else %} — не найдено в каталоге{% endif %}
+          {% if mt.applied_unit_rank %}, <strong>место {{ mt.applied_unit_rank }}</strong> в подборе{% if mt.applied_unit_via %} (через {{ mt.applied_unit_via }}){% endif %}{% else %}, в подбор не попало{% endif %}
+        {% else %}, в каталоге не найдено{% endif %}
       </div>
       {% endif %}
       <div class="grid cols-2">
@@ -330,7 +330,7 @@
             <span class="unit-rank">{{ '%02d' % loop.index }}</span>
             <div style="flex:1;min-width:0">
               <h3>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h3>
-              <div class="cand-sub">{{ r.type }}{% if r.parent %} · {{ r.parent }}{% endif %}{% if r.head %} · рук. {{ r.head }}{% endif %}</div>
+              <div class="cand-sub">{{ r.type }}{% if r.parent %}, {{ r.parent }}{% endif %}{% if r.head %}<br>руководитель: {{ r.head }}{% endif %}</div>
             </div>
             {% if r.applied_relation == 'same' %}<span class="tag">в заявке</span>
             {% elif r.applied_relation == 'inside' %}<span class="tag" title="Входит в подразделение, указанное в заявке">входит в подразделение из заявки</span>
@@ -338,19 +338,19 @@
           </div>
           {% if mt.generated_by == 'heuristic' %}
           <div class="meter" title="Относительная релевантность среди подразделений каталога"><i style="width: {{ r.score }}%"></i></div>
-          <div class="cand-sub" style="margin-bottom:10px">релевантность {{ r.score }}/100 · семантика {{ '%.2f' % r.semantic }} · термины {{ '%.2f' % r.lexical }}</div>
+          <div class="cand-sub" style="margin-bottom:10px">сходство {{ r.score }} из 100</div>
           {% elif r.score %}
-          <div class="cand-sub" style="margin-bottom:10px" title="Место в списке определяет AI по описаниям подразделений; это число — сходство текстов до переранжирования">текстовое сходство {{ r.score }}/100 (до оценки AI)</div>
+          <div class="cand-sub" style="margin-bottom:10px">сходство текстов {{ r.score }} из 100</div>
           {% endif %}
           {% if r.rationale and mt.generated_by != 'heuristic' %}<p class="small" style="margin:0 0 8px">{{ r.rationale }}</p>{% endif %}
           {% if r.directions %}<div class="small"><strong>Направления сотрудничества</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for x in r.directions %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
-          <div class="small"><strong>Почему</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for e in r.evidence %}<li>{{ e }}</li>{% endfor %}</ul></div>
+          <div class="small"><strong>Что совпало</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for e in r.evidence %}<li>{{ e }}</li>{% endfor %}</ul></div>
           {% if r.shared_terms %}<div>{% for t in r.shared_terms %}<span class="chip">{{ t }}</span>{% endfor %}</div>{% endif %}
           {% if r.homepage %}<div class="small" style="margin-top:6px"><a href="{{ r.homepage if r.homepage.startswith('http') else 'https://' ~ r.homepage }}" target="_blank" rel="noopener">{{ r.homepage }}</a></div>{% endif %}
         </div>
         {% endfor %}
       </div>
-      <p class="muted small" style="margin-top:12px">Рейтинг — подсказка для эксперта: сходство профиля кандидата (тема проекта, интересы, методы, публикации) с описаниями подразделений на en.itmo.ru.{% if mt.generated_by != 'heuristic' %} Порядок задаёт AI, сравнивая профиль с описаниями 12 самых близких по тексту подразделений, поэтому «текстовое сходство» не обязано убывать сверху вниз.{% endif %}</p>
+      <p class="muted small" style="margin-top:12px">Это подсказка для эксперта. Программа отбирает двенадцать подразделений, чьи описания ближе всего к теме кандидата.{% if mt.generated_by != 'heuristic' %} Модель DeepSeek выбирает из них до шести и расставляет по порядку, поэтому сходство текстов не обязательно убывает сверху вниз.{% endif %}</p>
     {% else %}
       <div class="panel">Подбор подразделений недоступен: каталог ИТМО не загружен или профиль кандидата пуст.</div>
     {% endif %}

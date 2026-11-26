@@ -5,8 +5,8 @@
   <div class="wrap">
     <a class="back" href="/">← Все кандидаты</a>
     <h1>Новая заявка</h1>
-    <p class="lead">Загрузите документы кандидата. ORCID, Scopus Author ID и профиль Google Scholar будут найдены
-      в анкете и CV автоматически — поля ниже нужны, только если их там нет.</p>
+    <p class="lead">Загрузите документы кандидата. ORCID и ссылки на профили программа найдёт в анкете и CV сама.
+      Поля ниже заполняйте, только если их там нет.</p>
   </div>
 </section>
 <section class="section" style="padding-top:0">
@@ -15,21 +15,21 @@
       <div class="form-grid">
         {% for name, title, hint in [
           ('cv', 'CV', 'PDF, DOCX или DOC'),
-          ('proposal', 'Research proposal', 'проект / силлабус / мотивационное письмо'),
-          ('application', 'Анкета заявки', 'выгрузка формы Tilda (Заявка.docx)')] %}
+          ('proposal', 'Research proposal', 'описание проекта'),
+          ('application', 'Анкета заявки', 'файл Заявка.docx из Tilda')] %}
         <label class="drop" data-drop>
           <div class="t">{{ title }}</div>
-          <div class="muted small">{{ hint }} · до {{ max_file_mb }} МБ<br>перетащите файл или нажмите</div>
+          <div class="muted small">{{ hint }}, до {{ max_file_mb }} МБ<br>перетащите файл или нажмите</div>
           <div class="f" data-fname></div>
           <input type="file" name="{{ name }}" accept=".pdf,.docx,.doc,.rtf,.odt,.txt">
         </label>
         {% endfor %}
       </div>
 
-      <h3 style="margin:32px 0 14px">Идентификаторы исследователя</h3>
+      <h3 style="margin:32px 0 14px">Профили исследователя</h3>
       <div class="form-grid">
         <div class="field"><label for="full_name">ФИО кандидата</label>
-          <input type="text" id="full_name" name="full_name" placeholder="берётся из анкеты">
+          <input type="text" id="full_name" name="full_name" placeholder="если нет в анкете">
         </div>
         <div class="field"><label for="orcid">ORCID</label>
           <input type="text" id="orcid" name="orcid" placeholder="0000-0000-0000-0000 или ссылка">
@@ -40,13 +40,13 @@
         <div class="field"><label for="scholar">Google Scholar</label>
           <input type="text" id="scholar" name="scholar" placeholder="ссылка на профиль или user ID">
         </div>
-        <div class="field"><label for="h_index_scopus">H-index Scopus (вручную)</label>
-          <input type="number" min="0" max="300" id="h_index_scopus" name="h_index_scopus" placeholder="{{ 'из Scopus API' if scopus_api else 'если нет ключа Scopus API' }}">
-          <div class="hint">{% if scopus_api %}Будет получен через Scopus API; ручное значение имеет приоритет.{% else %}Scopus API не подключён — можно ввести значение из профиля Scopus.{% endif %}</div>
+        <div class="field"><label for="h_index_scopus">H-index Scopus</label>
+          <input type="number" min="0" max="300" id="h_index_scopus" name="h_index_scopus" placeholder="из профиля Scopus">
+          <div class="hint">{% if scopus_api %}Программа получит его сама. Введённое значение важнее.{% else %}Программа пока не получает его сама, поэтому введите значение из профиля.{% endif %}</div>
         </div>
         <div class="field"><label for="from_year">Публикации с года</label>
           <input type="number" min="1990" max="{{ this_year }}" id="from_year" name="from_year" value="{{ default_from }}">
-          <div class="hint">по умолчанию — последние четыре года и текущий год</div>
+          <div class="hint">обычно последние четыре года и текущий</div>
         </div>
       </div>
       <div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
@@ -54,7 +54,7 @@
         <a class="btn ghost" href="/">Отмена</a>
       </div>
       <p class="muted small" style="margin-top:14px">
-        {% if llm %}Исследовательский профиль и подбор подразделений подготовит {{ llm_label }}.{% else %}LLM не подключена: профиль будет собран эвристически.{% endif %}
+        Обработка занимает около минуты.
       </p>
     </form>
   </div>

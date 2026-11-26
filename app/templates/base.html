@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Fellowship Candidate Intelligence{% endblock %} — ITMO Fellowship</title>
+  <title>{% block title %}Fellowship Candidate Intelligence{% endblock %}, ITMO Fellowship</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
   <div class="wrap">
     <a class="logo" href="/" aria-label="На главную">
       <img src="/static/img/itmo-fellowship-logo.png" alt="ITMO Fellowship">
-      <span>Candidate Intelligence — анализ заявок</span>
+      <span>Candidate Intelligence<br>анализ заявок</span>
     </a>
     <nav class="nav">
       {% set p = request.url.path %}
@@ -32,12 +32,8 @@
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <div>ITMO Fellowship · Candidate Intelligence · MVP: досье кандидата и подбор подразделений ИТМО</div>
-    <div>
-      LLM: {% if llm %}{{ llm_label }}{% else %}выключена{% endif %} ·
-      Scopus API: {{ 'подключён' if scopus_api else 'нет ключа' }} ·
-      SJR до {{ sjr_year or '—' }}
-    </div>
+    <div>ITMO Fellowship Candidate Intelligence</div>
+    <div>Рабочая версия для команды программы</div>
   </div>
 </footer>
 {% block scripts %}{% endblock %}
