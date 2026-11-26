@@ -205,6 +205,135 @@ pre.raw { white-space: pre-wrap; word-break: break-word; background: var(--panel
 .site-footer { border-top: 1px solid var(--line-2); margin-top: 48px; padding: 28px 0 40px; font-size: 14px; color: var(--muted); }
 .site-footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 
+/* --- "how it works" page: patterns of fellowship.itmo.ru ------------------------------
+   hero 64px uppercase; "CHOOSE / your track →" cards with a 2px violet border; violet running band;
+   stats band on #f7f7f7 with 48px numbers; white cards with a violet top bar and 20px corners;
+   grey "What we offer" cards; centred 42px section titles; outlined violet buttons. */
+.fx { --fx-grey: #f7f7f7; }
+.fx-hero { padding: 40px 0 56px; overflow: hidden; }
+.fx-hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.fx-h1 { font-size: clamp(36px, 5vw, 64px); line-height: 1.1; font-weight: 700; text-transform: uppercase; letter-spacing: 0; }
+.fx-next { display: flex; gap: 14px; align-items: center; margin-top: 36px; }
+.fx-next-label { font-size: 16px; color: var(--text-2); }
+.fx-next-value { font-size: 28px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.fx-hero-art { width: 100%; height: auto; max-height: 440px; }
+.fx-art-label { font: 500 15px "Golos Text", Arial, sans-serif; fill: var(--text-2); }
+.fx-art-big { font: 700 48px "Golos Text", Arial, sans-serif; fill: #fff; }
+.fx-art-mid { font: 700 24px "Golos Text", Arial, sans-serif; fill: #000; }
+
+.fx-choose { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 40px; }
+.fx-choose-card { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 100px; padding: 16px 48px 16px 22px; border: 2px solid var(--accent); border-radius: 4px; background: #fff; text-decoration: none; transition: background .15s; }
+.fx-choose-card:hover { background: var(--accent-soft); color: inherit; }
+.fx-c1 { font-size: 20px; line-height: 1.5; font-weight: 500; text-transform: uppercase; color: var(--accent); }
+.fx-c2 { font-size: 20px; line-height: 1.5; font-weight: 500; color: var(--text-2); }
+.fx-choose-card i { position: absolute; right: 20px; top: 16px; font-style: normal; font-size: 22px; color: var(--ink); }
+
+.fx-band { background: var(--accent); overflow: hidden; height: 70px; display: flex; align-items: center; }
+.fx-band-track { display: flex; white-space: nowrap; animation: fx-marquee 40s linear infinite; }
+.fx-band-track span { font-size: 20px; font-weight: 700; text-transform: uppercase; color: #fff; padding: 0 10px; }
+.fx-band-track span::after { content: "•"; margin-left: 20px; }
+@keyframes fx-marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .fx-band-track { animation: none; } }
+
+.fx-section { padding: 90px 0; }
+.fx-grey { background: var(--fx-grey); }
+.fx-title { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.23; font-weight: 600; text-align: center; text-transform: uppercase; margin-bottom: 56px; }
+.fx-sub { text-align: center; color: var(--muted); font-size: 18px; margin: 0 0 8px; }
+.fx-kicker { display: block; font-size: 16px; font-weight: 600; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+.fx-h3 { font-size: 22px; line-height: 1.5; font-weight: 700; margin-bottom: 12px; }
+.fx-text { font-size: 18px; line-height: 1.55; color: var(--text-2); margin: 0 0 14px; }
+.fx-text-sm { font-size: 15px; line-height: 1.55; color: var(--text-2); margin: 0; }
+.fx-two { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; max-width: 1100px; margin: 0 auto; }
+
+.fx-stats { background: var(--fx-grey); padding: 75px 0; }
+.fx-stats ul { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); padding: 0 16px; margin: 0 auto; }
+.fx-stats li { text-align: center; padding: 0 24px; border-left: 1px solid var(--line); }
+.fx-stats li:first-child { border-left: 0; }
+.fx-stats b { display: block; font-size: 48px; line-height: 1.35; font-weight: 700; color: var(--ink); padding-bottom: 14px; }
+.fx-stats b small { font-size: 22px; font-weight: 600; color: var(--muted); }
+.fx-stats span { display: block; font-size: 18px; line-height: 1.55; color: var(--muted); }
+.fx-stats-results .fx-title { margin-bottom: 8px; }
+.fx-stats-results ul { margin-top: 48px; }
+
+.fx-legend { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; font-size: 15px; color: var(--text-2); margin: -32px 0 40px; }
+.who { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.who.code { background: var(--ink); } .who.src { background: #fff; border: 2px solid var(--ink); }
+.who.local { background: var(--q3); } .who.llm { background: var(--accent); }
+.who-tag { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 8px; border-radius: 4px; }
+.who-tag.code { background: var(--ink); color: #fff; }
+.who-tag.src { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+.who-tag.local { background: var(--q3); color: #fff; }
+.who-tag.llm { background: var(--accent); color: #fff; }
+
+.fx-phase { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 24px; margin-bottom: 28px; }
+.fx-phase-title { font-size: 22px; font-weight: 700; text-transform: uppercase; color: var(--ink); padding-top: 34px; }
+.fx-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.fx-cards .fx-card:only-child { grid-column: 1 / -1; }
+.fx-card { background: #fff; border-radius: 20px; overflow: hidden; padding: 0 22px 22px; position: relative; }
+.fx-card::before { content: ""; display: block; height: 16px; margin: 0 -22px 18px; background: var(--accent); }
+.fx-card.code::before { background: var(--ink); }
+.fx-card.src::before { background: #c9c9c9; }
+.fx-card.local::before { background: var(--q3); }
+.fx-card-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.fx-num { font-size: 15px; font-weight: 700; color: var(--accent); }
+.fx-card h3 { font-size: 20px; line-height: 1.4; font-weight: 700; margin: 12px 0 8px; }
+.fx-card p { font-size: 15px; line-height: 1.55; color: var(--text-2); margin: 0; }
+
+.fx-offer { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.fx-offer-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.fx-offer-card { background: var(--fx-grey); padding: 36px 40px; }
+.fx-offer-card h3 { font-size: 16px; line-height: 1.35; font-weight: 600; text-transform: uppercase; margin: 0 0 14px; }
+.fx-offer-card ul { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.55; color: var(--text-2); display: grid; gap: 6px; }
+.fx-icon { width: 64px; height: 64px; margin-bottom: 20px; display: block; }
+
+.fx-tests { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; margin-bottom: 48px; }
+.fx-line { display: block; width: 40px; height: 2px; background: var(--accent); margin: 4px 0 16px; }
+.fx-table th { position: static; }
+.fx-table td:first-child { white-space: nowrap; }
+
+.fx-arch { display: grid; gap: 20px; }
+.fx-arch-row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr); gap: 16px; align-items: center; }
+.fx-box { display: flex; flex-direction: column; justify-content: center; min-height: 100px; padding: 16px 22px; border: 2px solid var(--accent); border-radius: 4px; background: #fff; }
+.fx-box .fx-c1 { font-size: 18px; } .fx-box .fx-c2 { font-size: 15px; line-height: 1.45; font-weight: 400; }
+.fx-box.solid { background: var(--accent); } .fx-box.solid .fx-c1, .fx-box.solid .fx-c2 { color: #fff; }
+.fx-box.accent { background: var(--accent-soft); }
+.fx-arrow { font-size: 26px; font-weight: 700; color: var(--accent); text-align: center; line-height: 1; }
+.fx-arrow small { display: block; font-size: 12px; font-weight: 600; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.fx-container { border: 2px solid var(--accent); border-radius: 20px; background: #fff; padding: 28px; }
+.fx-container-title { font-size: 16px; font-weight: 600; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; }
+.fx-inner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.fx-inner-card { background: var(--fx-grey); border-radius: 20px; padding: 20px 22px; }
+.fx-inner-card h3 { font-size: 17px; margin-bottom: 6px; }
+.fx-inner-card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text-2); }
+.fx-ext { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+
+.fx-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 48px; }
+.fx-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 235px; height: 60px; padding: 0 28px; border: 2px solid var(--accent); border-radius: 4px; background: #fff; color: var(--text-2); font-size: 16px; text-decoration: none; }
+.fx-btn:hover { background: var(--accent-soft); color: var(--ink); }
+
+@media (max-width: 960px) {
+  .fx-hero-grid, .fx-two { grid-template-columns: 1fr; }
+  .fx-hero-art { max-height: 300px; }
+  .fx-choose, .fx-offer { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fx-stats ul { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 32px; }
+  .fx-stats li:nth-child(3) { border-left: 0; }
+  .fx-phase { grid-template-columns: 1fr; gap: 12px; }
+  .fx-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fx-phase-title { padding-top: 0; }
+  .fx-tests, .fx-inner { grid-template-columns: 1fr; gap: 20px; }
+  .fx-arch-row { grid-template-columns: 1fr; }
+  .fx-arch-row .fx-arrow { font-size: 0; display: flex; justify-content: center; align-items: center; gap: 8px; }
+  .fx-arch-row .fx-arrow::before { content: "↓"; font-size: 26px; }
+  .fx-arch-row .fx-arrow small { margin-top: 0; }
+  .fx-ext { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fx-section { padding: 60px 0; }
+}
+@media (max-width: 560px) {
+  .fx-choose, .fx-offer, .fx-offer-2, .fx-stats ul, .fx-ext, .fx-cards { grid-template-columns: 1fr; }
+  .fx-stats li { border-left: 0; }
+  .fx-offer-card { padding: 28px 24px; }
+}
+
 @media (max-width: 640px) {
   .site-header .wrap { min-height: 64px; gap: 10px; padding-top: 8px; padding-bottom: 8px; }
   .logo span { display: none; }

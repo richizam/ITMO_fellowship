@@ -82,6 +82,13 @@ def new_form(request: Request):
     return templates.TemplateResponse(request, "new.html", _ctx(request))
 
 
+@app.get("/how", response_class=HTMLResponse)
+def how(request: Request):
+    from app.analysis.matching import catalog
+
+    return templates.TemplateResponse(request, "how.html", _ctx(request, units=len(catalog())))
+
+
 @app.get("/method", response_class=HTMLResponse)
 def method(request: Request):
     return templates.TemplateResponse(request, "method.html", _ctx(request))
