@@ -192,6 +192,9 @@ class UnitMatch(BaseModel):
     rationale: str = ""
     directions: list[str] = Field(default_factory=list)  # possible collaboration directions
     is_applied_unit: bool = False
+    # relation to the unit named in the application: "same" | "inside" (this unit is part of it) |
+    # "contains" (the applied unit is part of this one) | ""
+    applied_relation: str = ""
 
 
 class Matching(BaseModel):
@@ -203,7 +206,8 @@ class Matching(BaseModel):
     applied_unit: str = ""  # host unit named in the application
     applied_unit_id: str = ""  # its best match in the catalog
     applied_unit_name: str = ""
-    applied_unit_rank: int | None = None  # rank of that unit in our full ranking (1-based)
+    applied_unit_rank: int | None = None  # rank of that unit (or of a unit inside it) in our ranking (1-based)
+    applied_unit_via: str = ""  # the unit inside the applied one that gave the rank, when it is not the unit itself
 
 
 class Dossier(BaseModel):

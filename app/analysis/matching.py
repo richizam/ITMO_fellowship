@@ -59,6 +59,39 @@ def catalog() -> list[dict]:
     return json.loads(CATALOG_PATH.read_text())
 
 
+def ancestors(unit_id: str) -> list[str]:
+    """Parent, grandparent, ... ids of a catalog unit (from the "Structure" blocks of en.itmo.ru)."""
+    by_id = {u["id"]: u for u in catalog()}
+    out: list[str] = []
+    pid = by_id.get(unit_id, {}).get("parent_id", "")
+    while pid and pid not in out and pid in by_id:
+        out.append(pid)
+        pid = by_id[pid].get("parent_id", "")
+    return out
+
+
+def relation(unit_id: str, applied_id: str) -> str:
+    """How a recommended unit relates to the unit named in the application."""
+    if not applied_id:
+        return ""
+    if unit_id == applied_id:
+        return "same"
+    if applied_id in ancestors(unit_id):
+        return "inside"
+    if unit_id in ancestors(applied_id):
+        return "contains"
+    return ""
+
+
+def _rank_in(ids: list[str], applied_id: str) -> tuple[int | None, str]:
+    """1-based rank of the applied unit or of the first unit inside it; and that unit's id if it is not the same."""
+    for n, uid in enumerate(ids, 1):
+        rel = relation(uid, applied_id)
+        if rel in ("same", "inside"):
+            return n, ("" if rel == "same" else uid)
+    return None, ""
+
+
 def available() -> bool:
     return bool(catalog())
 
@@ -278,8 +311,9 @@ def match(d: Dossier, top_n: int = TOP_N) -> Matching:
     if applied_idx is not None:
         result.applied_unit_id = units[applied_idx]["id"]
         result.applied_unit_name = units[applied_idx]["name_en"]
-        if applied_idx in order:
-            result.applied_unit_rank = order.index(applied_idx) + 1
+        rank, via = _rank_in([units[i]["id"] for i in order], result.applied_unit_id)
+        result.applied_unit_rank = rank
+        result.applied_unit_via = next((u["name_en"] for u in units if u["id"] == via), "")
 
     shortlist: dict[str, UnitMatch] = {}
     for i in order[:12]:
@@ -294,6 +328,7 @@ def match(d: Dossier, top_n: int = TOP_N) -> Matching:
             lexical=round(float(lexical[i]), 3), evidence=evidence, shared_terms=shared[i],
             rationale="Наибольшее сходство: " + "; ".join(items[j][0][:80] for j in ev_idx[:2]),
             is_applied_unit=(i == applied_idx),
+            applied_relation=relation(u["id"], result.applied_unit_id),
         ))
     result.recommendations = list(shortlist.values())[:top_n]
 
@@ -303,8 +338,9 @@ def match(d: Dossier, top_n: int = TOP_N) -> Matching:
             # final ranking = the model's picks, then the rest in embedding order
             picked = [m.unit_id for m in result.recommendations]
             final_ids = picked + [units[i]["id"] for i in order if units[i]["id"] not in picked]
-            if result.applied_unit_id in final_ids:
-                result.applied_unit_rank = final_ids.index(result.applied_unit_id) + 1
+            rank, via = _rank_in(final_ids, result.applied_unit_id)
+            result.applied_unit_rank = rank
+            result.applied_unit_via = next((u["name_en"] for u in units if u["id"] == via), "")
         except Exception as e:  # keep the embedding ranking if the LLM step fails
             log.warning("LLM re-ranking failed: %s", e)
     return result
@@ -347,7 +383,8 @@ def _rerank_with_llm(d: Dossier, result: Matching, shortlist: list[dict], comput
         m = current.get(pick.unit_id) or UnitMatch(
             unit_id=u["id"], name=u["name_en"], type=u.get("type", ""), parent=u.get("parent", ""),
             head=u.get("head", ""), homepage=u.get("homepage", ""), url=u.get("url_en", ""),
-            is_applied_unit=(u["id"] == result.applied_unit_id))
+            is_applied_unit=(u["id"] == result.applied_unit_id),
+            applied_relation=relation(u["id"], result.applied_unit_id))
         m.rationale, m.directions = pick.rationale, pick.directions
         ranked.append(m)
     if ranked:

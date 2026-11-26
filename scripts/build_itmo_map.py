@@ -5,6 +5,11 @@ numeric IDs (responses are cached in data/cache, so re-runs are fast), keeps res
 writes app/data/itmo_units.json, which is committed to the repository.
 
     uv run python scripts/build_itmo_map.py
+    uv run python scripts/build_itmo_map.py --parents-only   # keep the units, only rebuild the hierarchy
+
+Hierarchy: a unit page lists its sub-units in a "Structure" block (links to viewfaculty/<id> and
+viewdepartment/<id>). Each unit's parent is its closest ancestor in the catalog. Only when no page lists the
+unit, a "part of <unit>" phrase in its own description is used, and only if it names a real unit.
 """
 from __future__ import annotations
 
@@ -73,6 +78,7 @@ def parse(page: str, fallback_name: str = "") -> dict | None:
     if m:
         parent = clean(m.group(1))
     return {
+        "children": structure_children(soup),
         "name_en": name,
         "head": clean(head.get_text()) if head else "",
         "homepage": homepage,
@@ -81,6 +87,84 @@ def parse(page: str, fallback_name: str = "") -> dict | None:
         "url_ru": ("https:" + ru["href"]) if ru and ru["href"].startswith("//") else (ru["href"] if ru else ""),
         "parent": parent,
     }
+
+
+def structure_children(soup: BeautifulSoup) -> list[dict]:
+    """Sub-units listed in the page's collapsible "Structure" block: [{"id": "faculty-128", "name": ...}]."""
+    title = next((t for t in soup.select("span.rating_title") if clean(t.get_text()) == "Structure"), None)
+    box = title.find_parent("div", class_="shortcode") if title else None
+    content = box.select_one("div.toggle-content") if box else None
+    if not content:
+        return []
+    out = []
+    for li in content.find_all("li"):
+        a = li.find("a", href=True)
+        m = re.search(r"view(faculty|department)/(\d+)", a["href"]) if a else None
+        name = clean(li.find(string=True, recursive=True) or li.get_text(" "))
+        out.append({"id": f"{'faculty' if m.group(1) == 'faculty' else 'department'}-{m.group(2)}" if m else "",
+                    "name": name})
+    return out
+
+
+# words that show the regex caught a sentence fragment instead of a unit name
+PARENT_JUNK = re.compile(r"decree|grant|project|round|robocup|led by|laser \(|xfel|free electron", re.I)
+UNIT_WORD = re.compile(r"school|faculty|institute|cent(er|re)|cluster|laborator|department", re.I)
+
+
+def clean_parent(text: str, names: list[str]) -> str:
+    """A "part of ..." phrase -> a unit name, or "" when it is not one."""
+    text = re.split(r"\s+[–—-]\s+|,|\s+(?:that|which|and also)\s+", clean(text))[0].strip(" .\"")
+    if not text or PARENT_JUNK.search(text):
+        return ""
+    t = text.lower()
+    for n in sorted(names, key=len, reverse=True):
+        # a catalog name followed by more words, or a cut-off / short form of a catalog name
+        if t.startswith(n.lower()) or (len(t) >= 20 and t in n.lower()):
+            return n
+    return text if UNIT_WORD.search(text) and len(text) <= 80 else ""
+
+
+def assign_parents(units: list[dict]) -> None:
+    """Set parent / parent_id: the closest catalog ancestor from the "Structure" blocks, else the description."""
+    by_id = {u["id"]: u for u in units}
+    by_name = {u["name_en"].lower(): u["id"] for u in units}
+    ancestors: dict[str, set[str]] = {}
+    for u in units:
+        for c in u.get("children", []):
+            cid = c["id"] if c["id"] in by_id else by_name.get(c["name"].lower(), "")
+            if cid and cid != u["id"]:
+                ancestors.setdefault(cid, set()).add(u["id"])
+    size = {u["id"]: len(u.get("children", [])) for u in units}
+    names = [u["name_en"] for u in units]
+    for u in units:
+        # description phrases first: the stored parent may be from an earlier run
+        texts = [m.group(1) for m in re.finditer(
+            r"(?:part of|within)\s+(?:the\s+|ITMO[’']s\s+)?([A-Z][^.;:()]{5,120})", u.get("description_en", ""))]
+        texts.append(u.get("parent", ""))
+        stated = next((p for p in (clean_parent(t, names) for t in texts if t) if p and p != u["name_en"]), "")
+        stated_id = by_name.get(stated.lower(), "")
+        anc = ancestors.get(u["id"])
+        if anc:  # the most specific ancestor = the one with the fewest listed sub-units
+            pid = min(anc, key=lambda a: (size[a], a))
+            # the description may name a more specific catalog unit that sits inside that ancestor
+            if stated_id and pid in ancestors.get(stated_id, set()):
+                pid = stated_id
+            u["parent"], u["parent_id"] = by_id[pid]["name_en"], pid
+        else:
+            u["parent"], u["parent_id"] = stated, stated_id
+
+
+def rebuild_parents() -> None:
+    """--parents-only: read the unit pages again (from the cache) for their "Structure" blocks."""
+    units = json.loads(OUT.read_text())
+    for u in units:
+        if u["kind"] in ("faculty", "department") and "children" not in u:
+            status, body = http().get(u["url_en"], browser=True)
+            u["children"] = structure_children(BeautifulSoup(body, "lxml")) if status == 200 else []
+    assign_parents(units)
+    OUT.write_text(json.dumps(units, ensure_ascii=False, indent=1))
+    for u in units:
+        print(f"{u['id']:42} {u['name_en'][:48]:48} <- {u['parent'][:50]}")
 
 
 def _paragraphs(url: str, min_len: int = 60) -> list[str]:
@@ -198,10 +282,11 @@ def main() -> None:
             units.append(u)
             print(f"{u['id']:16} {u['type']:12} {name[:70]}")
     units = merge_duplicates(units, extra_units())
+    assign_parents(units)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(units, ensure_ascii=False, indent=1))
     print(f"{len(units)} units -> {OUT}")
 
 
 if __name__ == "__main__":
-    main()
+    rebuild_parents() if "--parents-only" in sys.argv else main()

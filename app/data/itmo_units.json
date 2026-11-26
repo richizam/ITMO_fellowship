@@ -6,12 +6,135 @@
   "email": "ktu@corp.ifmo.ru",
   "description_en": "The School of Computer Technologies and Control is the oldest and largest school at ITMO University. It was founded on the basis of the faculty of the same name as a result of a merger of specialized departments in response to the need to consolidate scientific, educational, engineering, and technological resources within a world-class international center of competencies in cyberphysical systems. Cyberphysical systems are a network of interacting physical and computing components that is designed as a unified system within a single fundamental cyberphysical model and can adapt to real-world changes. The term emerged following the significant growth of computing technologies and the appearance of embedded computing systems, which, in turn, lead to the evolution of cybernetics, computer technology, and in particular the development of the so-called C3 systems: command, control, and communications. The further integration of different communication networks (infrared, wireless, power, etc.) and physical systems and objects started the transition from the era of information technologies to that of cyberphysical systems. In recent years, the development of these systems is guided by the concept of Industry 4.0 – the implementation of the internet and web technologies into manufacturing. Cyberphysical systems are characterized by new principles of computer systems organization, automated processing of large amounts of data, adaptive behavior, and independent decision-making. However, the more complex a system is, the tougher its security must be. Together, all these factors led to the establishment of the School of Computer Technologies and Control at ITMO University. The school includes three faculties: the Faculty of Secure Information Technologies, the Faculty of Software Engineering and Computer Systems, and the Faculty of Control Systems and Robotics. With its vast expertise and balanced symbiosis of different fields, the School of Computer Technologies and Control aims to tackle a global challenge of the 21st century – namely, to improve the quality of human life. Cyberphysical systems can solve a range of social and economic problems: for example, they can help specialists shift from dangerous and exhausting labor to activities that help them grow and improve the world around them. The systems our graduates are working on are omnipresent: these are assisting robotic complexes, exoskeletons, sophisticated platforms for calculations, data storage and transmission, decision-making in technical systems control (e.g., power networks, traffic flows, technological processes), and the widespread introduction of data protection technologies. At the school, students are trained to tackle global challenges: to develop decision-making algorithms for guaranteed performance, reliability, and security; to develop decision-making algorithms for guaranteed performance, reliability, and security; to produce next-gen platforms for efficient computations; to produce next-gen platforms for efficient computations; to create self-trained algorithms for sensorimotor coordination; to create self-trained algorithms for sensorimotor coordination; to develop natural human-machine interfaces; to develop natural human-machine interfaces; to protect and eliminate vulnerabilities in the computerized world. to protect and eliminate vulnerabilities in the computerized world. The holistic development of both students and staff is impossible without a value model. For the School of Computer Technologies and Control, the formula is as follows: As of now, the School of Computer Technologies and Control accommodates over 3,500 students within 18 Bachelor’s, 35 Master’s, and 7 PhD programs, as well 15 joint educational programs of various levels in partnership with the world’s top universities. The school’s educational and research activities are conducted by more than 500 employees, including academic and administrative staff. Among its lecturers are highly-quali",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/1/megafakultet_kompyuternyh_tehnologiy_i_upravleniya.htm",
-  "parent": "final round of RoboCup 2017 in Japan",
+  "parent": "",
   "id": "faculty-1",
   "kind": "faculty",
   "type": "Мегафакультет",
   "url_en": "https://en.itmo.ru/en/faculty/1/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "faculty-103",
+    "name": "Faculty of Control Systems and Robotics"
+   },
+   {
+    "id": "faculty-104",
+    "name": "Faculty of Software Engineering and Computer Systems"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория компьютерной инженерии"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория облачных решений и моделирования"
+   },
+   {
+    "id": "faculty-105",
+    "name": "Faculty of Secure Information Technologies"
+   },
+   {
+    "id": "",
+    "name": "International Scientific and Academic Center \"Security and Safety for Critical Digital Technologies\""
+   },
+   {
+    "id": "",
+    "name": "Cyber Testing Ground – Learning Center"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Validation and Verification of Complex Technical Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Cryptographic Methods of Information Security"
+   },
+   {
+    "id": "",
+    "name": "Youth Robotics Laboratory"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Cyberphysical Systems"
+   },
+   {
+    "id": "faculty-117",
+    "name": "Institute of Advanced Data Transfer Systems"
+   },
+   {
+    "id": "",
+    "name": "Research Center for Advanced Functional Materials and Laser Communication Systems"
+   },
+   {
+    "id": "",
+    "name": ""
+   },
+   {
+    "id": "",
+    "name": "Transnational Scientific and Education UNIFEL Center for Advanced Methods of Materials Research"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Laser Systems"
+   },
+   {
+    "id": "",
+    "name": "Research Center of Microwave Photonics Data Transfer Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Design Methods for Data Transfer Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Single-Photon Detectors and Generators"
+   },
+   {
+    "id": "faculty-119",
+    "name": "Institute of Information and Navigation Systems"
+   },
+   {
+    "id": "faculty-120",
+    "name": "Institute of Intelligent Industrial Technologies"
+   },
+   {
+    "id": "",
+    "name": "Research Laboratory of Technogenic Safety"
+   },
+   {
+    "id": "",
+    "name": "Research Center for Quality Control Technologies in the Aerospace Industry"
+   },
+   {
+    "id": "",
+    "name": "Adaptive and Nonlinear Control Systems Lab"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Architecture and Design Techniques for Embedded Systems and Systems on Chip"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Power Electronics and Automated Electric Drive"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Integrated Navigation and Attitude Reference Systems\""
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Multi-Agent, Distributed and Networked Control Systems"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory of Biomechatronics and Energy-Efficient Robotics (BE2R Lab)"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory of Geometrical Methods in Control and Application"
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "Information Technologies and Programming Faculty",
@@ -20,12 +143,14 @@
   "email": "stankev@itmo.ru",
   "description_en": "The Information Technologies and Programming Faculty is a part of ITMO’s School of Translational Information Technologies. In 1991, Prof. Vladimir Vasilyev and Prof. Vladimir Parfenov established the Computer Technology Department – one of the first computer-related departments in Russia. Its primary aims were to enroll IT talents among school students and train them as high-ranked specialists. Years on, in 2000, the department laid the foundation for the Information Technologies and Programming Faculty, which became one of the leading research and educational centers in programming and software development. The faculty records remarkable success in competitive programming, being the world's only seven-time ACM ICPC champion; among its graduates are also Andrey Breslav and Roman Elizarov who lead the team behind Kotlin programming language, as well as Gennady Korotkevich – the world’s most titled competitive programmer. In total, graduates of the faculty have started over 50 successful IT companies. As of now, the faculty is in the top 3 computer faculties in Russia, including by the average salary of its graduates. The faculty’s mission is to train graduates who can quickly move up to mid-level and senior positions in the fields of software development and AI systems by starting their professional careers during the final years of university. The faculty offers educational programs that train highly-qualified professionals in partnership with the country’s top bightech companies – Yandex, VK, Sberbank, Alfa-Bank, T-Bank, Avito, and many others.The programs feature specialized courses, practical training on real-world projects, internships and further employment opportunities (starting from the third year of studies), and additional stipends. The faculty includes more than 150 employees of leading IT companies in Russia. Annually, over 200 companies welcome the faculty’s students for practical training, internship, and work. Best-performing junior students are offered a number of additional stipends by IT companies. The faculty is situated at a historic building in the heart of St. Petersburg, just 300 meters away from the Peter and Paul Fortress. As part of beginner-level programming courses, students get to work on and defend individual projects. Junior students are placed into groups based on their training levels, with the ability to change their group later; whereas senior students are free to choose their own specializations and some specialized courses. Major-specific courses are taught by industry experts and require students to practice on and defend projects inspired by real-world business problems. Senior students have ample opportunities when it comes to their career tracks; they can choose separate courses and complex specializations. The faculty’s balance between the fundamental and the applied helps address the challenges in programming training associated with the emergence of AI systems and rapidly changing tools, technologies, and processes in software development. The Information Technologies and Programming Faculty is a recognized world leader in training future software developers. Among its faculty members are eight laureates of the President and Government’s Education Awards. Laureates of the President’s Education Award: Andrey Stankevich – an associate professor and the chief coach of the Russian school student team in computer science; Roman Elizarov – a professor and a member of the ICPC international organizing committee; Vladimir Parfenov – a professor and the head of NERC ICPC. Laureates of the Government’s Education Award: Anatoly Shalyto – a professor and the inventor of automatic programming technology; Georgiy Korneev – an associate professor and the deputy head of NERC ICPC; Mikhail Kazakov – an associate professor and the executive director of the ICPC finals. Mike Mirzayanov – an associate professor, the founder and head of Codeforces ; Konstantin Kohkas – an associate professor and a board ",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/7/fakultet_informacionnyh_tehnologiy_i_programmirovaniya.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-7",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/7/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Institute of International Development and Partnership",
@@ -39,7 +164,9 @@
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/17/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Faculty of Applied Informatics",
@@ -48,12 +175,14 @@
   "email": "fpin@itmo.ru",
   "description_en": "The Faculty of Applied Informatics aims to train a new generation of DevOps, programming, and AI professionals. The faculty is a part of ITMO’s School of Translational Information Technologies, which forms up-to-date IT competencies and ties up with the world’s top tech companies in regards to education. Established in 2011, the faculty, which was first known as the Faculty of Infocommunication Technologies, trained specialists in telecommunication, hardware solutions, and communication systems support. But then, due to the boom in the IT sector and emerging technology trends, it was transformed into the Faculty of Applied Informatics and began to focus on state-of-the-art operations fields that cover the entire cycle of development, employment, and maintenance of IT infrastructure, automation of processes, and security of digital services. As to its educational activities, the faculty primarily focuses on training specialists in Ops methodologies of different levels. These include: MobileDevOps, DataOps, and AIOps specialists (mid-level and higher); MobileDevOps, DataOps, and AIOps specialists (mid-level and higher); customers and end users of IT solutions following an Ops approach. customers and end users of IT solutions following an Ops approach. Among the faculty’s partners are top IT companies (Ozon, Yandex, Avito, Obit, Selectel, VK, CROC, Cian, Usergate, and ABP2B), which not only teach students, bringing classroom learning closer to real processes, but also offer internships and individual enhanced stipends for the best ones. At the Faculty of Applied Informatics, student life goes beyond the classroom – here, professional communities and clubs are on the boil, bringing together like-minded people, as well as soon-to-be colleagues and friends. One example being the IT infrastructure club Inview where students can boost their skills in DevOps, SRE, platform engineering, and other relevant fields within and beyond the university. The faculty opened its own coworking space at the Birzhevaya Liniya 16 campus that offers favorable conditions to both students and staff. Here, they can conveniently work on their academic and industrial projects, as well as exchange ideas and simply rest. Additionally, the faculty is home to the Laboratory of Intelligent Services and Applications, or LISA for short. At this laboratory, students can immerse themselves in research and professional activities, partake in ongoing projects guided by the school’s experienced PIs, or launch their own projects. The Faculty of Applied Informatics is a community of future IT leaders where each student gains not only fundamental knowledge but also marketable work experience across in-demand technology fields. DevOps in Development and Management of Information Systems 11.03.02 Infocommunication Technologies and Communication Systems Language Models and Artificial Intelligence 45.03.04 Intelligent Systems in Humanities 11.04.02 Infocommunication Technologies and Communication Systems",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/19/fakultet_prikladnoy_informatiki.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-19",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/19/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Faculty of Technological Management and Innovations",
@@ -67,7 +196,9 @@
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/87/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Institute of Design & Urban Studies",
@@ -76,12 +207,14 @@
   "email": "idu@itmo.ru",
   "description_en": "The Institute of Design & Urban Studies is an educational, project, and research department at ITMO University that promotes interdisciplinary competencies and a scientific approach to solving complex urban problems using sustainable and socially-oriented information technologies. Its mission is to form sustainable, inclusive, and convenient cities with a high quality of life and ample opportunities for fulfilling human potential. 07.04.04 Urban Studies 27.04.07 Research-Driven Technologies and Economics of Innovations",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/88/institut_dizayna_i_urbanistiki.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-88",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/88/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Faculty of Biotechnologies",
@@ -90,12 +223,14 @@
   "email": "biotech@itmo.ru",
   "description_en": "ITMO University’s Faculty of Biotechnologies (or BioTech for short) is a dynamically growing department where biotechnologies and food sciences are developed in close collaboration with the industry. According to Presidential Decree No. 642 , the Russian Federation’s priority fields of scientific and technological development up to 2030 include fields that are able to produce technologies and findings needed to ensure the innovative development of the internal market, the stable position of Russia on the international market. These technologies are expected to bring on the transition towards high-yield agricultural and marine food production, the development and integration of systems for rational application of biological protection measures for plants and animals, the storage and efficient processing of agricultural goods, and, finally, the creation of safe and high-quality food products, including functional ones. Programs at the Faculty of Biotechnologies are headed by PhDs in Biology and associate professors Olesya Volokh (R&I Science&Nutrition Leader at Danone Russia) and Ruslan Al-Shekhadat (CEO of the biotechnology company Innova Plus). The faculty’s advisory board on educational programs includes Artem Ponomarev (co-founder and CEO of Greenwise and head of the non-profit Association of Alternative Food Products Producers ). The Bachelor’s degree program Biotechnology (subject area 19.03.01 Biotechnology) trains versatile biotech specialists familiar with both the theoretical and practical aspects of the development and production of biotech products. During their training, students are able to apply their professional skills in 2-3 different branches of biotech by choosing from various minors: biopharmaceuticals, food biotechnologies, bioinformatics, biostatistics (in collaboration with X7 Clinical Research ), and bioart (in collaboration with ITMO Art & Science Center’s BioArt Lab ). The Master’s degree program FoodTech (subject areas 19.04.01 Biotechnology; 19.04.02 Plant-Based Food Products; 19.04.03 Animal-Based Food Products) trains specialists for the booming market of food technologies. Classes are conducted in Russian or English; an online track is also available. Students are able to change their subject area between the first and second years of studies. By design, 40% of the program curriculum is personalized owing to the large selection of elective disciplines. A large amount of focus is given to networking with representatives of the foodtech community (ENG). Students take internships at companies such as Baltika Breweries (ENG), Bushe Bakeries , Viola , V.M. Gorbatov Federal Research Center of Food Systems , Greenwise (ENG), Grow Food , Danone , re-feel , Heineken , Hlebny Dom , and Jacobs Douwe Egberts . The Master’s degree program Industrial Biotechnology (​​subject area 19.04.01 Biotechnology), a recipient of a scholarship grant from the Vladimir Potanin Foundation , trains future staff for its corporate partners: Innova Plus, GEROPHARM , Rustark , Biosphere Technologies, R-Pharm , and BIOCAD . As part of its network partnership with Almetyevsk State Oil Institute, the program offers a new track for its corporate partner Tatneft . The curriculum is based on the job descriptions of corporate partners; the regular involvement of industry leaders as lecturers expands the students’ career prospects. Students complete internships at companies such as Biotrof , GEROPHARM , RMC Home of Pharmacy , St. Petersburg Scientific Research Institute of Vaccines and Serums , and X7 Clinical Research ). Practicing specialists in the field of food and beverage production are welcome to apply for the faculty’s continuous professional development programs. Admissions into PhD programs at the Faculty of Biotechnologies, with defenses held before academic degree council 09.22.00 are conducted within three subject areas: 2.7.1. Biotechnology of Food Products and Medicinal and Biologically Active Substances (technical science",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/98/fakultet_biotehnologiy.htm",
-  "parent": "",
+  "parent": "School of Life Sciences",
   "id": "faculty-98",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/98/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-116"
  },
  {
   "name_en": "Faculty of Control Systems and Robotics",
@@ -109,7 +244,9 @@
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/103/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Faculty of Software Engineering and Computer Systems",
@@ -118,12 +255,23 @@
   "email": "pikt@itmo.ru",
   "description_en": "The Faculty of Software Engineering and Computer Systems focuses on training specialists in computer systems and cutting-edge programming technologies who will meet the demands of computer and software industries within the next 10 to 20 years. We are training experts for the coming post-information age, or an era of VR, cyberphysical systems, and the Internet of Things (IoT). know firsthand and teach our students how to design computers. The faculty is home to the oldest research and engineering school of computer design. All of the faculty’s staff are practicing scientists, engineers, and leaders in computer technologies; know firsthand and teach our students how to design computers. The faculty is home to the oldest research and engineering school of computer design. All of the faculty’s staff are practicing scientists, engineers, and leaders in computer technologies; teach systems programming technologies, as no application or information service can exist without a reliable operating system, a computational network, a computer cluster or a cloud-based software platform; teach systems programming technologies, as no application or information service can exist without a reliable operating system, a computational network, a computer cluster or a cloud-based software platform; teach programming and develop new programming technologies. At the core of the faculty’s research is software engineering – a promising field of study associated with industrial development and maintenance of software systems within a unified formalized system of methodology and technology; teach programming and develop new programming technologies. At the core of the faculty’s research is software engineering – a promising field of study associated with industrial development and maintenance of software systems within a unified formalized system of methodology and technology; train specialists in the field of programming graphic applications, 3D graphics and animation, design, usability, web development, computer interface design and engineering graphics; train specialists in the field of programming graphic applications, 3D graphics and animation, design, usability, web development, computer interface design and engineering graphics; focus on cutting-edge methods in human-computer interaction. The upcoming human-cyber-physical age calls for a whole new level of integration of biological and computer intelligence; focus on cutting-edge methods in human-computer interaction. The upcoming human-cyber-physical age calls for a whole new level of integration of biological and computer intelligence; implement interdisciplinary training of students in the methods of information processing and programming technologies; implement interdisciplinary training of students in the methods of information processing and programming technologies; delve into the nuances of realistic computer-generated images, holograms, and AR systems. The worldclass knowledge and experience are delivered by the specialists of the Keldysh Institute of Applied Mathematics. delve into the nuances of realistic computer-generated images, holograms, and AR systems. The worldclass knowledge and experience are delivered by the specialists of the Keldysh Institute of Applied Mathematics. learn to develop and design computational systems, from microprocessors to personal computers and smartphones, from the Internet of Things setups to robot control systems, from computer clusters to data processing centers; learn to develop and design computational systems, from microprocessors to personal computers and smartphones, from the Internet of Things setups to robot control systems, from computer clusters to data processing centers; acquire knowledge and skills in programming information systems of the future: cloud computing, AI based on ontologies and databases, data search and processing systems (data mining and big data), and the Internet of Things; acquire knowledge and skills in programming infor",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/104/fakultet_programmnoy_inzhenerii_i_kompyuternoy_tehniki.htm",
-  "parent": "",
+  "parent": "School of Computer Technologies and Control",
   "id": "faculty-104",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/104/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Лаборатория компьютерной инженерии"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория облачных решений и моделирования"
+   }
+  ],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Faculty of Secure Information Technologies",
@@ -132,12 +280,31 @@
   "email": "menshikov@itmo.ru",
   "description_en": "The Faculty of Secure Information Technologies is a modern faculty with a long history that blends academic traditions and an innovative training approach. The faculty aims to produce highly-skilled specialists in information and cybersecurity, functional safety of autonomous transport vehicles, and design of cyberphysical systems for data protection. Our graduates are professionals sought after by Russian and international companies and organizations. The faculty’s laboratories are equipped with state-of-the-art computers, information security tools, and software and hardware complexes developed by leading manufacturers: Positive Technologies, Infotecs, SearchInform, and the Business Espionage Counteraction Laboratory. Some pieces of equipment are used for unique research tasks. Starting their first year, Bachelor’s students are immersed in their future career, actively enhancing their programming skills, researching information security, designing complex integrated security systems, and completing varied internships. The faculty offers a computer cluster for educational environments simulation, alongside different resources for resource-intensive calculations and experiments. During their studies, Master’s students are free to focus on their management skills or opt to pursue an academic career. The faculty actively develops network Master’s programs in cooperation with Russia’s top companies as both executives and future employers. These include Sberbank, Gazprom Neft, Evrika, StarLine, and Elektroavtomatika. The faculty maintains close ties with a number of universities in terms of implementing international educational programs and research activities. For PhD students, the faculty offers programs within the subject area 05.13.19 Methods and Means of Information Security, Information Security. The faculty includes scientific laboratories and centers that conduct fundamental and applied research in the following areas of study: development of information security tools; development of information security tools; functional safety of autonomous transport vehicles; functional safety of autonomous transport vehicles; information processes on the internet and security of the virtual environment; information processes on the internet and security of the virtual environment; intelligent, secure systems for multi-agent interaction, etc. intelligent, secure systems for multi-agent interaction, etc. The faculty supports students in organizing and participating in research studies. In their second year, Bachelor’s students, if having enough competencies, can join one of the ongoing research projects. International Scientific and Academic Center “Security and Safety for Critical Digital Technologies”; International Scientific and Academic Center “Security and Safety for Critical Digital Technologies”; Laboratory of Cryptographic Methods of Information Security; Laboratory of Cryptographic Methods of Information Security; Laboratory of Validation and Verification of Complex Technical Systems. Laboratory of Validation and Verification of Complex Technical Systems. The faculty also boasts several research teams involved in: design and study of cryptographic algorithms and information security methods in cyberphysical systems; design and study of cryptographic algorithms and information security methods in cyberphysical systems; development of purpose-specific systems and quantum communications; development of purpose-specific systems and quantum communications; monitoring of information flows and analysis of dissemination on the internet; monitoring of information flows and analysis of dissemination on the internet; identification of internet users and authorship; identification of internet users and authorship; engineering and technical information security. engineering and technical information security. ITMO teams have been participating in CTF (Capture the Flag) competitions since 2009; four of the university's teams are in the top",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/105/fakultet_bezopasnosti_informacionnyh_tehnologiy.htm",
-  "parent": "",
+  "parent": "School of Computer Technologies and Control",
   "id": "faculty-105",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/105/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "International Scientific and Academic Center \"Security and Safety for Critical Digital Technologies\""
+   },
+   {
+    "id": "",
+    "name": "Cyber Testing Ground – Learning Center"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Validation and Verification of Complex Technical Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Cryptographic Methods of Information Security"
+   }
+  ],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "School of Physics and Engineering",
@@ -151,7 +318,138 @@
   "kind": "faculty",
   "type": "Мегафакультет",
   "url_en": "https://en.itmo.ru/en/faculty/106/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "faculty-121",
+    "name": "Institute of Laser Technologies"
+   },
+   {
+    "id": "",
+    "name": "International Research Laboratory for Micro- and Nanotechnology Lasers"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Biomedical Laser Technologies"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Industrial Laser Technologies"
+   },
+   {
+    "id": "",
+    "name": "Центр коллективного пользования \"Нанотехнологии\""
+   },
+   {
+    "id": "faculty-108",
+    "name": "Faculty of Physics"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория беспроводных устройств для МРТ"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория фотоники функциональных наноматериалов"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория магнитного резонанса в медицине"
+   },
+   {
+    "id": "",
+    "name": "International Research and Educational Center for Nanophotonics and Metamaterials"
+   },
+   {
+    "id": "faculty-124",
+    "name": "Research and Educational Center for Photonics and Optical IT"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Quantum Processes and Measurements"
+   },
+   {
+    "id": "",
+    "name": "International Research Center of Biophotonics, Optical and Quantum Information"
+   },
+   {
+    "id": "",
+    "name": "International Institute of Photonics and Optoinformatics"
+   },
+   {
+    "id": "",
+    "name": ""
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Digital and Display Holography"
+   },
+   {
+    "id": "",
+    "name": "International Scientific-Technical Center for Computational Optics, Photonics and Imaging"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Mathematical Research Methods of Complex Physical Systems\""
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Networking Technologies in Distributed Computer Systems\""
+   },
+   {
+    "id": "",
+    "name": "International laboratory \"Advanced Photonic Materials and Technologies\""
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Technosphere Safety\""
+   },
+   {
+    "id": "",
+    "name": "Research Center for Optical Material Engineering"
+   },
+   {
+    "id": "",
+    "name": "International Research Laboratory \"Lighting Design for an Urban Environment\""
+   },
+   {
+    "id": "department-513",
+    "name": "International Research and Educational Center for Physics of Nanostructures"
+   },
+   {
+    "id": "",
+    "name": "Center of Optical Information Technologies"
+   },
+   {
+    "id": "",
+    "name": "Optics of Quantum Nanostructures"
+   },
+   {
+    "id": "",
+    "name": "Anisotropic and Optical Active Nanostructures"
+   },
+   {
+    "id": "",
+    "name": "Nonlinear Optics of Condensed Media"
+   },
+   {
+    "id": "",
+    "name": "Photophysics of Surface"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Light-Emitting Carbon Quantum Nanostructures"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Hybrid Nanostructures for Biomedicine\""
+   },
+   {
+    "id": "",
+    "name": "International Laboratory of Light-Matter Coupling in Nanostructures"
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "School of Translational Information Technologies",
@@ -165,7 +463,50 @@
   "kind": "faculty",
   "type": "Мегафакультет",
   "url_en": "https://en.itmo.ru/en/faculty/107/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "faculty-127",
+    "name": "Institute for Artificial Intelligence"
+   },
+   {
+    "id": "department-480",
+    "name": "National Center for Cognitive Research"
+   },
+   {
+    "id": "",
+    "name": ""
+   },
+   {
+    "id": "faculty-7",
+    "name": "Information Technologies and Programming Faculty"
+   },
+   {
+    "id": "faculty-19",
+    "name": "Faculty of Applied Informatics"
+   },
+   {
+    "id": "faculty-114",
+    "name": "Artificial Intelligence Technologies Faculty"
+   },
+   {
+    "id": "faculty-123",
+    "name": "Institute of Applied Computer Science"
+   },
+   {
+    "id": "faculty-88",
+    "name": "Institute of Design & Urban Studies"
+   },
+   {
+    "id": "department-509",
+    "name": "Game Development School"
+   },
+   {
+    "id": "department-477",
+    "name": "Higher School of Digital Culture"
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "Faculty of Physics",
@@ -174,12 +515,31 @@
   "email": "edu@physics.itmo.ru",
   "description_en": "ITMO University’s Faculty of Physics grew out of the International Research and Educational Center for Nanophotonics and Metamaterials, which was founded in 2009. Over the course of ten years, what started as a small laboratory became a large scientific and educational department. The faculty is working in over 20 fields of nanophotonics, quantum optics, optoelectronics, optomechanics, biophotonics, radiophysics, and new materials. Its staff includes more than 300 employees: over 80 PhD and DSc holders and around 100 PhD, Master’s, and Bachelor’s students. The concept of new physics represents the ongoing development of the faculty that encompasses new research fields, advanced educational approaches, creative freedom, confidence in young colleagues, support of the staff’s personal growth, and a strong administrative team. The faculty is home to four large-scale laboratories: optical (near-field optical microscopy, Raman scattering, dark-field and atomic force microscopy, femtosecond lasers, 2D and 3D laser lithography, and laser parametric amplifier Light Conversion); optical (near-field optical microscopy, Raman scattering, dark-field and atomic force microscopy, femtosecond lasers, 2D and 3D laser lithography, and laser parametric amplifier Light Conversion); microwave (anechoic chambers, network analyzers, amplifiers, and milling machines); microwave (anechoic chambers, network analyzers, amplifiers, and milling machines); perovskite optoelectronics (glove boxes, vacuum chambers, and opportunities for surface measurements, and device fabrication); perovskite optoelectronics (glove boxes, vacuum chambers, and opportunities for surface measurements, and device fabrication); chemical (equipped with everything from simple devices such as magnetic stirrers, centrifuges, and others to analytical equipment for high sensitivity and accuracy of obtained results). chemical (equipped with everything from simple devices such as magnetic stirrers, centrifuges, and others to analytical equipment for high sensitivity and accuracy of obtained results). Additionally, the faculty implements two Bachelor’s and three Master’s programs. 03.03.02 Physics 16.03.01 Physics and Engineering Advanced Quantum and Nanophotonic Systems",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/108/fizicheskiy_fakultet.htm",
-  "parent": "",
+  "parent": "School of Physics and Engineering",
   "id": "faculty-108",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/108/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Лаборатория беспроводных устройств для МРТ"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория фотоники функциональных наноматериалов"
+   },
+   {
+    "id": "",
+    "name": "Лаборатория магнитного резонанса в медицине"
+   },
+   {
+    "id": "",
+    "name": "International Research and Educational Center for Nanophotonics and Metamaterials"
+   }
+  ],
+  "parent_id": "faculty-106"
  },
  {
   "name_en": "ChemBio Cluster",
@@ -193,7 +553,9 @@
   "kind": "faculty",
   "type": "Кластер",
   "url_en": "https://en.itmo.ru/en/faculty/110/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Artificial Intelligence Technologies Faculty",
@@ -202,12 +564,14 @@
   "email": "dx@itmo.ru",
   "description_en": "The Artificial Intelligence Technologies Faculty is part of ITMO’s School of Translational Information Technologies . Its mission is to train highly-qualified specialists in the field of artificial intelligence. The faculty’s educational activities are carried out in close collaboration with ITMO’s two major AI research centers headed by Prof. Alexander Boukhanovsky , DSc in engineering: Research Center “Strong AI in Industry ;” Research Center “Strong AI in Industry ;” Competence Center of the National Technological Initiative in machine learning and cognitive technologies – National Center for Cognitive Research . Competence Center of the National Technological Initiative in machine learning and cognitive technologies – National Center for Cognitive Research . The faculty currently has over 40 employees, most of them, including all PIs (principal investigators – heads of research groups), are PhD or DSc holders and researchers at the Research Center “Strong AI in Industry” and the National Center for Cognitive Research. This approach allows the faculty to share with their students not only the latest knowledge in their fields of study but also their unique experience. As they enter the faculty’s programs, students gain both theoretical knowledge and academic practice, as well as hands-on experience in working on genuine projects by the research centers that are being developed for the benefit of the faculty’s corporate and industrial partners. AI Engineering (02.03.03 Mathematical Support and Administration of Information Systems and 11.03.02. Infocommunication Technologies and Communication Systems) AI Engineering (02.03.03 Mathematical Support and Administration of Information Systems and 11.03.02. Infocommunication Technologies and Communication Systems) Big Data and Machine Learning (01.04.02 Applied Mathematics and Computer Science) Big Data and Machine Learning (01.04.02 Applied Mathematics and Computer Science) AI in the Industry (09.04.02 Information Systems and Technologies) AI in the Industry (09.04.02 Information Systems and Technologies) Artificial Intelligence and Behavioral Economics (01.04.02 Applied Mathematics and Computer Science and 09.04.04 Software Engineering) Artificial Intelligence and Behavioral Economics (01.04.02 Applied Mathematics and Computer Science and 09.04.04 Software Engineering) Additionally, the faculty offers a range of PhD programs in the following subject areas: 1.2.1. Artificial Intelligence and Machine Learning 1.2.1. Artificial Intelligence and Machine Learning 1.2.2. Mathematical Modeling, Numerical Methods and Program Systems 1.2.2. Mathematical Modeling, Numerical Methods and Program Systems 1.2.3. Theoretical Computer Science, Cybernetics 1.2.3. Theoretical Computer Science, Cybernetics 2.3. Information Technology and Telecommunications 2.3. Information Technology and Telecommunications 2.3.4. Management in Organizational Systems 2.3.4. Management in Organizational Systems 2.3.5. Mathematical and Software Support for Computing Systems, Complexes and Computer Networks 2.3.5. Mathematical and Software Support for Computing Systems, Complexes and Computer Networks 2.3.8. Computer Science and Information Processes 2.3.8. Computer Science and Information Processes Students have the opportunity to do their practical training and internships, as well as work on projects at the university’s many industrial partners such as Sberbank, Gazprom Neft, VK, Tatneft, Rosneft, Datana, Huawei, Alfa-Bank, T-Bank, MTS, X5 Group, and many others.",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/114/fakultet_tehnologiy_iskusstvennogo_intellekta.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-114",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/114/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Higher School of Engineering and Technology",
@@ -221,7 +585,42 @@
   "kind": "faculty",
   "type": "Школа",
   "url_en": "https://en.itmo.ru/en/faculty/115/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "department-457",
+    "name": "Research Center of Light-Guided Photonics"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Fiber Bragg Grating Inscription"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Programmable Electronics"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Light-Guided Photonics"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Modeling and Programming"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Assembly and Alignment of Light-Guided Photonic Devices"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Technological Methods and Devices"
+   },
+   {
+    "id": "department-506",
+    "name": "Scientific and Production Center \"Precision Electromechanics\""
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "School of Life Sciences",
@@ -235,7 +634,54 @@
   "kind": "faculty",
   "type": "Мегафакультет",
   "url_en": "https://en.itmo.ru/en/faculty/116/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "faculty-128",
+    "name": "Faculty of Chemical & Biological Engineering"
+   },
+   {
+    "id": "department-496",
+    "name": "Center for Chemical Engineering"
+   },
+   {
+    "id": "faculty-129",
+    "name": "Факультет инфонаук о жизни"
+   },
+   {
+    "id": "",
+    "name": "Центр искусственного интеллекта в агробиотехнологиях"
+   },
+   {
+    "id": "",
+    "name": "Центр инженерных разработок \"Инженерная инфохимия\""
+   },
+   {
+    "id": "department-444",
+    "name": "Educational and Scientific Center for Life Sciences"
+   },
+   {
+    "id": "department-489",
+    "name": "Infochemistry Scientific Center"
+   },
+   {
+    "id": "faculty-98",
+    "name": "Faculty of Biotechnologies"
+   },
+   {
+    "id": "faculty-118",
+    "name": "Faculty of Ecotechnologies"
+   },
+   {
+    "id": "",
+    "name": "\"Life Sciences\" Education Center for School Students"
+   },
+   {
+    "id": "",
+    "name": "International Research Center \"Biotechnologies of the Third Millennium\""
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "Institute of Advanced Data Transfer Systems",
@@ -244,12 +690,43 @@
   "email": "",
   "description_en": "The Institute of Advanced Data Transfer Systems is a scientific and educational department at ITMO University that trains specialists in the technical and applied development of next-gen data reception and transfer devices and laser equipment, as well as fundamental research in physical materials science and the physics of lasers based on the global integration of physical and digital systems. Advanced Laser and Synchrotron Technologies 12.04.05 Laser Engineering and Laser Technologies 05.11.07 Optical and Opto-Electronic Devices and Complexes; 05.11.07 Optical and Opto-Electronic Devices and Complexes; 05.16.01 Metallurgy and Heat Treatment of Metals and Alloys; 05.16.01 Metallurgy and Heat Treatment of Metals and Alloys; Master’s and PhD students are involved in the institute's research and engineering projects, alongside the educational process. work in their field at specialized companies or productions; work in their field at specialized companies or productions; conduct research, design, and production activities at ITMO’s laboratories and centers; conduct research, design, and production activities at ITMO’s laboratories and centers; teach at ITMO and other educational institutions in Russia and abroad. teach at ITMO and other educational institutions in Russia and abroad. radio photonic data transmission systems; radio photonic data transmission systems; optical and radio wireless communications, including quantum technologies; optical and radio wireless communications, including quantum technologies; optoelectronic software for cyberphysical systems; optoelectronic software for cyberphysical systems; novel materials-based elements, devices, and systems in optoelectronics and electronics; novel materials-based elements, devices, and systems in optoelectronics and electronics; assembly technologies of data transfer systems; assembly technologies of data transfer systems; promising functional materials in photonics and microelectronics; promising functional materials in photonics and microelectronics; modeling of optical, electric, heat, and mechanic properties of functional materials and devices; modeling of optical, electric, heat, and mechanic properties of functional materials and devices; megascience laser and synchrotron technologies; megascience laser and synchrotron technologies; Among the institute’s partners are Russian and international centers and production companies: National Technological Initiative's Center of Competencies in Photonics; National Technological Initiative's Center of Competencies in Photonics; Scientific and Production Association of Special Materials; Scientific and Production Association of Special Materials;",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/117/institut_perspektivnyh_sistem_peredachi_dannyh.htm",
-  "parent": "",
+  "parent": "School of Computer Technologies and Control",
   "id": "faculty-117",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/117/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Research Center for Advanced Functional Materials and Laser Communication Systems"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Laser Systems and Technologies\""
+   },
+   {
+    "id": "",
+    "name": "Transnational Scientific and Education UNIFEL Center for Advanced Methods of Materials Research"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Laser Systems"
+   },
+   {
+    "id": "",
+    "name": "Research Center of Microwave Photonics Data Transfer Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Design Methods for Data Transfer Systems"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Single-Photon Detectors and Generators"
+   }
+  ],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Faculty of Ecotechnologies",
@@ -258,12 +735,19 @@
   "email": "greentech@itmo.ru",
   "description_en": "The Faculty of Ecotechnologies, or GreenTech, is an interdisciplinary, socially-beneficial faculty focused on the issues of ecology and sustainability. The faculty aims to pave the way towards a sustainable future through a synthesis of cutting-edge research, contemporary education, and collaboration with industrial and educational partners, as well as the state and the public. to be a world-class scientific and educational center that trains highly-qualified, competitive specialists in green technology, technosphere safety, and sustainability who can think systemically and outside the box, while taking into account the ever-changing global trends and challenges; to be a world-class scientific and educational center that trains highly-qualified, competitive specialists in green technology, technosphere safety, and sustainability who can think systemically and outside the box, while taking into account the ever-changing global trends and challenges; to provide interdisciplinary education and conduct scientific research with an emphasis on solving global challenges to enhance ecological and technosphere safety and reduce human impact on the environment and climate: innovative ecotechnologies; assessment of ecological risks and their management; sustainable development; circular economy; recycling and industrial symbiosis. to provide interdisciplinary education and conduct scientific research with an emphasis on solving global challenges to enhance ecological and technosphere safety and reduce human impact on the environment and climate: assessment of ecological risks and their management; assessment of ecological risks and their management; The relevance and prospects of the faculty’s focus are confirmed by a number of strategic documents and global and national programs, including UNESCO's Sustainable Development Goals and the Scientific and Technological Development Strategy of Russia. biodiversity and protected natural areas; biodiversity and protected natural areas; digital technologies for enhanced environmental sustainability. digital technologies for enhanced environmental sustainability. Ecotechnologies and Sustainable Development 05.03.06 Ecology and Natural Resource Management Sustainable Development and Environmental Management 20.04.01 Technosphere Safety 27.04.05 Innovation Studies 18.04.02 Energy- and Resource Saving Processes in Chemical Technology, Petroleum Chemistry and Biotechnology 20.04.01 Technosphere Safety 4.3 Agricultural Engineering and Food Technology GreenTech trains highly-skilled and sought-after specialists in ecology and sustainable development who can build a future-proof career as: environmental ecologists (at enterprises); environmental ecologists (at enterprises);",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/118/fakultet_ekotehnologiy.htm",
-  "parent": "",
+  "parent": "School of Life Sciences",
   "id": "faculty-118",
   "kind": "faculty",
   "type": "Факультет",
   "url_en": "https://en.itmo.ru/en/faculty/118/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "\"Life Sciences\" Education Center for School Students"
+   }
+  ],
+  "parent_id": "faculty-116"
  },
  {
   "name_en": "Institute of Information and Navigation Systems",
@@ -272,12 +756,14 @@
   "email": "ins@corp.ifmo.ru",
   "description_en": "The Institute of Information and Navigation Systems specializes in the development of information and navigation systems and complexes that manage and support the movement of any portable objects. The institute implements programs in motion control and navigation systems for both Bachelor’s and Master’s students. One of its partners is Elektropribor, Russia's leading company in precision instrumentation and high-precision navigation. During their studies in the institute’s programs, young specialists are involved in research, design, engineering and administrative activities, as well as have the chance to go on business trips inside or outside of Russia to participate in various conferences and perform contract projects in Germany, India, China, Norway, the UK, and other countries. Apart from industrial partners, the institute works closely with St. Petersburg State University, St. Petersburg Electrotechnical University \"LETI\", and St. Petersburg State University of Aerospace Instrumentation.",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/119/institut_informacionno-navigacionnyh_sistem.htm",
-  "parent": "",
+  "parent": "School of Computer Technologies and Control",
   "id": "faculty-119",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/119/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Institute of Intelligent Industrial Technologies",
@@ -286,12 +772,19 @@
   "email": "inbeliavskaia@itmo.ru",
   "description_en": "The Institute of Intelligent Industrial Technologies is engaged in the study and development of novel competitive serial products based on systems and technologies of digital production. As part of the Russian Government Decree No. 218, the institute established a high-tech production of next-gen high-precision ultrafast electromechanical power drives with the use of a roller screw drive for industrial and special applications; As part of the Russian Government Decree No. 218, the institute established a high-tech production of next-gen high-precision ultrafast electromechanical power drives with the use of a roller screw drive for industrial and special applications; Within the framework of the event No. 1.4 of the Federal Target Program \"Research and development in priority areas of development of the scientific and technical complex of Russia for 2014-2020,\" the institute developed a new contactless magnetic method of non-destructive testing of pipelines with variable magnetization of metal and used this method to run experimental development of a prototype control and measuring in-line robotic complex, providing a solution to the problem of timely diagnosis of corrosion damage to underground pipelines of heating networks of small diameters without opening them for the energy field and housing and communal services (beginning September 19, 2014 – ending December 31, 2016); Within the framework of the event No. 1.4 of the Federal Target Program \"Research and development in priority areas of development of the scientific and technical complex of Russia for 2014-2020,\" the institute developed a new contactless magnetic method of non-destructive testing of pipelines with variable magnetization of metal and used this method to run experimental development of a prototype control and measuring in-line robotic complex, providing a solution to the problem of timely diagnosis of corrosion damage to underground pipelines of heating networks of small diameters without opening them for the energy field and housing and communal services (beginning September 19, 2014 – ending December 31, 2016); Research on the creation of the design concept and functions of high-tech production of a serial innovative product on the example of an electromechanical drive (beginning June 15, 2018 - ending July 31, 2021); Research on the creation of the design concept and functions of high-tech production of a serial innovative product on the example of an electromechanical drive (beginning June 15, 2018 - ending July 31, 2021); Creation of a robotic flaw detector with a phased electromagnetic acoustic antenna array and contactless ultrasonic wave input (beginning October 25, 2017 - December 31, 2020) Creation of a robotic flaw detector with a phased electromagnetic acoustic antenna array and contactless ultrasonic wave input (beginning October 25, 2017 - December 31, 2020) Development of an express diagnostic method based on transverse SH waves and creation of a prototype of automated diagnostic equipment for high-speed search for crack-like defects and metal loss of pipelines strapping compressor and pumping stations (beginning October 3, 2016 – ending December 31, 2018. Development of an express diagnostic method based on transverse SH waves and creation of a prototype of automated diagnostic equipment for high-speed search for crack-like defects and metal loss of pipelines strapping compressor and pumping stations (beginning October 3, 2016 – ending December 31, 2018. Dr. Fedosovsky was awarded the Prize in science and technology of the Government of the Russian Federation. The institute includes four laboratories involved in applied studies and projects in mathematical and economic modeling and analysis of production processes, cyberphysical systems, industrial robotic systems and high-performance industrial technologies, and information control systems with AI elements. All specialized courses are delivered at the company Diakont. Over the course of th",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/120/institut_intellektualnyh_promyshlennyh_tehnologiy.htm",
-  "parent": "Russian Government Decree No",
+  "parent": "School of Computer Technologies and Control",
   "id": "faculty-120",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/120/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Research Laboratory of Technogenic Safety"
+   }
+  ],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Institute of Laser Technologies",
@@ -300,12 +793,27 @@
   "email": "gvodintsova@itmo.ru",
   "description_en": "The Institute of Laser Technologies was established in the summer of 2022 and brought together professionals competent in creating, developing, and advancing laser technologies. As of now, the institute’s faculty includes 4 DSc and 14 PhD holders, 25 PhD students, and over 40 young scientists. The institute’s activities date back to 1963 when Konstantin Krylov, an expert in the theory of electromagnetic fields and their interaction with electron beams, started the Department of Quantum Electronics – the first of its kind in the USSR. Two years later, his student and now a senior researcher at the Institute of Laser Technologies Vadim Veiko launched the university’s first Laboratory of Laser Technologies and later, in 1988, the Department of Laser Technologies. Later on, both departments were renamed: the Department of Quantum Electronics became the Department of Laser Technologies and Biomedical Optics, and the Department of Laser Technologies – the Department of Laser Technologies and Ecological Instrumentation. The departments had existed separately up until 2015 when they merged into a single unit now known as the Institute of Laser Technologies. to encourage the efficient development of laser technologies, including special-use laser equipment, at ITMO to increase its competitiveness on the national and global markets associated with educational, scientific, engineering, and innovative activities; to encourage the efficient development of laser technologies, including special-use laser equipment, at ITMO to increase its competitiveness on the national and global markets associated with educational, scientific, engineering, and innovative activities; to create favorable conditions for training and further holistic development of highly-skilled specialists in laser technologies; to create favorable conditions for training and further holistic development of highly-skilled specialists in laser technologies; to foster a productive environment for symbiosis of laser technologies and other branches of science and technologies, medicine and art. to foster a productive environment for symbiosis of laser technologies and other branches of science and technologies, medicine and art. The Institute of Laser Technologies enrolls and trains specialists within the eponymous Bachelor’s and Master’s programs Laser Technologies, which currently have a total student count of around 200 students. Bachelor’s students spend the first two years studying the core curriculum, while later on, they proceed to their individual learning tracks with a focus on research, engineering, or entrepreneurship. Early in their training, students are free to join one of the institute’s three laboratories: the International Research Laboratory for Micro- and Nanotechnology Lasers, the Laboratory of Industrial Laser Technologies, and the Laboratory of Biomedical Laser Technologies. Master’s and PhD students can work on their research, engineering, and technical projects and turn them into startups thanks to the institute’s Laser Technology Transfer Center, which can help them promote their ideas and find industrial partners and potential customers. At the institute, students find, come up with, and develop projects that become useful in various fields of production, medicine, and even art. To date, the institute can boast several completed projects: technologies of anilox polygraphic rolls cleaning (result: the Laser innovative enterprise is running efficiently); technologies of anilox polygraphic rolls cleaning (result: the Laser innovative enterprise is running efficiently); technologies of color laser labeling of metals for identification and counterfeit protection purposes (result: the innovative enterprise Prokolorit was opened); technologies of color laser labeling of metals for identification and counterfeit protection purposes (result: the innovative enterprise Prokolorit was opened); an automated laser technological complex for structuring dental implants",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/121/institut_lazernyh_tehnologiy.htm",
-  "parent": "electronic manufacturing project within the Decree No",
+  "parent": "School of Physics and Engineering",
   "id": "faculty-121",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/121/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "International Research Laboratory for Micro- and Nanotechnology Lasers"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Biomedical Laser Technologies"
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Industrial Laser Technologies"
+   }
+  ],
+  "parent_id": "faculty-106"
  },
  {
   "name_en": "Institute of Applied Computer Science",
@@ -314,12 +822,14 @@
   "email": "",
   "description_en": "The Institute of Applied Computer Science trains specialists in software development, bioinformatics, machine learning, and data analysis. Our lecturers and students publish their papers in international journals, take part in conferences, receive grants, and work on scientific and applied projects. 8 Master’s programs in software, machine learning, data analysis, and bioinformatics; 8 Master’s programs in software, machine learning, data analysis, and bioinformatics; 250+ students with various experiences and backgrounds from more than 30 universities across Russia; 250+ students with various experiences and backgrounds from more than 30 universities across Russia; 50+ lecturers, including the Ilya Segalovich Award laureates, ICPC winners and coaches, researchers, and IT experts. 50+ lecturers, including the Ilya Segalovich Award laureates, ICPC winners and coaches, researchers, and IT experts. Artyomov Lab (Washington University in St. Louis). Artyomov Lab (Washington University in St. Louis). Bioinformatics and Systems Biology (in English); Bioinformatics and Systems Biology (in English); Deep Learning and Generative AI (in Russian); Deep Learning and Generative AI (in Russian); Programming and Artificial Intelligence (in Russian) ; Programming and Artificial Intelligence (in Russian) ; Software Engineering (in Russian and English) ; Software Engineering (in Russian and English) ; Tools for Software Development and Analysis (in Russian) ; Tools for Software Development and Analysis (in Russian) ; Web Scale Systems (in Russian and English ) . Web Scale Systems (in Russian and English ) .",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/123/institut_prikladnyh_kompyuternyh_nauk.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-123",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/123/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Research and Educational Center for Photonics and Optical IT",
@@ -328,12 +838,63 @@
   "email": "tsypkinan@itmo.ru",
   "description_en": "In 2002, ITMO University established the Faculty of Photonics and Optoinformatics and the eponymous program for Specialist’s students, the first of its kind in Russia, which were meant to respond to the rapid growth of the emerging field that develops optical technologies for ultrafast transfer, processing, and recording of information, as well as creates high-speed optical computers and AI systems. The initial program gave rise to present-day educational programs for Bachelor’s and Master’s students that are reviewed and updated following the field’s new advances and trends. In December 2022, the newly formed Research and Educational Center for Photonics and Optoinformatics became the heir of the department. The center now includes: Laboratory of Quantum Processes and Measurements; Laboratory of Quantum Processes and Measurements; International Research Center of Biophotonics, Optical and Quantum Information; International Research Center of Biophotonics, Optical and Quantum Information; Research Center for Optical Material Engineering; Research Center for Optical Material Engineering; Laboratory of Digital and Display Holography. Laboratory of Digital and Display Holography. As of now, the Research and Educational Center for Photonics and Optoinformatics is a department within the School of Physics and Engineering that possesses extensive competencies in such fields as femtosecond and nonlinear optics, quantum technologies, quantum informatics and optoinformatics, optical materials science, diagnostics and study of cultural heritage objects using optical methods, etc. The center’s staff are at the forefront of such major scientific and industrial fields as terahertz aquaphotonics and quantum communications. Our researchers are the first in Russia to implement quantum communications in practice. The center's know-hows are applied to build the existing (Moscow-St. Petersburg and Moscow-Nizhny Novgorod) and future (Moscow-Vladivostok) quantum networks. The partner of the center is Quanttelecom LLC. The Research and Educational Center for Photonics and Optoinformatics currently has 160 students who actively take part in ongoing projects in photonics and optoinformatics requested by the Russian Ministry of Science and Higher Education and within Russian and international grant programs and contracts. During their studies, students obtain unique experience in building innovative products and acquire highly sought-after skills and competencies. Photonics and Optoinformatics (12.03.03 Photonics and Optoinformatics; in Russian) Applied Photonics (12.04.03 Photonics and Optoinformatics; in Russian)",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/124/nauchno-obrazovatelnyy_centr_fotoniki_i_optoinformatiki.htm",
-  "parent": "",
+  "parent": "School of Physics and Engineering",
   "id": "faculty-124",
   "kind": "faculty",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/faculty/124/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Laboratory of Quantum Processes and Measurements"
+   },
+   {
+    "id": "",
+    "name": "International Research Center of Biophotonics, Optical and Quantum Information"
+   },
+   {
+    "id": "",
+    "name": "International Institute of Photonics and Optoinformatics"
+   },
+   {
+    "id": "",
+    "name": ""
+   },
+   {
+    "id": "",
+    "name": "Laboratory of Digital and Display Holography"
+   },
+   {
+    "id": "",
+    "name": "International Scientific-Technical Center for Computational Optics, Photonics and Imaging"
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Mathematical Research Methods of Complex Physical Systems\""
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Networking Technologies in Distributed Computer Systems\""
+   },
+   {
+    "id": "",
+    "name": "International laboratory \"Advanced Photonic Materials and Technologies\""
+   },
+   {
+    "id": "",
+    "name": "International Laboratory \"Technosphere Safety\""
+   },
+   {
+    "id": "",
+    "name": "Research Center for Optical Material Engineering"
+   },
+   {
+    "id": "",
+    "name": "International Research Laboratory \"Lighting Design for an Urban Environment\""
+   }
+  ],
+  "parent_id": "faculty-106"
  },
  {
   "name_en": "ITMO Advanced Engineering School in Interdisciplinary Engineering",
@@ -342,12 +903,19 @@
   "email": "",
   "description_en": "The ITMO Advanced Engineering School in Interdisciplinary Engineering was established in 2022 at ITMO University as part of the federal project Advanced Engineering Schools that aims to train highly-qualified specialists for high-tech, export-oriented sectors of the economy to ensure the country’s technological sovereignty. Its main goal is to produce a new generation of engineers who possess the core competencies needed to accelerate digital transformation in emerging sectors of business and production. implement Master’s programs with a focus on practice and creation of MVPs (minimum viable products); implement Master’s programs with a focus on practice and creation of MVPs (minimum viable products); deliver courses aimed at developing a data-driven approach, soft skills, and fundamentals of entrepreneurship in students; deliver courses aimed at developing a data-driven approach, soft skills, and fundamentals of entrepreneurship in students; develop network educational programs with partner universities. develop network educational programs with partner universities. conduct research activities in a range of fields, including AI, biotechnology, photonics, and others; conduct research activities in a range of fields, including AI, biotechnology, photonics, and others; design and optimize biotechnologies, create nanobiosensors, study heart diseases, produce porous liquids, etc. design and optimize biotechnologies, create nanobiosensors, study heart diseases, produce porous liquids, etc. organize conferences, hackathons, workshops, and schools for young scientists and specialists; organize conferences, hackathons, workshops, and schools for young scientists and specialists; hold strategic sessions for defining goals and areas of development; hold strategic sessions for defining goals and areas of development; participate in projects intended for interaction with the country’s regions and facilitate partner relationships. participate in projects intended for interaction with the country’s regions and facilitate partner relationships. Training qualified engineering experts The school aims to train future PEs (principal engineers) in chemistry, photonics, biotechnology, and software engineering who can produce MVPs for industrial partners. Training qualified engineering experts The school aims to train future PEs (principal engineers) in chemistry, photonics, biotechnology, and software engineering who can produce MVPs for industrial partners. Collaborative educational programs Among the school’s objectives is to develop and implement Master’s programs in collaboration with partner universities and companies, such as Tatneft and Mordovia State University. Collaborative educational programs Among the school’s objectives is to develop and implement Master’s programs in collaboration with partner universities and companies, such as Tatneft and Mordovia State University. Research activities Jointly with its industrial partners, the school develops innovative technologies and products. Research activities Jointly with its industrial partners, the school develops innovative technologies and products. Developing engineering competencies The school sets up students with engineering, management, and soft skills to efficiently transfer engineering solutions into production. Developing engineering competencies The school sets up students with engineering, management, and soft skills to efficiently transfer engineering solutions into production. Systemic cooperation with regions The school offers educational programs and projects in Russian regions (e.g., Almetyevsk and Saransk) to promote partnerships and improve the technological level of regional enterprises. Systemic cooperation with regions The school offers educational programs and projects in Russian regions (e.g., Almetyevsk and Saransk) to promote partnerships and improve the technological level of regional enterprises. Sustainable Chemistry for Energy Technologies; Sustainable Chemi",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/125/peredovaya_inzhenernaya_shkola_itmo_interdisciplinarnogo_inzhiniringa.htm",
-  "parent": "federal project Advanced Engineering Schools that aims to train highly-qualified specialists for high-tech",
+  "parent": "",
   "id": "faculty-125",
   "kind": "faculty",
   "type": "Школа",
   "url_en": "https://en.itmo.ru/en/faculty/125/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "",
+    "name": "Центр инженерных разработок \"Промышленная биотехнология\""
+   }
+  ],
+  "parent_id": ""
  },
  {
   "name_en": "Institute for Artificial Intelligence",
@@ -356,12 +924,23 @@
   "email": "project.support@itmo.ru",
   "description_en": "In 2024, the Institute for Artificial Intelligence united all ITMO research centers and laboratories specializing in different branches of AI and associated digital technologies. The institute includes two federal research centers and 15 scientific laboratories. Around 400 people are employed at the institute, making it one of the major centers of AI competencies and innovations in Russia. The institute has absorbed 15 years of R&D experience by nine scientific and production schools and united efficient teams that have implemented around 50 projects for various branches of production, business, and the social sphere.",
   "url_ru": "https://www.ifmo.ru/ru/viewfaculty/127/institut_iskusstvennogo_intellekta.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "faculty-127",
   "kind": "faculty",
   "type": "Институт",
   "url_en": "https://en.itmo.ru/en/faculty/127/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [
+   {
+    "id": "department-480",
+    "name": "National Center for Cognitive Research"
+   },
+   {
+    "id": "",
+    "name": "Laboratory for Composite AI"
+   }
+  ],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "Center of Usability and Mixed Reality",
@@ -375,7 +954,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/405/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Е-Governance Center",
@@ -389,7 +970,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/406/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "International Research and Education Center Autodesk",
@@ -403,7 +986,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/410/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Center for Development of Intellectual Property",
@@ -417,7 +1002,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/436/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Educational and Scientific Center for Life Sciences",
@@ -426,12 +1013,14 @@
   "email": "eanazarova@itmo.ru",
   "description_en": "The Research and Educational Center of Chemical Engineering and Biotechnology has been created in order to qualify specialists with chosen additional educational programs of ITMO University. The main goal is to improve the academic programs along with the bachelor’s and scientific researcher’s chemical and biotechnological background. It’s supposed to be done by expanding research activity in educational process and through creating innovative environment for professor’s, lector’s and employee’s effective scientific development.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/444/nauchno-obrazovatelnyy_centr_himicheskogo_inzhiniringa_i_biotehnologiy.htm",
-  "parent": "",
+  "parent": "School of Life Sciences",
   "id": "department-444",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/444/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-116"
  },
  {
   "name_en": "Research Center of Light-Guided Photonics",
@@ -440,12 +1029,14 @@
   "email": "",
   "description_en": "The Research Institute of Light-Guided Photonics is actively engaged in research activities in the development of fiber-optic sensors. The institute brings together a well-balanced community of professionals who are capable of solving wide-ranging educational and research tasks in the field of optical communication, optical fiber measurements, and programmable optoelectronics. The institute consists of six laboratories that are involved in the following activities: development of optoelectronic devices and their casing; programming of integrated circuits and microprocessors; mathematical modeling of signal processing algorithms and fiber-optic instruments; design of applied processing programs and real-time signal visualization; Together with their colleagues from Russia’s leading research centers and international laboratories, the institute’s researchers are developing high-precision fiber-optic devices, namely fiber-optic gyroscopes, fiber-optic current and voltage sensors, fiber-optic hydrophones, and so on. The results of the institute’s research are actively used and introduced in domestic measurement and navigation systems. Its specialists have various competencies and teach Master’s programs in technical physics, graduates of which make their way to international laboratories and high-tech companies.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/457/nauchno-issledovatelskiy_centr_svetovodnoy_fotoniki.htm",
-  "parent": "",
+  "parent": "Higher School of Engineering and Technology",
   "id": "department-457",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/457/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-115"
  },
  {
   "name_en": "Research Center for Quality Control Technologies in the Aerospace Industry",
@@ -454,12 +1045,14 @@
   "email": "",
   "description_en": "The Research Center for Quality Control Technologies in the Aerospace Industry was established in 2009 to develop educational and methodological, research, design and engineering, information and consulting, and implementation activities associated with the country’s critical technologies. development and implementation of monitoring systems for advanced technical complexes; development and implementation of monitoring systems for advanced technical complexes; development and implementation of non-destructive control technologies in manufacturing and operation of products; development and implementation of non-destructive control technologies in manufacturing and operation of products; information and software for monitoring systems; information and software for monitoring systems; experimental testing of advanced promising high-tech-based complexes and systems. experimental testing of advanced promising high-tech-based complexes and systems. Services for conducting environmental tests of prototype kits of residual stress measurement equipment (November 26-30, 2018) Services for conducting environmental tests of prototype kits of residual stress measurement equipment (November 26-30, 2018) Methodological support for an automated control of a geometric shape of a cylindrical shell (February 1 - December 31, 2022). Methodological support for an automated control of a geometric shape of a cylindrical shell (February 1 - December 31, 2022). The staff of the Research Center for Quality Control Technologies in the Aerospace Industry helped develop a video inspection system for rolled metal surfaces in the interests of Severstal, select resources to examine the integrity and tightness of pipelines of the high-pressure flare systems for Gazprom Neft, and design, produce, and implement automated not-destructive control systems at such domestic enterprises as Energomash, Joint-Stock Company \"Design Bureau of Chemical Automation\" (JSC KBKhA), and the Khrunichev State Research and Production Space Center. In 2020, Prof. Prokhorovich was awarded the Prize of the Government Russian Federation in science and technology for the creation and implementation of a methodology of scientific and technical support for the operation of ground-based space infrastructure facilities with the use of advanced non-destructive testing tools for the Proton rocket launch system at the Baikonur Cosmodrome. The Engineering and Design Center for Support of the Operation of Space Technology. History of Formation and Prospects of Friction Stir Welding at the Khrunichev State Research and Production Space Center. Varochko A.G., Kuznetsov S. V., Polovtsev V.A., Saratov N. N., Prokhorovich, V.E., Bychenok, V.A. Technology of Mechanical Engineering, 2021, No. 4. pp. 16-41. History of Formation and Prospects of Friction Stir Welding at the Khrunichev State Research and Production Space Center. Varochko A.G., Kuznetsov S. V., Polovtsev V.A., Saratov N. N., Prokhorovich, V.E., Bychenok, V.A. Technology of Mechanical Engineering, 2021, No. 4. pp. 16-41. Development of an automated system for ultrasonic testing of products obtained by additive manufacturing processes. Gordeeva, L.F., Prokhorovich, V.E., Bychenok, V.A., Alifanova, I.E. Journal of Physics: Conference Series, 2020, 1636(1), 012003 Development of an automated system for ultrasonic testing of products obtained by additive manufacturing processes. Gordeeva, L.F., Prokhorovich, V.E., Bychenok, V.A., Alifanova, I.E. Journal of Physics: Conference Series, 2020, 1636(1), 012003 Hardware Algorithmic Software of the Dynamic Indentation Process. Egorov R.A., Ilinskiy A.V., Kuzmichev M.V., Fedorov A.V. Defectoscopy, 2020, No. 6, pp. 61-69. Hardware Algorithmic Software of the Dynamic Indentation Process. Egorov R.A., Ilinskiy A.V., Kuzmichev M.V., Fedorov A.V. Defectoscopy, 2020, No. 6, pp. 61-69. Residual stress control in the near seam zone of the welding joint. Bychenok, V.A., Berkutov I.V., Mayorov A.L., Ilin A.V., ",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/459/nauchno-issledovatelskiy_centr_tehnologiy_kontrolya_kachestva_raketno-kosmicheskoy_tehniki.htm",
-  "parent": "",
+  "parent": "School of Computer Technologies and Control",
   "id": "department-459",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/459/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-1"
  },
  {
   "name_en": "Higher School of Digital Culture",
@@ -468,12 +1061,14 @@
   "email": "dc@itmo.ru",
   "description_en": "ITMO University has introduced the Higher School of Digital Culture to implement its own concept of digital culture. Its key competencies include the understanding of fundamentals and prospects of IT, as well as the ability to apply digital technologies to tackle professional challenges and provide a friendly digital environment. Starting from the 2018-2019 academic year, all students have been studying digital culture in a blended format. The well-designed courses allow Bachelor’s and Master’s students to acquire competencies in the digital economy regardless of their specialization. The Higher School of Digital Culture is responsible for the development and implementation of digital culture courses for Bachelor’s and Master’s students. design the concept of the digital culture module; design the concept of the digital culture module; provide expertise for developed course materials; provide expertise for developed course materials; deliver introductory lectures within the course; deliver introductory lectures within the course; deliver face-to-face consultations and testing; deliver face-to-face consultations and testing; conduct student assessment in the module’s courses. conduct student assessment in the module’s courses. 02.04.03 Software and Administration of Information Systems",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/477/vysshaya_shkola_cifrovoy_kultury.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "department-477",
   "kind": "department",
   "type": "Школа",
   "url_en": "https://en.itmo.ru/en/department/477/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "National Center for Cognitive Research",
@@ -482,12 +1077,14 @@
   "email": "nccr@itmo.ru",
   "description_en": "Established at ITMO in 2018, the National Center for Cognitive Research is a competence center of the National Technological Initiative (NTI) in the end-to-end technology Machine Learning and Cognitive Technologies. The center aims to create a balanced domestic ecosystem for the development and implementation of ML and cognitive technologies intended as a framework for the organization of applied AI systems for the purpose of forming high-tech products and services for promising NTI markets within the digital economy paradigm. The National Center for Cognitive Research is first of all a consortium; it is an association of research centers, universities, and commercial organizations that develop ML and cognitive technologies – a set of methods and means of creating systems with a strong training function, which are capable of supporting human decision-making in intellectual and creative tasks at a qualitatively new level with applications in various fields under the conditions of uncertainty and incomplete information. The supreme collegial body of the center is its supervisory board. Industry-focused technologies and decision-making (decision support) systems aimed to reproduce human professional activities in an environment consisting of technical systems, AI, and natural intelligence objects; Industry-focused technologies and decision-making (decision support) systems aimed to reproduce human professional activities in an environment consisting of technical systems, AI, and natural intelligence objects; Subject-independent digital platforms for designing, developing, and training technologies and systems, with the flexibility to adapt them to industry needs. Subject-independent digital platforms for designing, developing, and training technologies and systems, with the flexibility to adapt them to industry needs. The center’s mission is to achieve sustainable leadership on the domestic and international markets of industry-specific AI systems and technologies through creating a unique environment for ensuring the life cycle of promising products and services based on machine learning and related end-to-end technologies (big data, computer modeling, virtual reality, and robotics). Generate knowledge in promising areas of ML and cognitive technologies to maintain global research standards and develop an advanced theoretical groundwork for producing new applied AI technologies; Generate knowledge in promising areas of ML and cognitive technologies to maintain global research standards and develop an advanced theoretical groundwork for producing new applied AI technologies; Conduct R&D projects to develop AI systems and solutions based on ML and cognitive technologies in different sectors of the national industry, business, social sphere, defense, and security; Conduct R&D projects to develop AI systems and solutions based on ML and cognitive technologies in different sectors of the national industry, business, social sphere, defense, and security; Form and develop an ecosystem of innovations and entrepreneurship in terms of applied AI based on ML and cognitive technologies, including the promotion of new products and services and design of AI products and services, including for the international market; Form and develop an ecosystem of innovations and entrepreneurship in terms of applied AI based on ML and cognitive technologies, including the promotion of new products and services and design of AI products and services, including for the international market; Ensure continuous training of highly-qualified specialists in the development and application of ML and cognitive technologies, including in particular applied fields and for particular scientific and technological tasks; Ensure continuous training of highly-qualified specialists in the development and application of ML and cognitive technologies, including in particular applied fields and for particular scientific and technological tasks; Establish a national system of ",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/480/nacionalnyy_centr_kognitivnyh_razrabotok.htm",
-  "parent": "",
+  "parent": "Institute for Artificial Intelligence",
   "id": "department-480",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/480/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-127"
  },
  {
   "name_en": "Center of Social Sciences and Humanities",
@@ -501,7 +1098,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/484/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Infochemistry Scientific Center",
@@ -510,12 +1109,14 @@
   "email": "skorb@itmo.ru",
   "description_en": "The establishment of the Infochemistry Scientific Center at ITMO University was prompted by the development of interdisciplinary fields, which made it possible to look at one of the university’s main research areas – information technologies – on the molecular level and through the lens of chemical systems. Infochemistry is one of today’s most promising research fields, and working in this direction will allow ITMO University to become a scientific standard-bearer. This field brings together not only chemists but also biotechnologists, information scientists, biologists, physicists and other specialists; the development of the research area is impossible without an interdisciplinary approach. The Infochemistry Scientific Center is part of the School of Biotechnology and Cryogenic Systems , and also actively collaborates with the School of Computer Technologies and Control , the Faculty of Technological Management and Innovations , and the Institute of International Development and Partnership . The Center includes seven research groups headed by leading researchers and world-class scientists. From 2013, the director of the Infochemistry Scientific Center and head of one of the research groups Ekaterina Skorb led a research group at Max Planck Institute (Potsdam, Germany). In 2016–2017, she was a visiting professor in the group of George Whitesides, one of today’s most cited chemists, at Harvard University. In September 2017, Ekaterina Skorb moved to Russia to join ITMO University as a professor and founded the Infochemistry research group, which was then transformed into the Infochemistry Scientific Center. The Center’s scientific consultant is Jean-Marie Lehn , a laureate of the Nobel Prize in Chemistry. Main areas of the Center’s research activities include: Statistical processing of large arrays of data and multisensor systems; Statistical processing of large arrays of data and multisensor systems; Quantum-chemical calculations of complex systems; Quantum-chemical calculations of complex systems; Functional nutrition, personalized tracking; Functional nutrition, personalized tracking; A new integrative field of life sciences – bioelementology, as well as its subfield of medical elementology; A new integrative field of life sciences – bioelementology, as well as its subfield of medical elementology; Digital transformation in chemical and biological technology; Digital transformation in chemical and biological technology; Alternative approaches to storing information. Alternative approaches to storing information. The unit’s staff, students and young researchers have free access to its hi-tech pool of equipment, which allows them to work on their own projects and gives them an opportunity to be published in eminent international research journals such as Nature, Science and others. The Center actively cooperates with industrial partners from different fields. Such an approach enables the creation of startups and opens up opportunities for launching the developed products on Russian and international markets. The Center’s industrial partners network includes: EFKO Innovations LLC – Russia’s third largest agroholding; confectionery plant Aztec – manufacturer of high-grade confectionery from in-house marzipan and chocolate; Losevo company group; Bioelement LLC – personalized diagnostics of people and enterprises; BioRhythm LLC – development and implementation of personalized nutrition; St. Petersburg branch of Norilsky meat processing plant – specialized and functional nutrition; and others. Organization of popular science lectures and events The Center’s staff actively participate in projects on the development of science and technologies as researchers, consultants, and lecturers. The work is conducted in different directions, including in collaboration with industrial partners, educational organizations, government agencies. As part of this area of activities, the Center hosts forums, conferences, meetings, internships, works",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/489/nauchno-obrazovatelnyy_centr_infohimii.htm",
-  "parent": "School of Biotechnology and Cryogenic Systems",
+  "parent": "School of Life Sciences",
   "id": "department-489",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/489/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-116"
  },
  {
   "name_en": "International Digital Humanities Center",
@@ -529,7 +1130,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/490/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Common-Use Center of Prototyping and Industrial Design",
@@ -543,7 +1146,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/492/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Center for Chemical Engineering",
@@ -552,12 +1157,14 @@
   "email": "podshivalov@itmo.ru",
   "description_en": "Part of ITMO’s School of Computer Technologies and Control, the Center for Chemical Engineering specializes in the development of advanced materials and technologies for chemical engineering, bioengineering, medicine, agriculture, and sustainable production. Bioengineering (12.03.04 Biotechnical Systems and Technologies; 18.03.02 Energy- and Resource Saving Processes in Chemical Technology, Petroleum Chemistry and Biotechnology) This Bachelor’s program trains highly-skilled professionals who are competent in computer modeling and analysis of biological objects and systems, as well as in creating biological materials. In this program, students study biotechnology, bioengineering, biopolymers, information systems and modeling, molecular spectroscopy, analytical and physical chemistry, as well as automation of biotechnical processes and productions. Chemoinformatics and Bioengineering (12.04.04 Biotechnical Systems and Technologies) The program provides training in chemistry, multidimensional data processing, modeling, bioengineering, chemical engineering, as well as biotechnical systems and sensors, thus preparing students to solve such tasks of product engineering as comprehensive analysis of scientific, business, and production issues. The program’s partner is Pasteur Institute in St. Petersburg. Bioeconomics and Resource Management (18.04.02 Energy- and Resource Saving Processes in Chemical Technology, Petroleum Chemistry and Biotechnology) Students of the program study the principles of information technology and modeling, ecology and physical and chemical analysis methods, recycling and waste management, nanotechnology and general chemistry technology. In addition to technical disciplines, students master economics, logistics, and enterprise resource planning. The center includes the following departments: Gazprom Neft-ITMO Research and Education Center; Gazprom Neft-ITMO Research and Education Center; Among the key research areas of the center are: degradable materials based on production plastics; composting plastics; degradable materials based on production plastics; composting plastics; structure and properties of molecules through computing methods with the subsequent visualization of the results, providing their 3D simulations under desired conditions; structure and properties of molecules through computing methods with the subsequent visualization of the results, providing their 3D simulations under desired conditions; chemometric and industrial data mining and chemoinformatics of materials and biomaterials; chemometric and industrial data mining and chemoinformatics of materials and biomaterials; chemical, physical, and biological sensors and sensory systems based on them; chemical, physical, and biological sensors and sensory systems based on them; biological methods of studying cell materials; biological methods of studying cell materials; biocompatible coatings for vegetables and fruit with increased strength characteristics and gas permeability; biocompatible coatings for vegetables and fruit with increased strength characteristics and gas permeability; study of oil and oil products, industrial chemistry and cognitive technologies, instrumentation and metrology in petrochemistry, integrated analyzers, and use of machine learning in the oil and gas industry; study of oil and oil products, industrial chemistry and cognitive technologies, instrumentation and metrology in petrochemistry, integrated analyzers, and use of machine learning in the oil and gas industry; design of chemical productions, equipment selection, and creation of integrated complexes; design of chemical productions, equipment selection, and creation of integrated complexes; mathematical and thermodynamic modeling of chemical processes. mathematical and thermodynamic modeling of chemical processes.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/496/centr_himicheskoy_inzhenerii.htm",
-  "parent": "",
+  "parent": "School of Life Sciences",
   "id": "department-496",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/496/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-116"
  },
  {
   "name_en": "Educational Center \"Energy-Efficient Engineering Systems\"",
@@ -571,7 +1178,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/497/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "International Research Laboratory for Intelligent Data Processing Methods and Semantic Technologies",
@@ -585,7 +1194,9 @@
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/504/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Scientific and Production Center \"Precision Electromechanics\"",
@@ -594,12 +1205,14 @@
   "email": "tomasov@ets.ifmo.ru",
   "description_en": "The Scientific and Production Center “Precision Electromechanics” develops and produces microprocessor control systems for semiconductor energy (frequency) converters, digital electric drivers for various engines, and power converters for the renewable energy sector. For a quarter of a century, the center has been developing control systems for electric drives. It conducts research and R&D activities related to the shift towards the current element bases, designing electric drives, and advancing control algorithms for semiconductor converters. frequency converters for electric drives up to 30 kW; frequency converters for electric drives up to 30 kW; microprocessor control systems for electric drives with different types and capacities of engines; microprocessor control systems for electric drives with different types and capacities of engines; intelligent power converters for distributed energy systems with alternative energy sources; intelligent power converters for distributed energy systems with alternative energy sources; programmable power sources for various purposes. programmable power sources for various purposes. development of elements of electric drive control systems, including transistor power amplifiers, drivers, sensor interface modules, and controllers based on microcontrollers and PLDs; development of elements of electric drive control systems, including transistor power amplifiers, drivers, sensor interface modules, and controllers based on microcontrollers and PLDs; design of embedded and computer software for customer products; design of embedded and computer software for customer products; use of both international and national frameworks and import substitution; use of both international and national frameworks and import substitution; development and testing of experimental products and prototypes, work on design and technical projects, and issuance of design documentation for serial production. development and testing of experimental products and prototypes, work on design and technical projects, and issuance of design documentation for serial production.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/506/nauchno-proizvodstvennyy_centr.htm",
-  "parent": "",
+  "parent": "Higher School of Engineering and Technology",
   "id": "department-506",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/506/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-115"
  },
  {
   "name_en": "Laboratory for Composite AI",
@@ -608,12 +1221,14 @@
   "email": "",
   "description_en": "The Laboratory for Composite AI specializes in automated AI methods, namely, automated machine learning, automated design of physical objects, mathematical physics equations based on data, etc. Composite AI is a breakthrough approach combining a range of computational models, including AI and more traditional models. FEDOT – an automated machine learning framework; EPDE – a partial differential equations discovery framework; BAMT – a framework for generating Bayesian networks; GEFEST – a toolbox for the generative design of physical objects. Gazprom Neft’s Science and Technology Center; Maslyaev M., Hvatov A., Kalyuzhnaya A. V. Partial differential equations discovery with EPDE framework: Application for real and synthetic data // Journal of Computational Science, 2021, vol. 53., pp. 101345; Nikitin N. O. et al. Automated evolutionary approach for the design of composite machine learning pipelines //Future Generation Computer Systems, 2022, vol. 127, pp. 109-125; Deeva I., Bubnova A., Kalyuzhnaya A. V. Advanced Approach for Distributions Parameters Learning in Bayesian Networks with Gaussian Mixture Models and Discriminative Models // Mathematics, 2023, vol. 11, No. 2, pp. 343; Starodubcev N. O. et al. Generative design of physical objects using modular framework // Engineering Applications of Artificial Intelligence, 2023, vol. 119, pp. 105715.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/507/laboratoriya_kompozitnogo_iskusstvennogo_intellekta.htm",
-  "parent": "",
+  "parent": "Institute for Artificial Intelligence",
   "id": "department-507",
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/507/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-127"
  },
  {
   "name_en": "Gazprom Neft-ITMO Innovative Industrial Center",
@@ -622,12 +1237,14 @@
   "email": "gazpromneft-itmo@itmo.ru",
   "description_en": "The Gazprom Neft-ITMO Innovative Industrial Center is dedicated to executing world-class research and development that aligns with the country’s technological priorities and is aimed at achieving the technological sovereignty of the oil and gas industry, as well as training and integrating high-potential engineers to drive digital transformation. The center specializes in educational, research, and technological activities that promote digitalization in the oil and gas sector. to define development strategies for the center’s key areas of activity; to define development strategies for the center’s key areas of activity; to perform the full cycle of research, R&D, and technological activities that ensure the transition from import substitution to import outpacing through the means of innovative digital technologies in the oil and gas industry; to perform the full cycle of research, R&D, and technological activities that ensure the transition from import substitution to import outpacing through the means of innovative digital technologies in the oil and gas industry; to establish and develop innovation and entrepreneurship ecosystems regarding the implementation of digital technologies in the oil and gas sector, including the promotion of new products and services, as well as their brand development; to establish and develop innovation and entrepreneurship ecosystems regarding the implementation of digital technologies in the oil and gas sector, including the promotion of new products and services, as well as their brand development; to facilitate the training of professionals in promising sensorics and photonics and their subsequent employment in the industry (within the Advanced Engineering School); to facilitate the training of professionals in promising sensorics and photonics and their subsequent employment in the industry (within the Advanced Engineering School); to develop and implement educational and advanced training programs that focus on the digital transformation of the oil and gas industry; to develop and implement educational and advanced training programs that focus on the digital transformation of the oil and gas industry; to integrate the results of research, project, and innovative activities in the center’s educational process to improve the quality of education and ensure the high quality of research; to integrate the results of research, project, and innovative activities in the center’s educational process to improve the quality of education and ensure the high quality of research; to build and support partnerships with federal and regional oil and gas leaders in Russia and abroad, including companies driving cross-technology development, fast-growing national champions, promising small and medium businesses, and leading infrastructure partners; to build and support partnerships with federal and regional oil and gas leaders in Russia and abroad, including companies driving cross-technology development, fast-growing national champions, promising small and medium businesses, and leading infrastructure partners; to organize and support the creation and identification of intellectual property, its protection and management; to organize and support the creation and identification of intellectual property, its protection and management; to participate in the activities of the university’s bodies and structural departments, educational, methodological and other associations, councils, working groups, commissions, committees, and other units on matters that comply with the center’s competencies. to participate in the activities of the university’s bodies and structural departments, educational, methodological and other associations, councils, working groups, commissions, committees, and other units on matters that comply with the center’s competencies. to develop and test the university’s advanced operating systems in research, education, innovation, and other types of activities that involve public demonstration ",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/508/innovacionnyy_industrialnyy_centr_pao_gazprom_neft_—_universitet_itmo.htm",
-  "parent": "",
+  "parent": "ITMO Advanced Engineering School in Interdisciplinary Engineering",
   "id": "department-508",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/508/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-125"
  },
  {
   "name_en": "Game Development School",
@@ -636,12 +1253,14 @@
   "email": "gamedev@itmo.ru",
   "description_en": "Part of ITMO’s School of Translational Information Technologies, the Game Development School trains highly qualified specialists who not only possess profound fundamental and applied knowledge in software development but also can make a significant contribution to the field of digital entertainment. The Game Development School is an actively growing department at ITMO University that implements educational programs for both Bachelor’s and Master’s students. In the meantime, the department also regularly expands its partnerships with industry leaders to improve its educational products, maintain a high level of professionalism of its teaching staff, introduce cutting-edge technologies and methods, and conduct large-scale research in game development. The school can boast expertise and readiness to tackle complex challenges in the video game industry. The ever-increasing flow of applicants highlights the school’s high standard of education, as well as its interest in the field and demand in today's market, creating great prospects for gamedev in Russia. Game Development Technologies (11.03.02 Infocommunication Technologies and Communication Systems; in Russian) Game Development Technologies (09.04.03 Applied Computer Science ; in Russian )",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/509/shkola_razrabotki_videoigr.htm",
-  "parent": "",
+  "parent": "School of Translational Information Technologies",
   "id": "department-509",
   "kind": "department",
   "type": "Школа",
   "url_en": "https://en.itmo.ru/en/department/509/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-107"
  },
  {
   "name_en": "International Scientific and Academic Center \"Security and Safety for Critical Digital Technologies\"",
@@ -650,12 +1269,14 @@
   "email": "",
   "description_en": "As part of the Faculty of Secure Information Technologies – the leader in cybersecurity training in Russia – the center implements innovative research projects, develops educational programs, and organizes events for students of all levels. Cyberphysical information security systems Cyberphysical information security systems Validation and verification of complex systems Validation and verification of complex systems Intelligent analysis of cybersecurity data Intelligent analysis of cybersecurity data Cryptographic methods of information protection Cryptographic methods of information protection Intelligent technologies for cybersecurity in banking Development of threshold signature schemes (TSS) Development of a method for verification of training datasets Verification and validation of computer vision systems Technologies for physical security of autonomous vehicles Development of a quantum communication system on continuous variables Two high performance computing setups (Core i9-10900X, 2x2080Ti, 128 GB DDR, 1.6 TB SSD); Two high performance computing setups (Core i9-10900X, 2x2080Ti, 128 GB DDR, 1.6 TB SSD); A server cluster (200 logical cores; based on Xeon E5 v4, 1.3 TB DDR, 22 TB SSD, 2 NVIDIA Tesla); A server cluster (200 logical cores; based on Xeon E5 v4, 1.3 TB DDR, 22 TB SSD, 2 NVIDIA Tesla); A computer cluster (i7-9700, 32 GB DDR, 1 TB SSD, Radeon Rx 5700); A computer cluster (i7-9700, 32 GB DDR, 1 TB SSD, Radeon Rx 5700); A multifunctional setup to ensure protection from technological security leaks Унисон-АВР4; A multifunctional setup to ensure protection from technological security leaks Унисон-АВР4; The center makes use of the faculty’s partnerships with over 30 companies in banking, IT, industry, telecommunications, transport, and medicine. Among these are Sberbank, Rostelecom, Gazprom, Russian Railways, St Petersburg University’s N.I. Pirogov Clinic of High Medical Technologies, Starline, and others. Zakoldaev D.A., Shukalov A.V., Zharinov I.O., Zharinov O.O. The physical, virtual, logical and functional cyber-physical production objects hierarchy//AIP Conference Proceedings, 2022, Vol. 2467, pp. 040003 Vorobeva A., Khisaeva G., Zakoldaev D., Kotenko I. Detection of Business Email Compromise Attacks with Writing Style Analysis//Communications in Computer and Information Science, 2022, Vol. 1544, pp. 248-262 Zharinov I.O., Zakoldaev D.A., Shukalov A.V., Zharinov O.O. The technological environment cyber-physical system noise immunity control//AIP Conference Proceedings, 2022, Vol. 2467, pp. 030002 Davydov V.V., Beliaev V.V., Kustov E.F., Leevik A. G., Bezzateev S. V. Современные вариации криптосистем Мак-Элиса и Нидеррайтера [Modern variations of McEliece and Niederreiter cryptosystems] // Научно-технический вестник информационных технологий, механики и оптики [Scientific and Technical Journal of Information Technologies, Mechanics and Optics] -2022. - Т. 22. - № 2(138). - С. 324-331 Pimenov A.V., Fedorov I.R., Bezzateev S.V. Построение архитектуры туманных вычислений с использованием технологии блокчейн [Designing fog computing architecture with the use of blockchain technology] // Информационно-управляющие системы [Information and Control Systems] - 2022. - № 5(120). - С. 40-48 Livshitz I.I., Lontsikh P.A., Lontsikh N.P., Golovina E., Safonova O. A Study of Modern Risk Management Methods for Industrial Safety Assurance in the Fuel and Energy Industry//2021 IEEE International Conference \"Quality Management, Transport and Information Security, Information Technologies\" (IT&QM&IS), 2021, pp. 165-16.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/510/mezhdunarodnyy_nauchno-obrazovatelnyy_centr.htm",
-  "parent": "Faculty of Secure Information Technologies – the leader in cybersecurity training in Russia – the center implements innovative research projects",
+  "parent": "Faculty of Secure Information Technologies",
   "id": "department-510",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/510/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-105"
  },
  {
   "name_en": "Research Center for Advanced Functional Materials and Laser Communication Systems",
@@ -664,12 +1285,14 @@
   "email": "aeromanov@itmo.ru alexey.romanov@niuitmo.ru",
   "description_en": "",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/512/nauchno-issledovatelskiy_centr_perspektivnyh_funkcionalnyh_materialov_i_lazernyh_kommunikacionnyh_sistem.htm",
-  "parent": "",
+  "parent": "Institute of Advanced Data Transfer Systems",
   "id": "department-512",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/512/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-117"
  },
  {
   "name_en": "International Research and Educational Center for Physics of Nanostructures",
@@ -678,12 +1301,14 @@
   "email": "avivanov@itmo.ru",
   "description_en": "The International Research and Educational Center for Physics of Nanostructures was established in 2006. As part of the two state mega grants led by Yuri Gunko (Trinity College, Dublin) and Andrey Rogach (City University of Hong Kong), the center’s fields of interest and laboratories were expanded. It now includes 13 laboratories with around 70 employees, including 7 DSc and 18 PhD holders, who implement over 10 research projects supported by the Russian Science Foundation. The center's setup includes the most modern equipment, including high-power laser systems, traditional optical, atomic force, and electron microscopes, spectrum analyzers, and numerous optical research facilities, to conduct world-class research and applied studies on a wide range of problems in modern optics, spectroscopy, condensed matter physics and the effect of light on nano-sized objects. The center’s programs are headed by Prof. Anna Orlova, DSc in Physics and Mathematics. Starting in 2008, the center has been developing one-of-a-kind programs in Russia for Bachelor’s, Master’s, and PhD students that meet the needs of modern nanotechnology and adjacent fields such as energy-efficient technologies, quantum nanotechnologies, and biomedicine, where next-gen materials, be it nanoparticles or hybrid structures, are in demand. This Bachelor’s program combines elements of classical training in physics and mathematics with a project-oriented approach to study next-gen materials, including nanoparticles and hybrid structures based on them. The program aims to train top-tier specialists with unique competencies at the intersection of physics, chemistry, and engineering of nanostructured materials and their applications in photovoltaics, sensorics, levitated optomechanics, and biomedicine. The ability to shape their learning tracks makes it possible for students to focus on the theoretical/experimental study of physics of nanostructures or investigation of physics of hybrid nanostructures from the point of view of their functional properties. Graduates of the program are uniquely trained in multiple fields, which include: spectral and microscopic analysis of polyatomic systems; spectral and microscopic analysis of polyatomic systems; numerical methods of modeling of physical processes; numerical methods of modeling of physical processes; theoretical and experimental investigation of the physical properties of nanomaterials. theoretical and experimental investigation of the physical properties of nanomaterials. This kind of training allows students to start building their careers in high-tech sectors with minimum time needed to adapt to a new workspace. Physics and Technology of Nanostructures (in Russian and English) The Master’s program trains interdisciplinary specialists at the intersection of physics, chemistry, and engineering of nanostructured materials, and their applications in photovoltaics, sensorics, levitated optomechanics, and biomedicine. Over two years, students will be actively involved in theoretical and experimental research at the International Research and Educational Center for Physics of Nanostructures within grant programs. The center’s fields of interest include the physical properties of advanced nanostructured materials and the development of various hybrid structures that are in demand in energy-saving, environmental, and biomedical technologies. Upon graduation, students will be able to pursue their careers at leading Russian and international research centers and universities, as well as research laboratories of high-tech enterprises.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/513/mezhdunarodnyy_nauchno-obrazovatelnyy_centr_fiziki_nanostruktur.htm",
-  "parent": "two state mega grants led by Yuri Gunko (Trinity College",
+  "parent": "School of Physics and Engineering",
   "id": "department-513",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/513/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-106"
  },
  {
   "name_en": "Gazprom Neft-ITMO Research and Education Center",
@@ -697,7 +1322,9 @@
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/514/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "Laboratory for Intelligent Technologies in Infochemistry",
@@ -711,7 +1338,9 @@
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/515/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": ""
  },
  {
   "name_en": "International Research Laboratory for Micro- and Nanotechnology Lasers",
@@ -720,12 +1349,14 @@
   "email": "",
   "description_en": "The International Research Laboratory for Micro- and Nanotechnology Lasers investigates the physical and technical principles of laser technologies, namely interactions between radiation and matter, the formation and structuring of laser beams, the optimization of laser system parameters, etc. The laboratory has been involved in the latest trends in laser technologies, even developing new fields of study: laser lithography and laser formation of micro-optical elements. As of now, the laboratory focuses on laser functionalization of the surface of structural and functional materials, the use of laser radiation in microoptics, microelectronics, and control of the properties of materials at the micro- and nanoscale. thermochemical action of laser radiation; thermochemical action of laser radiation; laser ablation and laser erosive plasma: mechanisms and applications; laser ablation and laser erosive plasma: mechanisms and applications; theoretical questions and methods of mathematical modeling in laser technologies; theoretical questions and methods of mathematical modeling in laser technologies; surface functionalization of the living and non-living; surface functionalization of the living and non-living; synthesis of colloidal solutions of optically resonant silicon nanoparticles; synthesis of colloidal solutions of optically resonant silicon nanoparticles; direct laser writing on porous glass and development of lab-on-a-chip components; direct laser writing on porous glass and development of lab-on-a-chip components;",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/516/mezhdunarodnaya_nauchnaya_laboratoriya_lazernyh_mikro-_i_nanotehnologiy.htm",
-  "parent": "",
+  "parent": "Institute of Laser Technologies",
   "id": "department-516",
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/516/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-121"
  },
  {
   "name_en": "Laboratory of Biomedical Laser Technologies",
@@ -734,12 +1365,14 @@
   "email": "av.belikov@itmo.ru, meddv@grv.ifmo.ru",
   "description_en": "The Laboratory of Biomedical Laser Technologies studies the physical principles and applications of laser radiation in surgery, therapy, and diagnostics to prevent and treat medical diseases. development of a device for photodynamic therapy treatment; development of a device for photodynamic therapy treatment; fractional laser-assisted therapy for oral and mucosal diseases; fractional laser-assisted therapy for oral and mucosal diseases; study of laser drug delivery of chlorine-containing photosensitizing drugs in dermatology. study of laser drug delivery of chlorine-containing photosensitizing drugs in dermatology.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/523/laboratoriya_biomedicinskih_lazernyh_tehnologiy.htm",
-  "parent": "",
+  "parent": "Institute of Laser Technologies",
   "id": "department-523",
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/523/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-121"
  },
  {
   "name_en": "Laboratory of Cryptographic Methods of Information Security",
@@ -748,12 +1381,14 @@
   "email": "",
   "description_en": "The Laboratory of Cryptographic Methods of Information Security addresses present-day challenges in cryptography, coding theory, steganography, and security of AI-based systems. The laboratory actively explores the following fields: coding methods in cryptography, including post-quantum cryptography; coding methods in cryptography, including post-quantum cryptography; steganography and digital watermarks. Data protection and insert detection; steganography and digital watermarks. Data protection and insert detection; systems and methods for multi-factor authentication; systems and methods for multi-factor authentication; data security and user privacy in distributed storage systems; data security and user privacy in distributed storage systems; Researchers at the laboratory develop novel post-quantum security methods, test cryptographic solutions, design systems for steganographic integration of various data, and build new security protocols for advanced processing, storage, and transfer systems. development and testing of practical solutions to ensure cybersecurity in banking (2021); development and testing of practical solutions to ensure cybersecurity in banking (2021); study of promising types of algebraic noise-immune codes and the development of algorithms for their fast decoding for on-board equipment of long-term spacecrafts (2020); study of promising types of algebraic noise-immune codes and the development of algorithms for their fast decoding for on-board equipment of long-term spacecrafts (2020); design and study of post-quantum cryptography systems based on correction codes (2019); design and study of post-quantum cryptography systems based on correction codes (2019); Technologies for protecting information and functional safety of AI-based systems (2022-present); Technologies for protecting information and functional safety of AI-based systems (2022-present); AI methods for cyberphysical systems (2020-present). AI methods for cyberphysical systems (2020-present). Over the past two years, the laboratory’s team produced the following significant results: a model of a data storage system for decentralized networks based on blockchain technologies; a model of a data storage system for decentralized networks based on blockchain technologies; an optimization method for Peterson's algorithm for decoding binary Goppa codes in cryptosystems based on coding theory; an optimization method for Peterson's algorithm for decoding binary Goppa codes in cryptosystems based on coding theory; a patented modification of the McEliece cryptosystem for post-quantum cryptography based on generalized codes; a patented modification of the McEliece cryptosystem for post-quantum cryptography based on generalized codes; methods for reducing the key size in post-quantum cryptosystems based on error correction codes; methods for reducing the key size in post-quantum cryptosystems based on error correction codes; validated methods for detecting attacker groups in systems ensuring cybersecurity of next-gen networks, and much more. validated methods for detecting attacker groups in systems ensuring cybersecurity of next-gen networks, and much more. Bachelor’s program: Information Security (in Russian); Bachelor’s program: Information Security (in Russian); Master’s program: Information Security (in Russian and English). Master’s program: Information Security (in Russian and English). St. Petersburg’s Committee on Informatization and Communications; St. Petersburg’s Committee on Informatization and Communications; St. Petersburg Federal Research Center of the Russian Academy of Sciences. St. Petersburg Federal Research Center of the Russian Academy of Sciences. Ometov, A., Bezzateev, S., Mäkitalo, N., Andreev, S., Mikkonen, T., & Koucheryavy, Y. (2018). Multi-Factor Authentication: A Survey. Cryptography, 2(1), 1; Ometov, A., Bezzateev, S., Mäkitalo, N., Andreev, S., Mikkonen, T., & Koucheryavy, Y. (2018). Multi-Factor Authentication: A Survey. Cr",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/525/laboratoriya_kriptograficheskih_metodov_zaschity_informacii.htm",
-  "parent": "",
+  "parent": "Faculty of Secure Information Technologies",
   "id": "department-525",
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/525/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-105"
  },
  {
   "name_en": "Cyber Testing Ground – Learning Center",
@@ -762,12 +1397,14 @@
   "email": "",
   "description_en": "train highly-qualified and sought-after professionals in applied data privacy and cybersecurity, as well as adjacent fields; train highly-qualified and sought-after professionals in applied data privacy and cybersecurity, as well as adjacent fields; consolide advanced professional skills and knowledge and form a competence center associated with the development and operation of interactive online platforms under the aegis of the university; consolide advanced professional skills and knowledge and form a competence center associated with the development and operation of interactive online platforms under the aegis of the university; implement a range of educational projects, international Master’s programs, continuous professional development programs, competitions, etc. implement a range of educational projects, international Master’s programs, continuous professional development programs, competitions, etc. achieve the goals and objectives of the federal project Information Security of the national program Digital Economy in partnership with Rostelecom-Solar. achieve the goals and objectives of the federal project Information Security of the national program Digital Economy in partnership with Rostelecom-Solar. the development of practice-oriented advanced training courses in the analysis of information systems security (with Rostelecom-Solar): the development of practice-oriented advanced training courses in the analysis of information systems security (with Rostelecom-Solar): Analysis of Information Systems Security: Reconnaissance; Analysis of Information Systems Security: Reconnaissance; Active Testing of Information Systems Security; Active Testing of Information Systems Security; Analysis of Infrastructure and CI/CD Development Security. Analysis of Infrastructure and CI/CD Development Security. the implementation of continuous professional development programs at ITMO, namely Analysis of Information Systems Security: Reconnaissance. the implementation of continuous professional development programs at ITMO, namely Analysis of Information Systems Security: Reconnaissance. the organization of Neva CTF – open federal contests in information security among students of general and vocational schools; the organization of Neva CTF – open federal contests in information security among students of general and vocational schools; the design of LMS 2.0, a digital educational platform for practice-oriented learning; the design of LMS 2.0, a digital educational platform for practice-oriented learning; the organization of cyber training at the national cyber testing ground. the organization of cyber training at the national cyber testing ground.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/526/uchebno-prakticheskiy_centr_-_kiberpoligon.htm",
-  "parent": "",
+  "parent": "Faculty of Secure Information Technologies",
   "id": "department-526",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/526/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-105"
  },
  {
   "name_en": "Laboratory of Validation and Verification of Complex Technical Systems",
@@ -781,7 +1418,9 @@
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/527/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "department-510"
  },
  {
   "name_en": "Research Center of Microwave Photonics Data Transfer Systems",
@@ -790,12 +1429,14 @@
   "email": "",
   "description_en": "The Research Center of Microwave Photonics Data Transfer Systems includes two laboratories: the Laboratory of Single-Photon Detectors and Generators and the Laboratory of Design Methods for Data Transfer Systems. The Laboratory of Single-Photon Detectors and Generators conducts fundamental studies on the generation and absorption of photons in semiconductor heterostructures, studies the process of epitaxial growth and the effects of self-organization of semiconductor nanostructures occurring during epitaxy, and deploys fundamental knowledge to create a multi-component base of quantum optical information technologies, including high-efficient detectors of single photons, generators of single photons, and random number generators based on vertical-cavity surface-emitting lasers. The Laboratory of Design Methods for Data Transfer Systems runs research, development, and technological activities related to the assembly of data transmission channels and promotes the university’s international collaborations and integrations in related technologies. research on the fundamental processes of the generation and detection of single photons (January 1, 2020 - December 31, 2024). research on the fundamental processes of the generation and detection of single photons (January 1, 2020 - December 31, 2024). Center for Collective Use “Materials Science and Diagnostics in Advanced Technologies” of the Ioffe Institute; Center for Collective Use “Materials Science and Diagnostics in Advanced Technologies” of the Ioffe Institute; Babichev, A., Blokhin, S., Kolodeznyi, E., Karachinsky, L., Novikov, I., Egorov, A., ... & Bimberg, D., Long-Wavelength VCSELs: Status and Prospects //Photonics. – MDPI, 2023. – vol. 10. – No. 3. – pp. 268. Babichev, A., Blokhin, S., Kolodeznyi, E., Karachinsky, L., Novikov, I., Egorov, A., ... & Bimberg, D., Long-Wavelength VCSELs: Status and Prospects //Photonics. – MDPI, 2023. – vol. 10. – No. 3. – pp. 268. Danilenko, G. O., Kovalev, A. V., Viktorov, E. A., Locquet, A., Citrin, D. S., & Rontani, D. Impact of filtering on photonic time-delay reservoir computing // Chaos: An Interdisciplinary Journal of Nonlinear Science. – 2023. – vol. 33. – No. 1. – pp. 013116. Danilenko, G. O., Kovalev, A. V., Viktorov, E. A., Locquet, A., Citrin, D. S., & Rontani, D. Impact of filtering on photonic time-delay reservoir computing // Chaos: An Interdisciplinary Journal of Nonlinear Science. – 2023. – vol. 33. – No. 1. – pp. 013116. Dillane, M., Lingnau, B., Viktorov, E. A., & Kelleher, B., Mapping the Stability and Dynamics of Optically Injected Dual State Quantum Dot Lasers // Photonics. – MDPI, 2022. – vol. 9. – No. 2. – pp. 101. Dillane, M., Lingnau, B., Viktorov, E. A., & Kelleher, B., Mapping the Stability and Dynamics of Optically Injected Dual State Quantum Dot Lasers // Photonics. – MDPI, 2022. – vol. 9. – No. 2. – pp. 101. Dmitriev, P., Di Lauro, L., Fischer, B., Aadhi, A., Chemnitz, M., Viktorov, E., ... & Morandotti, R., Analysis of time-delay photonic reservoirs for neuromorphic computing //2022 Photonics North (PN). – IEEE, 2022. – pp. 1-1. Dmitriev, P., Di Lauro, L., Fischer, B., Aadhi, A., Chemnitz, M., Viktorov, E., ... & Morandotti, R., Analysis of time-delay photonic reservoirs for neuromorphic computing //2022 Photonics North (PN). – IEEE, 2022. – pp. 1-1. Islam, M. S., Kovalev, A. V., Viktorov, E. A., Citrin, D. S., & Locquet, A., Optical square-wave generation in a semiconductor laser with optoelectronic feedback // Optics Letters. – 2021. – vol. 46. – No. 24. – pp. 6031-6034. Islam, M. S., Kovalev, A. V., Viktorov, E. A., Citrin, D. S., & Locquet, A., Optical square-wave generation in a semiconductor laser with optoelectronic feedback // Optics Letters. – 2021. – vol. 46. – No. 24. – pp. 6031-6034. Maleev, N. A., Kuzmenkov, A. G., Kulagina, M. M., Guseva, Y. A., Vasil’ev, A. P., Blokhin, S. A., ... & Ustinov, V. M., Avalanche photodiodes based on InAlAs/InGaAs heterostructures with sulfide-polyamide passivation of",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/528/nauchno-issledovatelskiy_centr_radiofotonnyh_sistem_peredachi_dannyh.htm",
-  "parent": "",
+  "parent": "Institute of Advanced Data Transfer Systems",
   "id": "department-528",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/528/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-117"
  },
  {
   "name_en": "Laboratory of Industrial Laser Technologies",
@@ -804,12 +1445,14 @@
   "email": "gvodintsova@itmo.ru",
   "description_en": "The Laboratory of Industrial Laser Technologies conducts research and applied studies in the development of laser technologies meant to ensure the country’s technological independence, as well as design and technological activities in laser technologies for collaboration and joint productions with enterprises. 1. The design of equipment and technologies for laser surface functionalization of medical products (ПП РФ№218): improving biocompatibility of implants through micro- and nanorelief, hydrophilicity, and wear resistance; increasing the bacterial resistance of medical instruments, implants, orthopedic components (abutments, screws, membranes, etc.) and imparting antibacterial properties to the surface of medical products with no use of antibiotics; increasing the bacterial resistance of medical instruments, implants, orthopedic components (abutments, screws, membranes, etc.) and imparting antibacterial properties to the surface of medical products with no use of antibiotics; drawing identification marks on product surfaces; drawing identification marks on product surfaces; reducing product surface roughness after 3D printing. reducing product surface roughness after 3D printing. The developed complexes and technologies allow specialists to form multifunctional surfaces on medical materials without contract. 2. The development of technologies for laser processing of bulk products and shapes to provide a flexible production of components and electronic elements (ПП РФ№2136): laser technology for creating optical elements in the volume of optically transparent dielectrics; laser technology for creating optical elements in the volume of optically transparent dielectrics; laser cutting of optically transparent dielectrics, semiconductors, polymers, and ceramics; laser cutting of optically transparent dielectrics, semiconductors, polymers, and ceramics; laser scribing of optically transparent dielectrics, ceramics and semiconductors; laser scribing of optically transparent dielectrics, ceramics and semiconductors; laser drilling of microholes in ceramics, semiconductors, optically transparent dielectrics, and polymers; laser drilling of microholes in ceramics, semiconductors, optically transparent dielectrics, and polymers; laser microstructuring of semiconductors and ceramics; laser microstructuring of semiconductors and ceramics; laser technology for creating conductive structures on dielectric substrates by laser-induced deposition of metals from solutions; laser technology for creating conductive structures on dielectric substrates by laser-induced deposition of metals from solutions; laser transfer of gallium nitride to sapphire; laser transfer of gallium nitride to sapphire; laser removal of polymers from conductive, semiconductor, and dielectric substrates; laser removal of polymers from conductive, semiconductor, and dielectric substrates; laser formation of silicon light-emitting structures with dislocation luminescence to create efficient light-emitting diodes; laser formation of silicon light-emitting structures with dislocation luminescence to create efficient light-emitting diodes; demetallization and creation of topologies by laser removal of conductive materials from the surface of dielectric substrates. demetallization and creation of topologies by laser removal of conductive materials from the surface of dielectric substrates.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/530/laboratoriya_proizvodstvennyh_lazernyh_tehnologiy.htm",
-  "parent": "",
+  "parent": "Institute of Laser Technologies",
   "id": "department-530",
   "kind": "department",
   "type": "Лаборатория",
   "url_en": "https://en.itmo.ru/en/department/530/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-121"
  },
  {
   "name_en": "Transnational Scientific and Education UNIFEL Center for Advanced Methods of Materials Research",
@@ -818,12 +1461,14 @@
   "email": "info.unifel@yandex.ru",
   "description_en": "Transnational Scientific and Education UniFEL Center for Advanced Methods of Materials Research (UniFEL Center) was established at ITMO University in 2015. The center’s key activities include preparations for conducting experiments on X-ray free electron lasers, primarily as part of the European X-ray Free Electron Laser (Hamburg, Germany), as well as the generation of novel methods with high spatial, energy, and temporal resolution to obtain information about the structure and functional properties of nanoobjects. The research is carried out under the aegis of the national scientific and educational association \"Mega-Class Research Facilities,\" coordinated by the Kurchatov Institute national research center. A cooperation agreement for the implementation of the projects was signed between ITMO University and the Freiberg University of Mining and Technology (TU Bergakademie Freiberg). The center is led by Prof. Alexey Romanov (ITMO University) and Prof. Sergey Molodtsov (TU Bergakademie Freiberg), who is also the research director of XFEL.EU. The study of the structural properties of nanoobjects is performed in close cooperation with the Common-Use Center of Materials Science and Diagnostics in Advanced Technologies of the Ioffe Institute. obtain the most detailed and quantitatively accurate information about the basic physical and physico-chemical parameters and characteristics at all stages of the technological process for producing nanostructures (elemental, phase and chemical composition, parameters of the crystalline and electronic structure; geometric parameters, and defects); obtain the most detailed and quantitatively accurate information about the basic physical and physico-chemical parameters and characteristics at all stages of the technological process for producing nanostructures (elemental, phase and chemical composition, parameters of the crystalline and electronic structure; geometric parameters, and defects); obtain data on the atomic structure, geometric shape and dimensions, elemental and phase composition and defects, as well as electronic structure of materials based on detection and analysis of signals arising from the interaction of electron and X-ray beams with nanosystems; obtain data on the atomic structure, geometric shape and dimensions, elemental and phase composition and defects, as well as electronic structure of materials based on detection and analysis of signals arising from the interaction of electron and X-ray beams with nanosystems; investigate dynamic processes in the volume and on the surface of nanoparticles with a high temporal resolution depending on the energy of an X-ray quantum; investigate dynamic processes in the volume and on the surface of nanoparticles with a high temporal resolution depending on the energy of an X-ray quantum; manage international educational programs in the methods of materials research. manage international educational programs in the methods of materials research.",
   "url_ru": "https://www.ifmo.ru/ru/viewdepartment/532/transnacionalnyy_nauchno-obrazovatelnyy_UniFEL_centr_perspektivnyh_metodov_issledovaniya_materialov.htm",
-  "parent": "European X-ray Free Electron Laser (Hamburg",
+  "parent": "Institute of Advanced Data Transfer Systems",
   "id": "department-532",
   "kind": "department",
   "type": "Центр",
   "url_en": "https://en.itmo.ru/en/department/532/x.htm",
-  "name_ru": ""
+  "name_ru": "",
+  "children": [],
+  "parent_id": "faculty-117"
  },
  {
   "id": "extra-scamt",
@@ -837,7 +1482,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/faculty/110/x.htm",
   "url_ru": "",
-  "description_en": "Laboratory \"Solution Chemistry of Advanced Materials and Technologies\" is the leading laboratory in ITMO University specializing in the creation of hybrid materials by soft solution chemical methods in nanomaterial science. The field of research interests includes the development of biomedical, optical materials and advanced industrial materials. The results of scientific investigation highlight in high-rated journals and integrates into an industry. The important parts of current investigations are given to genetic engineering of functional oligonucleotides and study of the DNA structure molecular logic elements. These elements can be potentially used in the first computer processor based on DNA and for the development of the new hybridized probes for analysis of DNA and RNA-specific sequences in the real time. Both programs will be taught in English."
+  "description_en": "Laboratory \"Solution Chemistry of Advanced Materials and Technologies\" is the leading laboratory in ITMO University specializing in the creation of hybrid materials by soft solution chemical methods in nanomaterial science. The field of research interests includes the development of biomedical, optical materials and advanced industrial materials. The results of scientific investigation highlight in high-rated journals and integrates into an industry. The important parts of current investigations are given to genetic engineering of functional oligonucleotides and study of the DNA structure molecular logic elements. These elements can be potentially used in the first computer processor based on DNA and for the development of the new hybridized probes for analysis of DNA and RNA-specific sequences in the real time. Both programs will be taught in English.",
+  "parent_id": "faculty-110"
  },
  {
   "id": "extra-bio3m",
@@ -851,7 +1497,8 @@
   "email": "",
   "url_en": "http://bio.ifmo.ru/",
   "url_ru": "",
-  "description_en": "Разработка научно-технических основ контроля качества и безопасности мясных продуктов с помощью гиперспектрального анализа и терагерцового излучения Перспективные технологии низкотемпературной обработки и хранения биологических объектов в непрерывной холодильной цепи «Роль биологически активных веществ природного происхождения в развитии и нутритивной профилактике неинфекционных заболеваний» Разработка линейки пищевых добавок в таблетированной форме для приготовления напитка с заданными свойствами на основе воды Получение бактериоцинов пробиотических штаммов лактобацилл и изучение их структуры, функций и свойств для использования в качестве пищевых биоконсервантов Разработка способа производства мясных полуфабрикатов для предприятий общественного питания Разработка комплексной технологии наноструктурированных мицелированных форм биологически активных веществ природного происхождения Разработка пайка для функционального питания в условиях Крайнего Севера Исследование зеленой массы растения Salvia hispanica L. как источника биологически активных веществ Исследование ферментативной функционализации вторичного хлебного сырья Разработка технологий функциональных пищевых продуктов на основе наноинкапсулированных комплексных биологически активных ингредиентов с научно подтвержденным профилактическим эффектом. © 2002–2026 Национальный Исследовательский Университет Информационных технологий, Механики и Оптики. Все права защищены. Распространение материалов сайта разрешено только с письменного разрешения администрации"
+  "description_en": "Разработка научно-технических основ контроля качества и безопасности мясных продуктов с помощью гиперспектрального анализа и терагерцового излучения Перспективные технологии низкотемпературной обработки и хранения биологических объектов в непрерывной холодильной цепи «Роль биологически активных веществ природного происхождения в развитии и нутритивной профилактике неинфекционных заболеваний» Разработка линейки пищевых добавок в таблетированной форме для приготовления напитка с заданными свойствами на основе воды Получение бактериоцинов пробиотических штаммов лактобацилл и изучение их структуры, функций и свойств для использования в качестве пищевых биоконсервантов Разработка способа производства мясных полуфабрикатов для предприятий общественного питания Разработка комплексной технологии наноструктурированных мицелированных форм биологически активных веществ природного происхождения Разработка пайка для функционального питания в условиях Крайнего Севера Исследование зеленой массы растения Salvia hispanica L. как источника биологически активных веществ Исследование ферментативной функционализации вторичного хлебного сырья Разработка технологий функциональных пищевых продуктов на основе наноинкапсулированных комплексных биологически активных ингредиентов с научно подтвержденным профилактическим эффектом. © 2002–2026 Национальный Исследовательский Университет Информационных технологий, Механики и Оптики. Все права защищены. Распространение материалов сайта разрешено только с письменного разрешения администрации",
+  "parent_id": "faculty-116"
  },
  {
   "id": "extra-ri-research-center-for-nanophotonics-and-op",
@@ -865,7 +1512,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": ""
+  "description_en": "",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-escience-research-institute",
@@ -879,7 +1527,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "Research Center for High Performance Computing was established to coordinate cross-disciplinary research using latest computer technologies. The research here is targeted at improving the quality of fundamentals of problem-oriented software complexes development via formal, mathematically founded symbiotic methods."
+  "description_en": "Research Center for High Performance Computing was established to coordinate cross-disciplinary research using latest computer technologies. The research here is targeted at improving the quality of fundamentals of problem-oriented software complexes development via formal, mathematically founded symbiotic methods.",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-research-center-for-laser-physics",
@@ -893,7 +1542,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "Research Center for Laser Physics was established to provide effective partnership in applied and fundamental research resulting in production of world’s first innovative products of laser physics. Research is carried out mainly in the fields of high power solid lasers with control and correction systems, gas lasers, eye-proof diode lasers, diffusive optical tomography and nanophotonics."
+  "description_en": "Research Center for Laser Physics was established to provide effective partnership in applied and fundamental research resulting in production of world’s first innovative products of laser physics. Research is carried out mainly in the fields of high power solid lasers with control and correction systems, gas lasers, eye-proof diode lasers, diffusive optical tomography and nanophotonics.",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-center-for-information-optical-technolog",
@@ -907,7 +1557,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "Center for Information Optical Technologies is a unique Bachelor’s and Master’s education base in the field of optical nanotechnologies. Our Center provides a contiguous value chain from education and research to development and application."
+  "description_en": "Center for Information Optical Technologies is a unique Bachelor’s and Master’s education base in the field of optical nanotechnologies. Our Center provides a contiguous value chain from education and research to development and application.",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-learning-scientific-and-manufacturing-ce",
@@ -921,7 +1572,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "Learning, Scientific and Manufacturing Center “Russar” is committed to realizing the products of fundamental and applied research projects of the University. Our center provides development and manufacturing facilities for supporting both research and education needs of the University. The quality of the Center production remains very high, resulting in many successful cooperation projects with external partners."
+  "description_en": "Learning, Scientific and Manufacturing Center “Russar” is committed to realizing the products of fundamental and applied research projects of the University. Our center provides development and manufacturing facilities for supporting both research and education needs of the University. The quality of the Center production remains very high, resulting in many successful cooperation projects with external partners.",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-research-and-learning-center-nanotechnol",
@@ -935,7 +1587,8 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "The goal of the Research and Learning Center “Nanotechnologies” is to find new approaches to miniaturization as well as the use of new materials and processes for future electronic applications. The main research areas of our Center include nanophotonics, functional and composite nanomaterials and nanosystems, organic nanoelectronics, nanodiagnostics and nanomodification."
+  "description_en": "The goal of the Research and Learning Center “Nanotechnologies” is to find new approaches to miniaturization as well as the use of new materials and processes for future electronic applications. The main research areas of our Center include nanophotonics, functional and composite nanomaterials and nanosystems, organic nanoelectronics, nanodiagnostics and nanomodification.",
+  "parent_id": ""
  },
  {
   "id": "extra-ri-joint-use-center-prototypes-and-commerci",
@@ -949,6 +1602,7 @@
   "email": "",
   "url_en": "https://en.itmo.ru/en/page/9/",
   "url_ru": "",
-  "description_en": "Joint Use Center “Prototypes and Commercial Design” provides R&D and technical support to fundamental and applied innovation activity. Its services include prototypes and details manufacturing for Master and PhD researches as well as partnership program and orders."
+  "description_en": "Joint Use Center “Prototypes and Commercial Design” provides R&D and technical support to fundamental and applied innovation activity. Its services include prototypes and details manufacturing for Master and PhD researches as well as partnership program and orders.",
+  "parent_id": ""
  }
 ]

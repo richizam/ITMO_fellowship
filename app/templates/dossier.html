@@ -319,7 +319,7 @@
       <div class="notice" style="margin-bottom:18px">
         В заявке указано подразделение: <strong>{{ mt.applied_unit }}</strong>
         {% if mt.applied_unit_name %} → в каталоге: {{ mt.applied_unit_name }}
-          {% if mt.applied_unit_rank %} · <strong>место {{ mt.applied_unit_rank }}</strong> в рейтинге соответствия{% else %} (укрупнённое подразделение, в рейтинг не входит){% endif %}
+          {% if mt.applied_unit_rank %} · <strong>место {{ mt.applied_unit_rank }}</strong> в рейтинге соответствия{% if mt.applied_unit_via %} (входящее в него подразделение: {{ mt.applied_unit_via }}){% endif %}{% else %} · в рейтинг не попало{% endif %}
         {% else %} — не найдено в каталоге{% endif %}
       </div>
       {% endif %}
@@ -332,11 +332,15 @@
               <h3>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h3>
               <div class="cand-sub">{{ r.type }}{% if r.parent %} · {{ r.parent }}{% endif %}{% if r.head %} · рук. {{ r.head }}{% endif %}</div>
             </div>
-            {% if r.is_applied_unit %}<span class="tag">в заявке</span>{% endif %}
+            {% if r.applied_relation == 'same' %}<span class="tag">в заявке</span>
+            {% elif r.applied_relation == 'inside' %}<span class="tag" title="Входит в подразделение, указанное в заявке">входит в подразделение из заявки</span>
+            {% elif r.applied_relation == 'contains' %}<span class="tag light" title="Подразделение из заявки входит в него">включает подразделение из заявки</span>{% endif %}
           </div>
-          {% if mt.generated_by == 'heuristic' or r.score %}
+          {% if mt.generated_by == 'heuristic' %}
           <div class="meter" title="Относительная релевантность среди подразделений каталога"><i style="width: {{ r.score }}%"></i></div>
           <div class="cand-sub" style="margin-bottom:10px">релевантность {{ r.score }}/100 · семантика {{ '%.2f' % r.semantic }} · термины {{ '%.2f' % r.lexical }}</div>
+          {% elif r.score %}
+          <div class="cand-sub" style="margin-bottom:10px" title="Место в списке определяет AI по описаниям подразделений; это число — сходство текстов до переранжирования">текстовое сходство {{ r.score }}/100 (до оценки AI)</div>
           {% endif %}
           {% if r.rationale and mt.generated_by != 'heuristic' %}<p class="small" style="margin:0 0 8px">{{ r.rationale }}</p>{% endif %}
           {% if r.directions %}<div class="small"><strong>Направления сотрудничества</strong><ul style="margin:4px 0 8px;padding-left:18px">{% for x in r.directions %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
@@ -346,7 +350,7 @@
         </div>
         {% endfor %}
       </div>
-      <p class="muted small" style="margin-top:12px">Рейтинг — подсказка для эксперта: сходство профиля кандидата (тема проекта, интересы, методы, публикации) с описаниями подразделений на en.itmo.ru.</p>
+      <p class="muted small" style="margin-top:12px">Рейтинг — подсказка для эксперта: сходство профиля кандидата (тема проекта, интересы, методы, публикации) с описаниями подразделений на en.itmo.ru.{% if mt.generated_by != 'heuristic' %} Порядок задаёт AI, сравнивая профиль с описаниями 12 самых близких по тексту подразделений, поэтому «текстовое сходство» не обязано убывать сверху вниз.{% endif %}</p>
     {% else %}
       <div class="panel">Подбор подразделений недоступен: каталог ИТМО не загружен или профиль кандидата пуст.</div>
     {% endif %}
