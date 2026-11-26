@@ -13,6 +13,7 @@ from app.models import Dossier
 HEADER_FILL = PatternFill("solid", fgColor="7F00FF")
 HEADER_FONT = Font(bold=True, color="FFFFFF")
 LABEL_FONT = Font(bold=True)
+LEVELS = {"ok": "в порядке", "info": "к сведению", "warn": "внимание", "error": "ошибка"}
 WRAP = Alignment(wrap_text=True, vertical="top")
 
 
@@ -27,16 +28,32 @@ def _num(v) -> str | int | float:
     return "—" if v is None else v
 
 
+def _or(v, missing: str):
+    return missing if v is None else v
+
+
+def _join_unique(*parts: str) -> str:
+    """"Researcher, University" without repeating the same text twice."""
+    out: list[str] = []
+    for x in parts:
+        x = (x or "").strip()
+        if x and x.lower() not in (o.lower() for o in out):
+            out.append(x)
+    return ", ".join(out)
+
+
 def summary_rows(d: Dossier) -> list[tuple[str, object]]:
     """Rows of the team's template, in the same order."""
     b, m, p = d.basic, d.metrics, d.profile
     name = b.full_name + (f" ({b.full_name_latin})" if b.full_name_latin and b.full_name_latin != b.full_name else "")
-    work = ", ".join(x for x in (b.job_title, b.organization) if x)
+    work = _join_unique(b.job_title, b.organization)
     sphere = p.proposal_title or "; ".join(p.interests[:4])
     pubs = (m.scholar_pubs_in_window if m.scholar_pubs_in_window is not None else m.pubs_in_window)
     pubs_txt = f"{pubs}"
     if m.scholar_pubs_in_window is not None and m.scholar_pubs_in_window != m.pubs_in_window:
         pubs_txt += f" (в досье после сверки источников: {m.pubs_in_window})"
+    if m.scholar_pubs_in_window is None and m.pubs_in_window:
+        pubs_txt += " (по всем источникам, профиль Scholar не указан)"
     if m.gap_years:
         pubs_txt += f"\n* перерыв: {', '.join(map(str, m.gap_years))}"
     return [
@@ -49,8 +66,9 @@ def summary_rows(d: Dossier) -> list[tuple[str, object]]:
         ("Research sphere (Project title/ lectures topic) (proposal)", sphere),
         (f"Number of publications in {d.window_from}-{d.window_to} (Scholar) \n * break in publishing, if any", pubs_txt),
         ("Публикации в журналах Q1 или Q2 в качестве первого автора", m.q1q2_first_author),
-        ("H-index (Scopus)", _num(m.h_index_scopus.value)),
-        ("H-index (Scholar)", _num(m.h_index_scholar.value)),
+        ("H-index (Scopus)", _or(m.h_index_scopus.value, "нет данных")),
+        ("H-index (Scholar)", _or(m.h_index_scholar.value, "нет данных" if d.identifiers.scholar_id else "профиль не указан")),
+        ("H-index (OpenAlex)", _or(m.h_index_openalex.value, "нет данных")),
         ("Host Unit (LOS)", b.host_unit),
         ("Head of the host Unit", b.itmo_contact),
         ("Letter of Support signed by", ""),
@@ -87,6 +105,8 @@ def dossier_workbook(d: Dossier) -> bytes:
         ws.cell(row=i, column=2, value=value).alignment = WRAP
     ws.column_dimensions["A"].width = 50
     ws.column_dimensions["B"].width = 80
+
+    card_end = len(summary_rows(d))
 
     # --- publications ----------------------------------------------------------------
     wp = wb.create_sheet("Публикации")
@@ -159,16 +179,25 @@ def dossier_workbook(d: Dossier) -> bytes:
                        "\n".join(r.evidence), ", ".join(r.shared_terms), r.url])
         wu.append([])
         wu.append(["В заявке", mt.applied_unit, "", mt.applied_unit_name, "",
-                   f"место {mt.applied_unit_rank}" if mt.applied_unit_rank else "—"])
+                   f"место {mt.applied_unit_rank}" if mt.applied_unit_rank else "в подбор не попало"])
         for col, w in zip("ABCDEFGHIJK", (7, 46, 14, 30, 22, 13, 50, 50, 60, 36, 40)):
             wu.column_dimensions[col].width = w
 
     wc = wb.create_sheet("Проверки")
     _header(wc, ["Уровень", "Тема", "Сообщение"])
     for c in d.checks:
-        wc.append([c.level, c.topic, c.message])
+        wc.append([LEVELS.get(c.level, c.level), c.topic, c.message])
+    wc.column_dimensions["A"].width = 14
     wc.column_dimensions["C"].width = 120
+
+    _sheet_note(ws, card_end + 2, wb.sheetnames[1:])
     return _bytes(wb)
+
+
+def _sheet_note(ws, row: int, sheets: list[str]) -> None:
+    """Point from the card to the other sheets: the card alone looks almost empty."""
+    c = ws.cell(row=row, column=1, value="Остальные данные досье на соседних листах: " + ", ".join(sheets) + ".")
+    c.font = Font(italic=True, color="7F00FF")
 
 
 def _header(ws, cols: list[str]) -> None:
