@@ -80,7 +80,7 @@ def summary_workbook(dossiers: list[Dossier]) -> bytes:
     ws = wb.active
     ws.title = "Кандидаты"
     labels = [r[0] for r in summary_rows(dossiers[0])] if dossiers else []
-    ws.cell(row=1, column=1, value="Fellowship Candidate Intelligence — сводка").font = Font(bold=True, size=13)
+    ws.cell(row=1, column=1, value="Fellowship Candidate Intelligence, сводка кандидатов").font = Font(bold=True, size=13)
     for i, label in enumerate(labels):
         c = ws.cell(row=3 + i, column=1, value=label)
         c.font, c.alignment = LABEL_FONT, WRAP
