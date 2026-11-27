@@ -5,7 +5,7 @@ from __future__ import annotations
 from io import BytesIO
 
 from openpyxl import Workbook
-from openpyxl.styles import Alignment, Font, PatternFill
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 
 from app.models import Dossier
@@ -42,6 +42,15 @@ def _join_unique(*parts: str) -> str:
     return ", ".join(out)
 
 
+def _scholar_h(d: Dossier):
+    """The team's table has no OpenAlex row, so OpenAlex fills in when Google Scholar is missing."""
+    m = d.metrics
+    if m.h_index_scholar.value is not None:
+        return m.h_index_scholar.value
+    missing = "нет данных" if d.identifiers.scholar_id else "профиль не указан"
+    return f"{missing} (OpenAlex: {m.h_index_openalex.value})" if m.h_index_openalex.value is not None else missing
+
+
 def summary_rows(d: Dossier) -> list[tuple[str, object]]:
     """Rows of the team's template, in the same order."""
     b, m, p = d.basic, d.metrics, d.profile
@@ -67,46 +76,57 @@ def summary_rows(d: Dossier) -> list[tuple[str, object]]:
         (f"Number of publications in {d.window_from}-{d.window_to} (Scholar) \n * break in publishing, if any", pubs_txt),
         ("Публикации в журналах Q1 или Q2 в качестве первого автора", m.q1q2_first_author),
         ("H-index (Scopus)", _or(m.h_index_scopus.value, "нет данных")),
-        ("H-index (Scholar)", _or(m.h_index_scholar.value, "нет данных" if d.identifiers.scholar_id else "профиль не указан")),
-        ("H-index (OpenAlex)", _or(m.h_index_openalex.value, "нет данных")),
+        ("H-index (Scholar)", _scholar_h(d)),
         ("Host Unit (LOS)", b.host_unit),
         ("Head of the host Unit", b.itmo_contact),
         ("Letter of Support signed by", ""),
     ]
 
 
+# layout of the team's own spreadsheet (Кандидаты.xlsx, sheet 1): rows 1-2 empty, candidate numbers in row 3,
+# labels in column A from row 4, one column per candidate, thin borders, Arial
+TPL_NUM_ROW, TPL_FIRST_ROW = 3, 4
+TPL_WIDTH_A, TPL_WIDTH_CAND = 37.25, 30.25
+_THIN = Side(style="thin")
+BORDER = Border(left=_THIN, right=_THIN, top=_THIN, bottom=_THIN)
+TPL_FONT = Font(name="Arial", size=10)
+TPL_BOLD = Font(name="Arial", size=10, bold=True)
+
+
+def write_team_table(ws, dossiers: list[Dossier]) -> int:
+    """Fill a sheet exactly like sheet 1 of the team's spreadsheet. Returns the last used row."""
+    labels = [r[0] for r in summary_rows(dossiers[0])] if dossiers else []
+    for i, label in enumerate(labels):
+        c = ws.cell(row=TPL_FIRST_ROW + i, column=1, value=label)
+        c.font, c.border = TPL_BOLD, BORDER
+        c.alignment = Alignment(horizontal="center", wrap_text=True)
+    for j, d in enumerate(dossiers):
+        col = 2 + j
+        n = ws.cell(row=TPL_NUM_ROW, column=col, value=j + 1)
+        n.font, n.border, n.alignment = TPL_BOLD, BORDER, Alignment(horizontal="center", wrap_text=True)
+        for i, (_, value) in enumerate(summary_rows(d)):
+            c = ws.cell(row=TPL_FIRST_ROW + i, column=col, value=value)
+            c.font, c.border, c.alignment = TPL_FONT, BORDER, Alignment(wrap_text=True)
+        ws.column_dimensions[get_column_letter(col)].width = TPL_WIDTH_CAND
+    ws.column_dimensions["A"].width = TPL_WIDTH_A
+    ws.freeze_panes = f"B{TPL_FIRST_ROW}"
+    return TPL_FIRST_ROW + len(labels) - 1
+
+
 def summary_workbook(dossiers: list[Dossier]) -> bytes:
     wb = Workbook()
     ws = wb.active
     ws.title = "Кандидаты"
-    labels = [r[0] for r in summary_rows(dossiers[0])] if dossiers else []
-    ws.cell(row=1, column=1, value="Fellowship Candidate Intelligence, сводка кандидатов").font = Font(bold=True, size=13)
-    for i, label in enumerate(labels):
-        c = ws.cell(row=3 + i, column=1, value=label)
-        c.font, c.alignment = LABEL_FONT, WRAP
-    for j, d in enumerate(dossiers):
-        col = 2 + j
-        h = ws.cell(row=2, column=col, value=j + 1)
-        h.fill, h.font = HEADER_FILL, HEADER_FONT
-        for i, (_, value) in enumerate(summary_rows(d)):
-            c = ws.cell(row=3 + i, column=col, value=value)
-            c.alignment = WRAP
-        ws.column_dimensions[get_column_letter(col)].width = 34
-    ws.column_dimensions["A"].width = 46
+    write_team_table(ws, dossiers)
     return _bytes(wb)
 
 
 def dossier_workbook(d: Dossier) -> bytes:
     wb = Workbook()
     ws = wb.active
-    ws.title = "Карточка"
-    for i, (label, value) in enumerate(summary_rows(d), start=1):
-        ws.cell(row=i, column=1, value=label).font = LABEL_FONT
-        ws.cell(row=i, column=2, value=value).alignment = WRAP
-    ws.column_dimensions["A"].width = 50
-    ws.column_dimensions["B"].width = 80
+    ws.title = "Кандидаты"
+    last_row = write_team_table(ws, [d])
 
-    card_end = len(summary_rows(d))
 
     # --- publications ----------------------------------------------------------------
     wp = wb.create_sheet("Публикации")
@@ -190,7 +210,7 @@ def dossier_workbook(d: Dossier) -> bytes:
     wc.column_dimensions["A"].width = 14
     wc.column_dimensions["C"].width = 120
 
-    _sheet_note(ws, card_end + 2, wb.sheetnames[1:])
+    _sheet_note(ws, last_row + 2, wb.sheetnames[1:])
     return _bytes(wb)
 
 

@@ -1,5 +1,6 @@
 """Card rows, Excel workbook and H-index checks (offline)."""
 from io import BytesIO
+from pathlib import Path
 
 import pytest
 from openpyxl import load_workbook
@@ -26,16 +27,24 @@ def card(d: Dossier) -> dict:
 
 
 # ------------------------------------------------------------------------------- card
-def test_card_shows_openalex_h_index():
-    c = card(make_dossier(h_index_openalex=99))
-    assert c["H-index (OpenAlex)"] == 99
+TEAM = Path(__file__).resolve().parents[1] / "data" / "examples" / "Кандидаты.xlsx"
+
+
+def test_card_has_the_rows_of_the_team_table():
+    labels = [label for label, _ in summary_rows(make_dossier())]
+    assert len(labels) == 14 and labels[0] == "First and Last Name" and labels[-1] == "Letter of Support signed by"
+    assert not any("OpenAlex" in label for label in labels)
+
+
+def test_scholar_cell_falls_back_to_openalex():
+    assert card(make_dossier(h_index_openalex=99))["H-index (Scholar)"] == "профиль не указан (OpenAlex: 99)"
+    assert card(make_dossier(h_index_scholar=20, h_index_openalex=14))["H-index (Scholar)"] == 20
 
 
 def test_card_explains_missing_h_index():
     c = card(make_dossier())
     assert c["H-index (Scopus)"] == "нет данных"
     assert c["H-index (Scholar)"] == "профиль не указан"
-    assert c["H-index (OpenAlex)"] == "нет данных"
     d = make_dossier()
     d.identifiers.scholar_id = "abc123"
     assert card(d)["H-index (Scholar)"] == "нет данных"
@@ -63,25 +72,46 @@ def test_card_publications_say_where_the_number_comes_from():
 
 
 # ------------------------------------------------------------------------------- Excel
+def layout(ws) -> dict:
+    """What makes the team's sheet look the way it does."""
+    return {
+        "rows_1_2_empty": all(ws.cell(row=r, column=c).value is None for r in (1, 2) for c in (1, 2)),
+        "number_cell": (ws["B3"].value, ws["B3"].font.b, ws["B3"].alignment.horizontal, ws["B3"].border.left.style),
+        "labels": [ws.cell(row=r, column=1).value.split(" (Scholar)")[0].replace("2021", "Y").replace("2022", "Y")
+                   for r in range(4, 18)],
+        "label_style": (ws["A4"].font.b, ws["A4"].alignment.horizontal, ws["A4"].alignment.wrap_text, ws["A4"].border.left.style),
+        "value_border": ws["B4"].border.left.style,
+        "widths": (ws.column_dimensions["A"].width, ws.column_dimensions["B"].width),
+    }
+
+
+@pytest.mark.skipif(not TEAM.exists(), reason="team spreadsheet is personal data, not in git")
+def test_summary_matches_the_team_sheet_layout():
+    team = layout(load_workbook(TEAM).active)
+    ours = layout(load_workbook(BytesIO(summary_workbook([make_dossier()]))).active)
+    team["number_cell"] = (1, *team["number_cell"][1:])  # the template stores 1 as 1.0
+    assert ours == team
+
+
+def test_summary_workbook_one_column_per_candidate():
+    wb = load_workbook(BytesIO(summary_workbook([make_dossier(h_index_scholar=5), make_dossier()])))
+    ws = wb["Кандидаты"]
+    assert [ws.cell(row=3, column=c).value for c in (2, 3)] == [1, 2]
+    labels = [ws.cell(row=r, column=1).value for r in range(4, 18)]
+    row = 4 + labels.index("H-index (Scholar)")
+    assert ws.cell(row=row, column=2).value == 5
+    assert ws.cell(row=row, column=3).value == "профиль не указан"
+
+
 def test_dossier_workbook_sheets_and_note():
     d = make_dossier(h_index_openalex=12)
     d.matching = Matching(recommendations=[UnitMatch(unit_id="u1", name="Faculty of Physics")])
     wb = load_workbook(BytesIO(dossier_workbook(d)))
-    assert wb.sheetnames == ["Карточка", "Публикации", "Наукометрия", "Профиль", "Подразделения ИТМО", "Проверки"]
-    card_sheet = wb["Карточка"]
-    rows = {r[0].value: r[1].value for r in card_sheet.iter_rows() if r[0].value}
-    assert rows["H-index (OpenAlex)"] == 12
-    note = [v for v in rows if v.startswith("Остальные данные")]
-    assert note and "Публикации" in note[0] and "Проверки" in note[0]
-
-
-def test_summary_workbook_one_column_per_candidate():
-    wb = load_workbook(BytesIO(summary_workbook([make_dossier(h_index_openalex=5), make_dossier()])))
+    assert wb.sheetnames == ["Кандидаты", "Публикации", "Наукометрия", "Профиль", "Подразделения ИТМО", "Проверки"]
     ws = wb["Кандидаты"]
-    labels = [ws.cell(row=r, column=1).value for r in range(3, ws.max_row + 1)]
-    row = 3 + labels.index("H-index (OpenAlex)")
-    assert ws.cell(row=row, column=2).value == 5
-    assert ws.cell(row=row, column=3).value == "нет данных"
+    assert ws["B3"].value == 1 and ws["A4"].value == "First and Last Name"
+    note = ws["A19"].value
+    assert note.startswith("Остальные данные") and "Публикации" in note and "Проверки" in note
 
 
 # ------------------------------------------------------------------------------- H-index checks
