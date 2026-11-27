@@ -372,3 +372,8 @@ pre.raw { white-space: pre-wrap; word-break: break-word; background: var(--panel
   .fx-stats-3 { grid-template-columns: 1fr !important; row-gap: 28px; }
   .fx-stats-3 li { border-left: 0; }
 }
+
+/* unit cards: relation tag under the title; chips visible on grey panels; dossier tags in one row */
+.unit-rel { margin-top: 8px; }
+.panel .chip { background: var(--bg); }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; }

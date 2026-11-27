@@ -16,7 +16,7 @@
 <section class="dossier-head">
   <div class="wrap">
     <a class="back no-print" href="/">← Все кандидаты</a>
-    <span class="tag">Досье кандидата</span>{% if d.example %} <span class="tag light">пример</span>{% endif %}
+    <div class="tag-row"><span class="tag">Досье кандидата</span>{% if d.example %}<span class="tag light">пример</span>{% endif %}</div>
     <h1 style="margin-top:16px">{{ b.full_name or 'Кандидат' }}</h1>
     {% if b.full_name_latin and b.full_name_latin != b.full_name %}<div class="latin">{{ b.full_name_latin }}</div>{% endif %}
     <div class="meta">
@@ -331,10 +331,11 @@
             <div style="flex:1;min-width:0">
               <h3>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h3>
               <div class="cand-sub">{{ r.type }}{% if r.parent %}, {{ r.parent }}{% endif %}{% if r.head %}<br>руководитель: {{ r.head }}{% endif %}</div>
+              {% if r.applied_relation == 'same' %}<span class="tag unit-rel">в заявке</span>
+              {% elif r.applied_relation == 'inside' %}<span class="tag unit-rel">входит в подразделение из заявки</span>
+              {% elif r.applied_relation == 'contains' %}<span class="tag light unit-rel">включает подразделение из заявки</span>{% endif %}
             </div>
-            {% if r.applied_relation == 'same' %}<span class="tag">в заявке</span>
-            {% elif r.applied_relation == 'inside' %}<span class="tag" title="Входит в подразделение, указанное в заявке">входит в подразделение из заявки</span>
-            {% elif r.applied_relation == 'contains' %}<span class="tag light" title="Подразделение из заявки входит в него">включает подразделение из заявки</span>{% endif %}
+
           </div>
           {% if mt.generated_by == 'heuristic' %}
           <div class="meter" title="Относительная релевантность среди подразделений каталога"><i style="width: {{ r.score }}%"></i></div>
