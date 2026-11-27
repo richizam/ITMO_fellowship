@@ -20,3 +20,5 @@ samples/external-test-applications/
 samples/external-test-applications.zip
 samples/blind-test-applications/
 samples/blind-test-applications.zip
+# real applications from the program's Drive folder: personal data, never commit
+samples/drive-applications/
